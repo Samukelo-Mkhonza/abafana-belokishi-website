@@ -96,6 +96,20 @@ h1, h2, h3, h4 {
   border-color: rgba(245, 244, 240, 0.5);
 }
 
+.navbar:not(.scrolled) .theme-toggle {
+  border-color: rgba(245, 244, 240, 0.5);
+  color: #f5f4f0;
+}
+
+.navbar:not(.scrolled) .theme-toggle:hover {
+  background: #f5f4f0;
+  color: #0a0a0a;
+}
+
+.navbar:not(.scrolled) .hamburger__bar {
+  background: #f5f4f0;
+}
+
 .navbar.scrolled {
   background-color: var(--bg);
   border-bottom-color: var(--border);

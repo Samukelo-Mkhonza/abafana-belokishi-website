@@ -88,6 +88,14 @@ h1, h2, h3, h4 {
   border-bottom: 1px solid transparent;
 }
 
+.navbar:not(.scrolled) {
+  color: #f5f4f0;
+}
+
+.navbar:not(.scrolled) .navbar__logo-img {
+  border-color: rgba(245, 244, 240, 0.5);
+}
+
 .navbar.scrolled {
   background-color: var(--bg);
   border-bottom-color: var(--border);

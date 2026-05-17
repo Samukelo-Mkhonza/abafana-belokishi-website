@@ -3,6 +3,7 @@ import ArtistCard from './ArtistCard';
 
 const ARTISTS = [
   { name: 'King Fergo', genre: 'Amapiano · Producer', initials: 'KF' },
+  { name: 'Structure', genre: 'Amapiano · Vocalist', initials: 'ST' },
   { name: 'SAB', genre: 'Hip-Hop / R&B', initials: 'SAB' },
   { name: 'Assign', genre: 'Hip-Hop', initials: 'AS' },
 ];

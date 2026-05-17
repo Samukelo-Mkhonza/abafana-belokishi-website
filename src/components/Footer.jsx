@@ -5,9 +5,9 @@ const NAV = ['About', 'Artists', 'Releases', 'Podcast', 'Contact'];
 const SOCIALS = [
   { icon: <FaInstagram />, label: 'Instagram', handle: '@abafana_belokishi_ent', href: '#' },
   { icon: <FaFacebook />, label: 'Facebook', handle: 'Abafana Belokishi Ent', href: '#' },
-  { icon: <FaYoutube />, label: 'YouTube', handle: 'Abafana Belokishi', href: '#' },
-  { icon: <FaSpotify />, label: 'Spotify', handle: 'Abafana Belokishi', href: '#' },
-  { icon: <FaTiktok />, label: 'TikTok', handle: '@abafana_belokishi', href: '#' },
+  { icon: <FaYoutube />, label: 'YouTube', handle: '@abafanabelokishipodcast', href: 'https://www.youtube.com/@abafanabelokishipodcast' },
+  { icon: <FaSpotify />, label: 'Spotify', handle: 'Abafana Belokishi', href: 'https://open.spotify.com/playlist/5CXMGVu3rg045oaaYQAR6k' },
+  { icon: <FaTiktok />, label: 'TikTok', handle: '@abafanabelokishipodcast', href: 'https://www.tiktok.com/@abafanabelokishipodcast' },
 ];
 
 export default function Footer() {

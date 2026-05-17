@@ -50,10 +50,9 @@ export default function About() {
               only language spoken.
             </p>
             <p>
-              Our name means "boys of beauty" — a testament to the richness of township
-              culture and the artistry that flourishes within it. We are a music label,
-              podcast network, and creative collective that refuses to let South African
-              stories go untold.
+              Our name means "The Boys of the Township" — a testament to where we come from
+              and the culture that shaped us. We are a music label, podcast network, and
+              creative collective that refuses to let South African stories go untold.
             </p>
             <p>
               From Amapiano to Hip-Hop, from long-form conversation to short-form content,

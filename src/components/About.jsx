@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 const inView = {
   initial: { opacity: 0, y: 40 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-80px' },
+  viewport: { once: true, amount: 0.1 },
   transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
 };
 
@@ -27,14 +27,20 @@ export default function About() {
               We are not just making music. We are documenting a generation.
             </blockquote>
             <p className="about__quote-attr">— Abafana Belokishi Entertainment</p>
-            <div className="about__circle-deco" aria-hidden="true" />
+            <div className="about__circle-deco">
+              <img
+                src="/images/64058f4f-59c0-4ddb-8649-b082d04a4149.jpg"
+                alt="Abafana Belokishi Entertainment"
+                className="about__circle-logo"
+              />
+            </div>
           </motion.div>
 
           <motion.div
             className="about__body"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
+            viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           >
             <p>

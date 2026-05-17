@@ -1,36 +1,105 @@
 import { motion } from 'framer-motion';
 import ReleaseCard from './ReleaseCard';
 
+const KING_FERGO_SPOTIFY = 'https://open.spotify.com/artist/5bu8v4RFoGSEsGd30gyx1P';
+const sp = { label: 'Spotify', href: KING_FERGO_SPOTIFY };
+
+const dz = (hash) =>
+  `https://cdn-images.dzcdn.net/images/cover/${hash}/500x500-000000-80-0-0.jpg`;
+
 const RELEASES = [
+  // Albums — newest first
   {
-    title: 'Township Chronicles',
-    type: 'EP · 2024',
-    links: [{ label: 'Spotify', href: '#' }, { label: 'Apple Music', href: '#' }],
+    title: 'Paradise',
+    artist: 'King Fergo',
+    type: 'Album · 2025',
+    image: dz('fef55077e7f493269dec148ce65778f0'),
+    links: [sp],
   },
   {
-    title: 'Izwi Lethu',
-    type: 'Single · 2024',
-    links: [{ label: 'Spotify', href: '#' }, { label: 'YouTube', href: '#' }],
-  },
-  {
-    title: 'Siyabonga Mix',
-    type: 'Mixtape · 2023',
-    links: [{ label: 'SoundCloud', href: '#' }, { label: 'Apple Music', href: '#' }],
-  },
-  {
-    title: 'Amandla',
-    type: 'Single · 2023',
-    links: [{ label: 'Spotify', href: '#' }, { label: 'Boomplay', href: '#' }],
-  },
-  {
-    title: 'Ekhaya',
+    title: 'Abafana Belokishi (KePiano One Way)',
+    artist: 'King Fergo',
     type: 'Album · 2022',
-    links: [{ label: 'Spotify', href: '#' }, { label: 'Apple Music', href: '#' }],
+    image: dz('e37e30a945da94e5c193b0b35422e61d'),
+    links: [{ label: 'Spotify', href: 'https://open.spotify.com/album/3M5gqdVY0HUjvOcwKsxPks' }],
   },
   {
-    title: 'Indlela',
-    type: 'Single · 2022',
-    links: [{ label: 'YouTube', href: '#' }, { label: 'Boomplay', href: '#' }],
+    title: 'AmaPiano Kwa-K, Vol. 2',
+    artist: 'King Fergo',
+    type: 'Album · 2021',
+    image: dz('7c66950e59cd184fd7d78a013cbf5d86'),
+    links: [sp],
+  },
+  {
+    title: 'Amapiano Kwa-K',
+    artist: 'King Fergo',
+    type: 'Album · 2020',
+    image: dz('c016c2bea91cc24cd042a53106847709'),
+    links: [{ label: 'Spotify', href: 'https://open.spotify.com/album/59NReRQxf2uBaHZUtNhMpx' }],
+  },
+  // Singles — newest first
+  {
+    title: 'Gutara',
+    artist: 'King Fergo',
+    type: 'Single · 2026',
+    image: dz('3155b0c5180c2fc4376f0f68650d3f13'),
+    links: [sp],
+  },
+  {
+    title: 'Paradise',
+    artist: 'King Fergo',
+    type: 'Single · 2024',
+    image: dz('52e1d201f9d0c3544daa0a3b1e4b288c'),
+    links: [sp],
+  },
+  {
+    title: 'L E G E N D A R Y',
+    artist: 'King Fergo',
+    type: 'Single · 2023',
+    image: dz('92d378e2038debd5e494d0cb23391cea'),
+    links: [sp],
+  },
+  {
+    title: 'PIKIPIKI (Kasi Flavor)',
+    artist: 'King Fergo',
+    type: 'Single · 2023',
+    image: dz('a6b128ce93aeb9ea66463f06fa747310'),
+    links: [sp],
+  },
+  {
+    title: 'BACKSEAT',
+    artist: 'King Fergo',
+    type: 'Single · 2023',
+    image: dz('628e5cc9ac8986cd33872d5f5e77bb4c'),
+    links: [sp],
+  },
+  {
+    title: 'JMK',
+    artist: 'King Fergo',
+    type: 'Single · 2023',
+    image: dz('21cc1674a0127495da26f510182b11e7'),
+    links: [sp],
+  },
+  {
+    title: 'HELLO H. HELLO B. (Freestyle)',
+    artist: 'King Fergo',
+    type: 'Single · 2023',
+    image: dz('2da3d3dbc7761461a62d663aeec290b9'),
+    links: [sp],
+  },
+  {
+    title: 'SBWL',
+    artist: 'King Fergo',
+    type: 'Single · 2020',
+    image: 'https://i.scdn.co/image/ab67616d0000b2738c520785542cfcaff9f58c97',
+    links: [{ label: 'Spotify', href: 'https://open.spotify.com/album/4IuxmFdc7pdJH4OGcmz0kJ' }],
+  },
+  {
+    title: 'Ubomi',
+    artist: 'King Fergo',
+    type: 'Single · 2020',
+    image: dz('2534d290e10315cc11c7cbef7d256db1'),
+    links: [sp],
   },
 ];
 

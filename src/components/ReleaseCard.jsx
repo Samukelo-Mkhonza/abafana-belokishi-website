@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-export default function ReleaseCard({ title, type, year, links = [], letter, index = 0 }) {
+export default function ReleaseCard({ title, artist, type, image, links = [], letter, index = 0 }) {
   return (
     <motion.div
       className="release-card"
@@ -10,11 +10,15 @@ export default function ReleaseCard({ title, type, year, links = [], letter, ind
       transition={{ duration: 0.5, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className="release-card__artwork" aria-hidden="true">
-        {letter || title.charAt(0)}
+        {image
+          ? <img src={image} alt={title} loading="lazy" />
+          : <span className="release-card__artwork-letter">{letter || title.charAt(0)}</span>
+        }
       </div>
       <div className="release-card__overlay">
         <span className="release-card__type">{type}</span>
         <h3 className="release-card__title">{title}</h3>
+        {artist && <span className="release-card__artist">{artist}</span>}
         <div className="release-card__links">
           {links.map(link => (
             <a

@@ -2,14 +2,9 @@ import { motion } from 'framer-motion';
 import ArtistCard from './ArtistCard';
 
 const ARTISTS = [
-  { name: 'Senzo Mkhonza', genre: 'Amapiano', initials: 'SM' },
-  { name: 'Langa Fire', genre: 'Hip-Hop / Rap', initials: 'LF' },
-  { name: 'Sibongile Nkosi', genre: 'Afro-Soul', initials: 'SN' },
-  { name: 'T-Flow Dlamini', genre: 'Gqom', initials: 'TD' },
-  { name: 'DJ Mzansi', genre: 'House', initials: 'DM' },
-  { name: 'Nomvula B', genre: 'R&B / Neo-Soul', initials: 'NB' },
-  { name: 'Khulekani', genre: 'Maskandi', initials: 'KH' },
-  { name: 'Young Stead', genre: 'Afro-Pop', initials: 'YS' },
+  { name: 'King Fergo', genre: 'Amapiano · Producer', initials: 'KF' },
+  { name: 'SAB', genre: 'Hip-Hop / R&B', initials: 'SAB' },
+  { name: 'Assign', genre: 'Hip-Hop', initials: 'AS' },
 ];
 
 export default function Artists() {

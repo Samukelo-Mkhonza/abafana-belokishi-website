@@ -1,26 +1,22 @@
 import { motion } from 'framer-motion';
 
-export default function ReleaseCard({ title, artist, type, image, links = [], letter, index = 0 }) {
-  const primaryLink = links[0];
-
+export default function ReleaseCard({ title, artist, type, image, links = [], letter, index = 0, onClick }) {
   return (
     <motion.div
       className="release-card"
       initial={{ opacity: 0, scale: 0.96 }}
       whileInView={{ opacity: 1, scale: 1 }}
       whileHover={{ y: -8 }}
+      whileTap={{ scale: 0.97 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.5, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
+      onClick={onClick}
+      style={{ cursor: 'pointer' }}
+      role="button"
+      tabIndex={0}
+      onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && onClick?.()}
+      aria-label={`View details for ${title}`}
     >
-      {primaryLink && (
-        <a
-          href={primaryLink.href}
-          target="_blank"
-          rel="noreferrer"
-          aria-label={`Listen to ${title} on ${primaryLink.label}`}
-          className="release-card__tap-target"
-        />
-      )}
       <div className="release-card__artwork" aria-hidden="true">
         {image
           ? <img src={image} alt={title} loading="lazy" />

@@ -41,26 +41,26 @@ const RELEASES = [
   {
     title: 'L E G E N D A R Y',
     artist: 'King Fergo',
-    type: 'Single · 2023',
+    type: 'Hip-Hop · 2023',
     image: dz('92d378e2038debd5e494d0cb23391cea'),
     links: [sp],
-    description: "A bold statement track celebrating the grind, the come-up, and the legacy being built from the township up. This is King Fergo in full confidence mode.",
+    description: "A bold hip-hop statement track celebrating the grind, the come-up, and the legacy being built from the township up. This is King Fergo in full confidence mode.",
   },
   {
     title: 'PIKIPIKI (Kasi Flavor)',
     artist: 'King Fergo',
-    type: 'Single · 2023',
+    type: 'Hip-Hop · 2023',
     image: dz('a6b128ce93aeb9ea66463f06fa747310'),
     links: [sp],
-    description: "Street-flavored amapiano with an infectious rhythm that hits differently. PIKIPIKI brings the raw energy of the kasi directly to the speakers — no filter, all flavor.",
+    description: "A hard-hitting hip-hop track with an infectious kasi flavor. PIKIPIKI brings the raw energy of the streets directly to the speakers — no filter, all flavor.",
   },
   {
     title: 'BACKSEAT',
     artist: 'King Fergo',
-    type: 'Single · 2023',
+    type: 'Hip-Hop · 2023',
     image: dz('628e5cc9ac8986cd33872d5f5e77bb4c'),
     links: [sp],
-    description: "A smooth late-night vibe with layered piano lines and hypnotic bass. BACKSEAT is for the drive home after a long night — mellow, cinematic, and deeply felt.",
+    description: "A smooth hip-hop record with hypnotic flow and cinematic energy. BACKSEAT is for the drive home after a long night — laid-back, atmospheric, and deeply felt.",
   },
   {
     title: 'JMK',
@@ -73,10 +73,10 @@ const RELEASES = [
   {
     title: 'HELLO H. HELLO B. (Freestyle)',
     artist: 'King Fergo',
-    type: 'Single · 2023',
+    type: 'Hip-Hop · 2023',
     image: dz('2da3d3dbc7761461a62d663aeec290b9'),
     links: [sp],
-    description: "Raw and unfiltered — a freestyle that strips everything back and lets the music speak. HELLO H. HELLO B. showcases King Fergo's range and versatility in pure, unpolished form.",
+    description: "Raw and unfiltered hip-hop — a freestyle that strips everything back and lets the bars speak. HELLO H. HELLO B. showcases King Fergo's lyrical range and versatility in pure, unpolished form.",
   },
   // 2022
   {

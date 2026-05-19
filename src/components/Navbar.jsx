@@ -13,11 +13,26 @@ const NAV_LINKS = [
 export default function Navbar({ theme, onToggle }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    const sections = document.querySelectorAll('section[id]');
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      { rootMargin: '-20% 0px -60% 0px' }
+    );
+    sections.forEach(s => observer.observe(s));
+    return () => observer.disconnect();
   }, []);
 
   const handleLink = (e, href) => {
@@ -48,7 +63,7 @@ export default function Navbar({ theme, onToggle }) {
                 <a
                   key={label}
                   href={href}
-                  className="navbar__link"
+                  className={`navbar__link${activeSection === label.toLowerCase() ? ' active' : ''}`}
                   role="listitem"
                   onClick={e => handleLink(e, href)}
                 >
@@ -87,7 +102,7 @@ export default function Navbar({ theme, onToggle }) {
               <a
                 key={label}
                 href={href}
-                className="navbar__link"
+                className={`navbar__link${activeSection === label.toLowerCase() ? ' active' : ''}`}
                 onClick={e => handleLink(e, href)}
               >
                 {label}

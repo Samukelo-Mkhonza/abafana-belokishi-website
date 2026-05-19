@@ -6,8 +6,11 @@ export default function ArtistCard({ name, genre, initials, image, index = 0 }) 
       className="artist-card"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -8, scale: 1.03 }}
+      whileTap={{ scale: 0.97 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+      style={{ cursor: 'default' }}
     >
       <div className="artist-card__frame">
         {image ? (

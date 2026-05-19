@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { useState, useCallback } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Waveform from './Waveform';
 
 const fadeUp = (delay = 0) => ({
@@ -8,9 +9,21 @@ const fadeUp = (delay = 0) => ({
 });
 
 export default function Hero() {
+  const { scrollY } = useScroll();
+  const bgY = useTransform(scrollY, [0, 700], ['0%', '25%']);
+  const [mouse, setMouse] = useState({ x: 50, y: 50 });
+
+  const handleMouseMove = useCallback((e) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    setMouse({
+      x: ((e.clientX - r.left) / r.width) * 100,
+      y: ((e.clientY - r.top) / r.height) * 100,
+    });
+  }, []);
+
   return (
-    <section id="hero" className="hero">
-      <div
+    <section id="hero" className="hero" onMouseMove={handleMouseMove}>
+      <motion.div
         className="hero__banner-bg"
         style={{
           position: 'absolute',
@@ -20,9 +33,17 @@ export default function Hero() {
           backgroundPosition: 'center',
           opacity: 0.07,
           pointerEvents: 'none',
+          y: bgY,
         }}
         aria-hidden="true"
       />
+
+      <div
+        className="hero__mouse-glow"
+        style={{ '--mx': `${mouse.x}%`, '--my': `${mouse.y}%` }}
+        aria-hidden="true"
+      />
+
       <div className="hero__bg-circle" aria-hidden="true" />
       <span className="hero__ab-mono" aria-hidden="true">AB</span>
 

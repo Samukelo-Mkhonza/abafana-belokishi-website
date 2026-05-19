@@ -8,36 +8,7 @@ const dz = (hash) =>
   `https://cdn-images.dzcdn.net/images/cover/${hash}/500x500-000000-80-0-0.jpg`;
 
 const RELEASES = [
-  // Albums — newest first
-  {
-    title: 'Paradise',
-    artist: 'King Fergo',
-    type: 'Album · 2025',
-    image: dz('fef55077e7f493269dec148ce65778f0'),
-    links: [sp],
-  },
-  {
-    title: 'Abafana Belokishi (KePiano One Way)',
-    artist: 'King Fergo',
-    type: 'Album · 2022',
-    image: dz('e37e30a945da94e5c193b0b35422e61d'),
-    links: [{ label: 'Spotify', href: 'https://open.spotify.com/album/3M5gqdVY0HUjvOcwKsxPks' }],
-  },
-  {
-    title: 'AmaPiano Kwa-K, Vol. 2',
-    artist: 'King Fergo',
-    type: 'Album · 2021',
-    image: dz('7c66950e59cd184fd7d78a013cbf5d86'),
-    links: [sp],
-  },
-  {
-    title: 'Amapiano Kwa-K',
-    artist: 'King Fergo',
-    type: 'Album · 2020',
-    image: dz('c016c2bea91cc24cd042a53106847709'),
-    links: [{ label: 'Spotify', href: 'https://open.spotify.com/album/59NReRQxf2uBaHZUtNhMpx' }],
-  },
-  // Singles — newest first
+  // 2026
   {
     title: 'Gutara',
     artist: 'King Fergo',
@@ -45,6 +16,15 @@ const RELEASES = [
     image: dz('3155b0c5180c2fc4376f0f68650d3f13'),
     links: [sp],
   },
+  // 2025
+  {
+    title: 'Paradise',
+    artist: 'King Fergo',
+    type: 'Album · 2025',
+    image: dz('fef55077e7f493269dec148ce65778f0'),
+    links: [sp],
+  },
+  // 2024
   {
     title: 'Paradise',
     artist: 'King Fergo',
@@ -52,6 +32,7 @@ const RELEASES = [
     image: dz('52e1d201f9d0c3544daa0a3b1e4b288c'),
     links: [sp],
   },
+  // 2023
   {
     title: 'L E G E N D A R Y',
     artist: 'King Fergo',
@@ -86,6 +67,30 @@ const RELEASES = [
     type: 'Single · 2023',
     image: dz('2da3d3dbc7761461a62d663aeec290b9'),
     links: [sp],
+  },
+  // 2022
+  {
+    title: 'Abafana Belokishi (KePiano One Way)',
+    artist: 'King Fergo',
+    type: 'Album · 2022',
+    image: dz('e37e30a945da94e5c193b0b35422e61d'),
+    links: [{ label: 'Spotify', href: 'https://open.spotify.com/album/3M5gqdVY0HUjvOcwKsxPks' }],
+  },
+  // 2021
+  {
+    title: 'AmaPiano Kwa-K, Vol. 2',
+    artist: 'King Fergo',
+    type: 'Album · 2021',
+    image: dz('7c66950e59cd184fd7d78a013cbf5d86'),
+    links: [sp],
+  },
+  // 2020
+  {
+    title: 'Amapiano Kwa-K',
+    artist: 'King Fergo',
+    type: 'Album · 2020',
+    image: dz('c016c2bea91cc24cd042a53106847709'),
+    links: [{ label: 'Spotify', href: 'https://open.spotify.com/album/59NReRQxf2uBaHZUtNhMpx' }],
   },
   {
     title: 'SBWL',

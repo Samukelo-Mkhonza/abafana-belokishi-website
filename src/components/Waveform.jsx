@@ -22,6 +22,11 @@ export default function Waveform({ className }) {
           height={barH}
           fill="currentColor"
           rx={1}
+          className="waveform-bar"
+          style={{
+            animationDuration: `${0.55 + (i % 7) * 0.1}s`,
+            animationDelay: `${((i * 0.07) % 1.1).toFixed(2)}s`,
+          }}
         />
       ))}
     </svg>

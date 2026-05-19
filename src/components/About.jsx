@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { useRef, useEffect, useState } from 'react';
+import { motion, useInView } from 'framer-motion';
 
 const inView = {
   initial: { opacity: 0, y: 40 },
@@ -8,10 +9,38 @@ const inView = {
 };
 
 const STATS = [
-  { num: '5+', label: 'Years Active' },
-  { num: '20+', label: 'Releases' },
-  { num: '50K+', label: 'Monthly Listeners' },
+  { target: 5, suffix: '+', label: 'Years Active' },
+  { target: 20, suffix: '+', label: 'Releases' },
+  { target: 50, suffix: 'K+', label: 'Monthly Listeners' },
 ];
+
+function Counter({ target, suffix }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.5 });
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!isInView) return;
+    let frame;
+    const start = performance.now();
+    const duration = 1400;
+    const tick = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(ease * target));
+      if (progress < 1) frame = requestAnimationFrame(tick);
+      else setCount(target);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [isInView, target]);
+
+  return (
+    <span ref={ref} className="about__stat-num">
+      {count}{suffix}
+    </span>
+  );
+}
 
 export default function About() {
   return (
@@ -61,9 +90,9 @@ export default function About() {
             </p>
 
             <div className="about__stat-row">
-              {STATS.map(({ num, label }) => (
+              {STATS.map(({ target, suffix, label }) => (
                 <div key={label}>
-                  <span className="about__stat-num">{num}</span>
+                  <Counter target={target} suffix={suffix} />
                   <span className="about__stat-label">{label}</span>
                 </div>
               ))}

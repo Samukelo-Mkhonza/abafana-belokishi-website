@@ -1,9 +1,20 @@
-import { useState } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import {
+  DndContext, closestCenter,
+  MouseSensor, TouchSensor, KeyboardSensor,
+  useSensor, useSensors,
+  DragOverlay,
+} from '@dnd-kit/core';
+import {
+  SortableContext, rectSortingStrategy, arrayMove,
+  sortableKeyboardCoordinates, useSortable,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import ArtistCard from './ArtistCard';
 import ArtistModal from './ArtistModal';
 
-const ARTISTS = [
+const BASE_ARTISTS = [
   {
     name: 'King Fergo',
     genre: 'Amapiano · Producer',
@@ -21,7 +32,7 @@ const ARTISTS = [
     genre: 'Amapiano · Vocalist',
     initials: 'ST',
     image: '/images/artists/structure-ab-profile-photo.JPG',
-    bio: 'Structure brings the vocal heart to the Abafana Belokishi sound. His smooth, emotive delivery has become a signature element of the label\'s amapiano releases — weaving storytelling and raw feeling into every performance. A key collaborator on the KePiano One Way album and a standout presence on stage.',
+    bio: "Structure brings the vocal heart to the Abafana Belokishi sound. His smooth, emotive delivery has become a signature element of the label's amapiano releases — weaving storytelling and raw feeling into every performance. A key collaborator on the KePiano One Way album and a standout presence on stage.",
     socials: [
       { platform: 'Instagram', href: '#', handle: '@structure' },
       { platform: 'Spotify',   href: 'https://open.spotify.com/artist/5bu8v4RFoGSEsGd30gyx1P', handle: 'Structure' },
@@ -32,7 +43,7 @@ const ARTISTS = [
     name: 'SAB',
     genre: 'Hip-Hop / R&B',
     initials: 'SAB',
-    bio: 'SAB is Abafana Belokishi\'s hip-hop and R&B voice — crafting records that sit at the intersection of street realism and melodic soul. Drawing from the richness of township life, SAB delivers with authenticity and range, pushing the boundaries of what South African hip-hop can be.',
+    bio: "SAB is Abafana Belokishi's hip-hop and R&B voice — crafting records that sit at the intersection of street realism and melodic soul. Drawing from the richness of township life, SAB delivers with authenticity and range, pushing the boundaries of what South African hip-hop can be.",
     socials: [
       { platform: 'Instagram', href: '#', handle: '@sab' },
       { platform: 'Spotify',   href: '#', handle: 'SAB' },
@@ -44,7 +55,7 @@ const ARTISTS = [
     genre: 'Hip-Hop',
     initials: 'AS',
     image: '/images/artists/assign-ab-profile-photo.JPG',
-    bio: 'Assign brings raw hip-hop energy to the Abafana Belokishi roster. Known for sharp lyricism and an unflinching perspective, Assign represents the next wave of South African hip-hop — grounded, hungry, and relentless. Every bar is a statement, every track a testament to the township\'s resilience.',
+    bio: "Assign brings raw hip-hop energy to the Abafana Belokishi roster. Known for sharp lyricism and an unflinching perspective, Assign represents the next wave of South African hip-hop — grounded, hungry, and relentless. Every bar is a statement, every track a testament to the township's resilience.",
     socials: [
       { platform: 'Instagram',  href: '#', handle: '@assign' },
       { platform: 'Spotify',    href: '#', handle: 'Assign' },
@@ -54,8 +65,69 @@ const ARTISTS = [
   },
 ];
 
+const ARTISTS = BASE_ARTISTS.map((a, i) => ({ ...a, id: `artist-${i}` }));
+
+function SortableArtistCard({ id, artist, index, onOpen }) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={{
+        transform: CSS.Transform.toString(transform),
+        transition,
+        zIndex: isDragging ? 20 : undefined,
+        opacity: isDragging ? 0.3 : 1,
+      }}
+      {...attributes}
+      {...listeners}
+    >
+      <ArtistCard
+        {...artist}
+        index={index}
+        onClick={() => onOpen(artist)}
+      />
+    </div>
+  );
+}
+
 export default function Artists() {
+  const [artists, setArtists] = useState(ARTISTS);
   const [selected, setSelected] = useState(null);
+  const [activeArtist, setActiveArtist] = useState(null);
+  const wasDragged = useRef(false);
+
+  const sensors = useSensors(
+    useSensor(MouseSensor, { activationConstraint: { distance: 8 } }),
+    useSensor(TouchSensor, { activationConstraint: { delay: 150, tolerance: 8 } }),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
+  );
+
+  const handleDragStart = useCallback(({ active }) => {
+    wasDragged.current = true;
+    setActiveArtist(artists.find(a => a.id === active.id) ?? null);
+  }, [artists]);
+
+  const handleDragEnd = useCallback(({ active, over }) => {
+    if (over && active.id !== over.id) {
+      setArtists(prev => {
+        const oldIdx = prev.findIndex(a => a.id === active.id);
+        const newIdx = prev.findIndex(a => a.id === over.id);
+        return arrayMove(prev, oldIdx, newIdx);
+      });
+    }
+    setActiveArtist(null);
+    setTimeout(() => { wasDragged.current = false; }, 0);
+  }, []);
+
+  const handleDragCancel = useCallback(() => {
+    setActiveArtist(null);
+    wasDragged.current = false;
+  }, []);
+
+  const openArtist = useCallback((artist) => {
+    if (!wasDragged.current) setSelected(artist);
+  }, []);
 
   return (
     <section id="artists" className="artists section">
@@ -83,16 +155,35 @@ export default function Artists() {
           </motion.p>
         </div>
 
-        <div className="artists__grid" role="list">
-          {ARTISTS.map((artist, i) => (
-            <ArtistCard
-              key={artist.name}
-              {...artist}
-              index={i}
-              onClick={() => setSelected(artist)}
-            />
-          ))}
-        </div>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+          onDragCancel={handleDragCancel}
+        >
+          <SortableContext items={artists.map(a => a.id)} strategy={rectSortingStrategy}>
+            <div className="artists__grid" role="list">
+              {artists.map((artist, i) => (
+                <SortableArtistCard
+                  key={artist.id}
+                  id={artist.id}
+                  artist={artist}
+                  index={i}
+                  onOpen={openArtist}
+                />
+              ))}
+            </div>
+          </SortableContext>
+
+          <DragOverlay>
+            {activeArtist && (
+              <div style={{ opacity: 0.85, transform: 'scale(1.05)', boxShadow: '0 20px 60px rgba(0,0,0,0.6)' }}>
+                <ArtistCard {...activeArtist} index={0} onClick={() => {}} />
+              </div>
+            )}
+          </DragOverlay>
+        </DndContext>
       </div>
 
       <AnimatePresence>

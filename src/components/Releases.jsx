@@ -1,5 +1,16 @@
-import { useState } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import {
+  DndContext, closestCenter,
+  MouseSensor, TouchSensor, KeyboardSensor,
+  useSensor, useSensors,
+  DragOverlay,
+} from '@dnd-kit/core';
+import {
+  SortableContext, rectSortingStrategy, arrayMove,
+  sortableKeyboardCoordinates, useSortable,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import ReleaseCard from './ReleaseCard';
 import ReleaseModal from './ReleaseModal';
 
@@ -9,8 +20,7 @@ const sp = { label: 'Spotify', href: KING_FERGO_SPOTIFY };
 const dz = (hash) =>
   `https://cdn-images.dzcdn.net/images/cover/${hash}/500x500-000000-80-0-0.jpg`;
 
-const RELEASES = [
-  // 2026
+const BASE_RELEASES = [
   {
     title: 'Gutara',
     artist: 'King Fergo',
@@ -19,7 +29,6 @@ const RELEASES = [
     links: [sp],
     description: "King Fergo's freshest drop — a high-energy amapiano banger built for the dancefloor. Gutara blends infectious piano loops with hard-hitting bass, proving the Abafana Belokishi sound is only getting bigger.",
   },
-  // 2025
   {
     title: 'Paradise',
     artist: 'King Fergo',
@@ -28,7 +37,6 @@ const RELEASES = [
     links: [sp],
     description: "King Fergo's latest studio album — a full sonic journey exploring themes of elevation, joy, and belonging. Paradise is amapiano at its peak: rich, layered, and unapologetically KwaZulu-Natal.",
   },
-  // 2024
   {
     title: 'Paradise',
     artist: 'King Fergo',
@@ -37,7 +45,6 @@ const RELEASES = [
     links: [sp],
     description: "The lead single from the Paradise album — a melodic, feel-good record that sets the tone for everything that follows. Pure bliss wrapped in amapiano keys.",
   },
-  // 2023
   {
     title: 'L E G E N D A R Y',
     artist: 'King Fergo',
@@ -78,7 +85,6 @@ const RELEASES = [
     links: [sp],
     description: "Raw and unfiltered hip-hop — a freestyle that strips everything back and lets the bars speak. HELLO H. HELLO B. showcases King Fergo's lyrical range and versatility in pure, unpolished form.",
   },
-  // 2022
   {
     title: 'Abafana Belokishi (KePiano One Way)',
     artist: 'King Fergo',
@@ -87,7 +93,6 @@ const RELEASES = [
     links: [{ label: 'Spotify', href: 'https://open.spotify.com/album/3M5gqdVY0HUjvOcwKsxPks' }],
     description: "The landmark album that put the Abafana Belokishi sound on the map. KePiano One Way blends kasi culture with deep piano house, telling the story of a generation through every track. A must-listen from start to finish.",
   },
-  // 2021
   {
     title: 'AmaPiano Kwa-K, Vol. 2',
     artist: 'King Fergo',
@@ -96,7 +101,6 @@ const RELEASES = [
     links: [sp],
     description: "The follow-up to the debut that expanded the sonic palette — deeper grooves, richer textures, and more soul. Vol. 2 showed the growth of an artist fully in command of his craft.",
   },
-  // 2020
   {
     title: 'Amapiano Kwa-K',
     artist: 'King Fergo',
@@ -123,8 +127,70 @@ const RELEASES = [
   },
 ];
 
+// Stable IDs for dnd-kit
+const RELEASES = BASE_RELEASES.map((r, i) => ({ ...r, id: `release-${i}` }));
+
+function SortableReleaseCard({ id, release, index, onOpen }) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={{
+        transform: CSS.Transform.toString(transform),
+        transition,
+        zIndex: isDragging ? 20 : undefined,
+        opacity: isDragging ? 0.3 : 1,
+      }}
+      {...attributes}
+      {...listeners}
+    >
+      <ReleaseCard
+        {...release}
+        index={index}
+        onClick={() => onOpen(release)}
+      />
+    </div>
+  );
+}
+
 export default function Releases() {
+  const [releases, setReleases] = useState(RELEASES);
   const [selected, setSelected] = useState(null);
+  const [activeRelease, setActiveRelease] = useState(null);
+  const wasDragged = useRef(false);
+
+  const sensors = useSensors(
+    useSensor(MouseSensor, { activationConstraint: { distance: 8 } }),
+    useSensor(TouchSensor, { activationConstraint: { delay: 150, tolerance: 8 } }),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
+  );
+
+  const handleDragStart = useCallback(({ active }) => {
+    wasDragged.current = true;
+    setActiveRelease(releases.find(r => r.id === active.id) ?? null);
+  }, [releases]);
+
+  const handleDragEnd = useCallback(({ active, over }) => {
+    if (over && active.id !== over.id) {
+      setReleases(prev => {
+        const oldIdx = prev.findIndex(r => r.id === active.id);
+        const newIdx = prev.findIndex(r => r.id === over.id);
+        return arrayMove(prev, oldIdx, newIdx);
+      });
+    }
+    setActiveRelease(null);
+    setTimeout(() => { wasDragged.current = false; }, 0);
+  }, []);
+
+  const handleDragCancel = useCallback(() => {
+    setActiveRelease(null);
+    wasDragged.current = false;
+  }, []);
+
+  const openRelease = useCallback((release) => {
+    if (!wasDragged.current) setSelected(release);
+  }, []);
 
   return (
     <section id="releases" className="releases section">
@@ -152,16 +218,35 @@ export default function Releases() {
           </motion.p>
         </div>
 
-        <div className="releases__grid">
-          {RELEASES.map((release, i) => (
-            <ReleaseCard
-              key={release.title + release.type}
-              {...release}
-              index={i}
-              onClick={() => setSelected(release)}
-            />
-          ))}
-        </div>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+          onDragCancel={handleDragCancel}
+        >
+          <SortableContext items={releases.map(r => r.id)} strategy={rectSortingStrategy}>
+            <div className="releases__grid">
+              {releases.map((release, i) => (
+                <SortableReleaseCard
+                  key={release.id}
+                  id={release.id}
+                  release={release}
+                  index={i}
+                  onOpen={openRelease}
+                />
+              ))}
+            </div>
+          </SortableContext>
+
+          <DragOverlay>
+            {activeRelease && (
+              <div style={{ opacity: 0.85, transform: 'scale(1.05)', boxShadow: '0 20px 60px rgba(0,0,0,0.6)' }}>
+                <ReleaseCard {...activeRelease} index={0} onClick={() => {}} />
+              </div>
+            )}
+          </DragOverlay>
+        </DndContext>
       </div>
 
       <AnimatePresence>

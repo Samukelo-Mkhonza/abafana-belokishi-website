@@ -657,6 +657,10 @@ h1, h2, h3, h4 {
   cursor: pointer;
   background: var(--surface-dark);
   border: 1px solid var(--border);
+  border-radius: 6px;
+  will-change: transform;
+  transform-origin: center center;
+  transform-style: flat;
 }
 
 .release-card__artwork {
@@ -682,7 +686,17 @@ h1, h2, h3, h4 {
 }
 
 .release-card:hover .release-card__artwork {
-  transform: scale(1.04);
+  transform: scale(1.06);
+}
+
+.release-card__glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0;
+  border-radius: inherit;
+  mix-blend-mode: overlay;
 }
 
 .release-card__tap-target {
@@ -694,8 +708,8 @@ h1, h2, h3, h4 {
 .release-card__overlay {
   position: absolute;
   inset: 0;
-  background: var(--fg);
-  color: var(--bg);
+  background: #000000;
+  color: #ffffff;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;

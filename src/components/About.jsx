@@ -58,7 +58,7 @@ export default function About() {
             <p className="about__quote-attr">— Abafana Belokishi Entertainment</p>
             <div className="about__circle-deco">
               <img
-                src="/images/64058f4f-59c0-4ddb-8649-b082d04a4149.jpg"
+                src="/images/ab-new-logo.JPG"
                 alt="Abafana Belokishi Entertainment"
                 className="about__circle-logo"
               />

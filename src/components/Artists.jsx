@@ -8,11 +8,11 @@ const ARTISTS = [
     name: 'King Fergo',
     genre: 'Amapiano · Producer',
     initials: 'KF',
-    bio: 'King Fergo is the founder and driving force behind Abafana Belokishi Entertainment. Born and raised in KwaZulu-Natal, he has built a reputation as one of the most authentic amapiano producers to emerge from the township. With multiple albums and countless singles to his name, his sound blends kasi culture with world-class production — earning him tens of thousands of monthly listeners on Spotify alone.',
+    bio: 'King Fergo is the founder and driving force behind Abafana Belokishi Entertainment. Born and raised in KwaZulu-Natal, he has built a reputation as one of the most authentic amapiano producers to emerge from the township. With multiple albums and countless singles to his name, his sound blends kasi culture with world-class production — earning him tens of thousands of monthly listeners on Spotify alone. He has worked with Ngane Sikobi (Native Rhythms) and Danger (Formerly of Big Nuz), to name a few.',
     socials: [
       { platform: 'Spotify',   href: 'https://open.spotify.com/artist/5bu8v4RFoGSEsGd30gyx1P', handle: 'King Fergo' },
-      { platform: 'Instagram', href: '#', handle: '@kingfergo' },
-      { platform: 'TikTok',   href: '#', handle: '@kingfergo' },
+      { platform: 'Instagram', href: 'https://www.instagram.com/realkingfergo?igsh=YnIyYWx1ZGw4azhz', handle: '@realkingfergo' },
+      { platform: 'TikTok',   href: 'https://www.tiktok.com/@king_fergo?_r=1&_t=ZS-96WLzTjzV6G', handle: '@king_fergo' },
     ],
   },
   {

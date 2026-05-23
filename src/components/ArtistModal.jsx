@@ -1,17 +1,44 @@
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { MdClose } from 'react-icons/md';
-import { FaInstagram, FaSpotify, FaTiktok, FaYoutube, FaFacebook } from 'react-icons/fa';
+import { FaInstagram, FaSpotify, FaTiktok, FaYoutube, FaFacebook, FaSoundcloud } from 'react-icons/fa';
 
 const ICON_MAP = {
-  Instagram: <FaInstagram />,
-  Spotify:   <FaSpotify />,
-  TikTok:    <FaTiktok />,
-  YouTube:   <FaYoutube />,
-  Facebook:  <FaFacebook />,
+  Instagram:  <FaInstagram />,
+  Spotify:    <FaSpotify />,
+  TikTok:     <FaTiktok />,
+  YouTube:    <FaYoutube />,
+  Facebook:   <FaFacebook />,
+  SoundCloud: <FaSoundcloud />,
 };
 
 const isMobile = () => window.innerWidth <= 520;
+
+function spotifyEmbed(href) {
+  try {
+    const parts = new URL(href).pathname.split('/').filter(Boolean);
+    const type = parts[0];
+    const id = parts[1];
+    if (!id) return null;
+    return `https://open.spotify.com/embed/${type}/${id}?utm_source=generator`;
+  } catch {
+    return null;
+  }
+}
+
+function soundcloudEmbed(href) {
+  try {
+    new URL(href);
+    return (
+      'https://w.soundcloud.com/player/?url=' +
+      encodeURIComponent(href) +
+      '&color=%23ff5500&auto_play=false&hide_related=false' +
+      '&show_comments=false&show_user=true&show_reposts=false&show_teaser=false'
+    );
+  } catch {
+    return null;
+  }
+}
 
 export default function ArtistModal({ artist, onClose }) {
   useEffect(() => {
@@ -23,6 +50,11 @@ export default function ArtistModal({ artist, onClose }) {
       document.body.style.overflow = '';
     };
   }, [onClose]);
+
+  const spotifySocial    = artist.socials?.find(s => s.platform === 'Spotify');
+  const soundcloudSocial = artist.socials?.find(s => s.platform === 'SoundCloud');
+  const spotifyEmbedSrc    = spotifySocial    ? spotifyEmbed(spotifySocial.href)       : null;
+  const soundcloudEmbedSrc = soundcloudSocial ? soundcloudEmbed(soundcloudSocial.href) : null;
 
   const mobile = isMobile();
   const panelVariants = mobile
@@ -103,6 +135,33 @@ export default function ArtistModal({ artist, onClose }) {
             )}
           </div>
         </div>
+
+        {(spotifyEmbedSrc || soundcloudEmbedSrc) && (
+          <div className="artist-modal__embed">
+            {spotifyEmbedSrc && (
+              <iframe
+                title={`${artist.name} on Spotify`}
+                src={spotifyEmbedSrc}
+                height="152"
+                frameBorder="0"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+              />
+            )}
+            {soundcloudEmbedSrc && (
+              <iframe
+                title={`${artist.name} on SoundCloud`}
+                width="100%"
+                height="166"
+                scrolling="no"
+                frameBorder="no"
+                allow="autoplay"
+                src={soundcloudEmbedSrc}
+                loading="lazy"
+              />
+            )}
+          </div>
+        )}
       </motion.div>
     </motion.div>
   );

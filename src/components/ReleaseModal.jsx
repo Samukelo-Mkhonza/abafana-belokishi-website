@@ -5,6 +5,21 @@ import { MdClose } from 'react-icons/md';
 
 const isMobile = () => window.innerWidth <= 520;
 
+function spotifyEmbed(href) {
+  try {
+    const parts = new URL(href).pathname.split('/').filter(Boolean);
+    const type = parts[0]; // artist | album | track
+    const id = parts[1];
+    if (!id) return null;
+    return {
+      src: `https://open.spotify.com/embed/${type}/${id}?utm_source=generator`,
+      height: type === 'album' ? 352 : 152,
+    };
+  } catch {
+    return null;
+  }
+}
+
 export default function ReleaseModal({ release, onClose }) {
   useEffect(() => {
     const onKey = (e) => { if (e.key === 'Escape') onClose(); };
@@ -17,6 +32,7 @@ export default function ReleaseModal({ release, onClose }) {
   }, [onClose]);
 
   const link = release.links?.[0];
+  const embed = link ? spotifyEmbed(link.href) : null;
   const mobile = isMobile();
 
   const panelVariants = mobile
@@ -70,11 +86,24 @@ export default function ReleaseModal({ release, onClose }) {
                 className="release-modal__spotify-btn"
               >
                 <FaSpotify />
-                Listen on Spotify
+                Open in Spotify
               </a>
             )}
           </div>
         </div>
+
+        {embed && (
+          <div className="release-modal__embed">
+            <iframe
+              title={`${release.title} on Spotify`}
+              src={embed.src}
+              height={embed.height}
+              frameBorder="0"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+            />
+          </div>
+        )}
       </motion.div>
     </motion.div>
   );

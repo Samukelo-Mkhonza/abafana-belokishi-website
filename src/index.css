@@ -630,6 +630,25 @@ h1, h2, h3, h4 {
   gap: 1.5rem;
 }
 
+.artist-modal__embed {
+  padding: 0 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.artist-modal__embed iframe {
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+}
+
+@media (max-width: 520px) {
+  .artist-modal__embed {
+    padding: 0 1.25rem 2rem;
+  }
+}
+
 /* ===== RELEASE CARD ===== */
 .release-card {
   aspect-ratio: 1;
@@ -1137,6 +1156,22 @@ h1, h2, h3, h4 {
   flex-shrink: 0;
 }
 
+.release-modal__embed {
+  padding: 0 2rem 2rem;
+}
+
+.release-modal__embed iframe {
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+}
+
+@media (max-width: 520px) {
+  .release-modal__embed {
+    padding: 0 1.25rem 2rem;
+  }
+}
+
 /* ── Tablet (≤ 700px): tighter two-column ── */
 @media (max-width: 700px) {
   .release-modal__inner {
@@ -1245,6 +1280,95 @@ h1, h2, h3, h4 {
     padding: 0.55rem 1.1rem;
     font-size: 0.8rem;
   }
+}
+
+/* ===== SOUNDCLOUD ===== */
+.soundcloud {
+  background: var(--surface-dark);
+}
+
+.stream__tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 2.5rem;
+}
+
+.stream__tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.4rem;
+  border: 1.5px solid var(--border);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  transition: background-color var(--transition), color var(--transition), opacity var(--transition);
+  opacity: 0.45;
+}
+
+.stream__tab svg {
+  font-size: 1.15rem;
+}
+
+.stream__tab--active {
+  background: var(--fg);
+  color: var(--bg);
+  opacity: 1;
+}
+
+.stream__tab:not(.stream__tab--active):hover {
+  opacity: 0.75;
+}
+
+.soundcloud__player {
+  margin-top: 1.5rem;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.soundcloud__player iframe {
+  display: block;
+}
+
+.soundcloud__cta {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.soundcloud__cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.5rem;
+  border: 1.5px solid var(--border);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.soundcloud__cta-btn svg {
+  font-size: 1.3rem;
+  color: #ff5500;
+}
+
+.soundcloud__cta-btn:hover {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+.soundcloud__cta-btn:hover svg {
+  color: var(--bg);
+}
+
+.soundcloud__cta-btn--spotify svg {
+  color: #1db954;
+}
+
+.soundcloud__cta-btn--spotify:hover svg {
+  color: var(--bg);
 }
 
 /* ===== PODCAST ===== */

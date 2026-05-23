@@ -6,6 +6,7 @@ const NAV_LINKS = [
   { label: 'About', href: '#about' },
   { label: 'Artists', href: '#artists' },
   { label: 'Releases', href: '#releases' },
+  { label: 'Stream', href: '#soundcloud' },
   { label: 'Podcast', href: '#podcast' },
   { label: 'Contact', href: '#contact' },
 ];

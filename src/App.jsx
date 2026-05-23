@@ -4,6 +4,7 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Artists from './components/Artists';
 import Releases from './components/Releases';
+import SoundCloud from './components/SoundCloud';
 import Podcast from './components/Podcast';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
@@ -19,6 +20,7 @@ function App() {
         <About />
         <Artists />
         <Releases />
+        <SoundCloud />
         <Podcast />
         <Contact />
       </main>

@@ -37,6 +37,24 @@ export default function Podcast() {
         </div>
 
         <motion.div
+          className="podcast__preview"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <iframe
+            className="podcast__video"
+            src="https://www.youtube.com/embed/3GND3LlMTq0?si=O8WADUIOcABYTZ_R&autoplay=1&mute=1"
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          />
+        </motion.div>
+
+        <motion.div
           className="podcast__cta"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

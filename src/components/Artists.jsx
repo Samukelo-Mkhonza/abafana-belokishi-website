@@ -76,7 +76,7 @@ const GripIcon = () => (
 );
 
 function SortableArtistCard({ id, artist, index, onOpen }) {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
+  const { attributes, listeners, setNodeRef, setActivatorNodeRef, transform, transition, isDragging } = useSortable({ id });
 
   return (
     <div
@@ -89,9 +89,11 @@ function SortableArtistCard({ id, artist, index, onOpen }) {
         position: 'relative',
       }}
       {...attributes}
-      {...listeners}
     >
-      <div className="drag-handle-badge"><GripIcon /></div>
+      {/* Drag listeners live only on the handle — keeps Framer Motion gestures on the card conflict-free */}
+      <div ref={setActivatorNodeRef} {...listeners} className="drag-handle-badge">
+        <GripIcon />
+      </div>
       <ArtistCard
         {...artist}
         index={index}

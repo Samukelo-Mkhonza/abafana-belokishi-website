@@ -1962,33 +1962,43 @@ h1, h2, h3, h4 {
   transition: box-shadow var(--transition-slow);
 }
 
-/* ===== DRAG AFFORDANCE (touch screens only) ===== */
+/* ===== DRAG AFFORDANCE ===== */
 .drag-handle-badge {
-  display: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.9);
+  z-index: 10;
+  cursor: grab;
+  touch-action: none;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  /* Hidden on desktop until the card wrapper is hovered */
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
 .drag-reorder-hint {
   display: none;
 }
 
+/* Desktop: reveal handle on card hover */
+.sortable-card-wrapper:hover .drag-handle-badge {
+  opacity: 1;
+}
+
+/* Touch screens: always visible with pulse animation */
 @media (hover: none) {
   .drag-handle-badge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 30px;
-    height: 30px;
-    background: rgba(0, 0, 0, 0.6);
-    border-radius: 6px;
-    color: rgba(255, 255, 255, 0.9);
-    z-index: 10;
-    pointer-events: none;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    opacity: 1;
     animation: drag-badge-pulse 0.55s ease-in-out 1.4s 2 both;
   }
 

@@ -81,6 +81,7 @@ function SortableArtistCard({ id, artist, index, onOpen }) {
   return (
     <div
       ref={setNodeRef}
+      className="sortable-card-wrapper"
       style={{
         transform: CSS.Transform.toString(transform),
         transition,

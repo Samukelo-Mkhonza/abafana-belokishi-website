@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaYoutube } from 'react-icons/fa';
 import Waveform from './Waveform';
@@ -5,6 +6,8 @@ import Waveform from './Waveform';
 const CHANNEL_URL = 'https://www.youtube.com/@abafanabelokishipodcast';
 
 export default function Podcast() {
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
     <section id="podcast" className="podcast section">
       <div className="podcast__waveform-bg" aria-hidden="true">
@@ -43,6 +46,15 @@ export default function Podcast() {
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
         >
+          {isLoading && (
+            <div className="podcast__loading" aria-label="Video loading">
+              <div className="podcast__loading-icon">
+                <FaYoutube />
+              </div>
+              <p className="podcast__loading-text">Video loading</p>
+              <div className="podcast__loading-bar" />
+            </div>
+          )}
           <iframe
             className="podcast__video"
             src="https://www.youtube.com/embed/3GND3LlMTq0?si=O8WADUIOcABYTZ_R&autoplay=1&mute=1"
@@ -51,6 +63,8 @@ export default function Podcast() {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
+            onLoad={() => setIsLoading(false)}
+            style={{ opacity: isLoading ? 0 : 1, transition: 'opacity 0.5s ease' }}
           />
         </motion.div>
 

@@ -67,6 +67,14 @@ const BASE_ARTISTS = [
 
 const ARTISTS = BASE_ARTISTS.map((a, i) => ({ ...a, id: `artist-${i}` }));
 
+const GripIcon = () => (
+  <svg width="10" height="14" viewBox="0 0 10 14" fill="currentColor" aria-hidden="true">
+    <circle cx="2" cy="2" r="1.5"/><circle cx="8" cy="2" r="1.5"/>
+    <circle cx="2" cy="7" r="1.5"/><circle cx="8" cy="7" r="1.5"/>
+    <circle cx="2" cy="12" r="1.5"/><circle cx="8" cy="12" r="1.5"/>
+  </svg>
+);
+
 function SortableArtistCard({ id, artist, index, onOpen }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
 
@@ -78,10 +86,12 @@ function SortableArtistCard({ id, artist, index, onOpen }) {
         transition,
         zIndex: isDragging ? 20 : undefined,
         opacity: isDragging ? 0.3 : 1,
+        position: 'relative',
       }}
       {...attributes}
       {...listeners}
     >
+      <div className="drag-handle-badge"><GripIcon /></div>
       <ArtistCard
         {...artist}
         index={index}
@@ -154,6 +164,15 @@ export default function Artists() {
             Our Roster
           </motion.p>
         </div>
+
+        <p className="drag-reorder-hint" aria-hidden="true">
+          <svg width="8" height="12" viewBox="0 0 10 14" fill="currentColor">
+            <circle cx="2" cy="2" r="1.5"/><circle cx="8" cy="2" r="1.5"/>
+            <circle cx="2" cy="7" r="1.5"/><circle cx="8" cy="7" r="1.5"/>
+            <circle cx="2" cy="12" r="1.5"/><circle cx="8" cy="12" r="1.5"/>
+          </svg>
+          Hold &amp; drag to reorder
+        </p>
 
         <DndContext
           sensors={sensors}

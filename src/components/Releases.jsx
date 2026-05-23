@@ -1,16 +1,5 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  DndContext, closestCenter,
-  MouseSensor, TouchSensor, KeyboardSensor,
-  useSensor, useSensors,
-  DragOverlay,
-} from '@dnd-kit/core';
-import {
-  SortableContext, rectSortingStrategy, arrayMove,
-  sortableKeyboardCoordinates, useSortable,
-} from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
 import ReleaseCard from './ReleaseCard';
 import ReleaseModal from './ReleaseModal';
 
@@ -20,7 +9,7 @@ const sp = { label: 'Spotify', href: KING_FERGO_SPOTIFY };
 const dz = (hash) =>
   `https://cdn-images.dzcdn.net/images/cover/${hash}/500x500-000000-80-0-0.jpg`;
 
-const BASE_RELEASES = [
+const RELEASES = [
   {
     title: 'Gutara',
     artist: 'King Fergo',
@@ -127,70 +116,66 @@ const BASE_RELEASES = [
   },
 ];
 
-// Stable IDs for dnd-kit
-const RELEASES = BASE_RELEASES.map((r, i) => ({ ...r, id: `release-${i}` }));
+const TOTAL = RELEASES.length;
 
-function SortableReleaseCard({ id, release, index, onOpen }) {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
+// dir = { axis: 'x'|'y', sign: 1|-1 }
+const slideVariants = {
+  enter: (dir) =>
+    dir.axis === 'x'
+      ? { rotateY: dir.sign > 0 ? 90 : -90, scale: 0.88, opacity: 0 }
+      : { y: dir.sign > 0 ? '108%' : '-108%', scale: 0.88, opacity: 0 },
 
-  return (
-    <div
-      ref={setNodeRef}
-      style={{
-        transform: CSS.Transform.toString(transform),
-        transition,
-        zIndex: isDragging ? 20 : undefined,
-        opacity: isDragging ? 0.3 : 1,
-      }}
-      {...attributes}
-      {...listeners}
-    >
-      <ReleaseCard
-        {...release}
-        index={index}
-        onClick={() => onOpen(release)}
-      />
-    </div>
-  );
-}
+  center: (dir) => ({
+    rotateY: 0, y: 0, scale: 1, opacity: 1,
+    transition: dir?.axis === 'x'
+      ? {
+          rotateY: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+          scale:   { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+          opacity: { duration: 0.3 },
+        }
+      : {
+          y:       { type: 'spring', stiffness: 260, damping: 26, mass: 0.9 },
+          scale:   { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+          opacity: { duration: 0.25 },
+        },
+  }),
+
+  exit: (dir) =>
+    dir.axis === 'x'
+      ? {
+          rotateY: dir.sign > 0 ? -90 : 90, scale: 0.88, opacity: 0,
+          transition: {
+            rotateY: { duration: 0.5, ease: [0.55, 0, 1, 0.45] },
+            scale:   { duration: 0.4 },
+            opacity: { duration: 0.2, delay: 0.15 },
+          },
+        }
+      : {
+          y: dir.sign > 0 ? '-108%' : '108%', scale: 0.88, opacity: 0,
+          transition: {
+            y:       { type: 'spring', stiffness: 260, damping: 26, mass: 0.9 },
+            scale:   { duration: 0.35 },
+            opacity: { duration: 0.2 },
+          },
+        },
+};
 
 export default function Releases() {
-  const [releases, setReleases] = useState(RELEASES);
+  const [[index, dir], setPage] = useState([0, { axis: 'x', sign: 1 }]);
   const [selected, setSelected] = useState(null);
-  const [activeRelease, setActiveRelease] = useState(null);
-  const wasDragged = useRef(false);
+  const [paused, setPaused] = useState(false);
 
-  const sensors = useSensors(
-    useSensor(MouseSensor, { activationConstraint: { distance: 8 } }),
-    useSensor(TouchSensor, { activationConstraint: { delay: 150, tolerance: 8 } }),
-    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
-  );
-
-  const handleDragStart = useCallback(({ active }) => {
-    wasDragged.current = true;
-    setActiveRelease(releases.find(r => r.id === active.id) ?? null);
-  }, [releases]);
-
-  const handleDragEnd = useCallback(({ active, over }) => {
-    if (over && active.id !== over.id) {
-      setReleases(prev => {
-        const oldIdx = prev.findIndex(r => r.id === active.id);
-        const newIdx = prev.findIndex(r => r.id === over.id);
-        return arrayMove(prev, oldIdx, newIdx);
-      });
-    }
-    setActiveRelease(null);
-    setTimeout(() => { wasDragged.current = false; }, 0);
+  const paginate = useCallback((sign, axis = 'x') => {
+    setPage(([prev]) => [(prev + sign + TOTAL) % TOTAL, { axis, sign }]);
   }, []);
 
-  const handleDragCancel = useCallback(() => {
-    setActiveRelease(null);
-    wasDragged.current = false;
-  }, []);
+  useEffect(() => {
+    if (paused) return;
+    const id = setInterval(() => paginate(1, 'x'), 6000);
+    return () => clearInterval(id);
+  }, [paused, paginate]);
 
-  const openRelease = useCallback((release) => {
-    if (!wasDragged.current) setSelected(release);
-  }, []);
+  const release = RELEASES[index];
 
   return (
     <section id="releases" className="releases section">
@@ -218,35 +203,79 @@ export default function Releases() {
           </motion.p>
         </div>
 
-        <DndContext
-          sensors={sensors}
-          collisionDetection={closestCenter}
-          onDragStart={handleDragStart}
-          onDragEnd={handleDragEnd}
-          onDragCancel={handleDragCancel}
+        <motion.div
+          className="releases__carousel"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
         >
-          <SortableContext items={releases.map(r => r.id)} strategy={rectSortingStrategy}>
-            <div className="releases__grid">
-              {releases.map((release, i) => (
-                <SortableReleaseCard
-                  key={release.id}
-                  id={release.id}
-                  release={release}
-                  index={i}
-                  onOpen={openRelease}
+          <div className="releases__track">
+            <AnimatePresence initial={false} custom={dir} mode="wait">
+              <motion.div
+                key={index}
+                custom={dir}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                drag
+                dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
+                dragElastic={0.25}
+                onDragEnd={(_, { offset }) => {
+                  const ax = Math.abs(offset.x), ay = Math.abs(offset.y);
+                  if (ax > ay && ax > 40) {
+                    paginate(offset.x < 0 ? 1 : -1, 'x');
+                  } else if (ay > ax && ay > 40) {
+                    paginate(offset.y < 0 ? 1 : -1, 'y');
+                  }
+                }}
+                className="releases__slide"
+              >
+                <ReleaseCard
+                  {...release}
+                  index={0}
+                  inCarousel
+                  onClick={() => setSelected(release)}
                 />
-              ))}
-            </div>
-          </SortableContext>
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
-          <DragOverlay>
-            {activeRelease && (
-              <div style={{ opacity: 0.85, transform: 'scale(1.05)', boxShadow: '0 20px 60px rgba(0,0,0,0.6)' }}>
-                <ReleaseCard {...activeRelease} index={0} onClick={() => {}} />
-              </div>
-            )}
-          </DragOverlay>
-        </DndContext>
+          {/* D-pad: ↑↓ = chain slide, ←→ = book flip */}
+          <div className="releases__dpad">
+            <button className="releases__nav-btn" onClick={() => paginate(-1, 'y')} aria-label="Previous (up)">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 14V4M9 4L4 9M9 4L14 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            </button>
+            <div className="releases__dpad-row">
+              <button className="releases__nav-btn" onClick={() => paginate(-1, 'x')} aria-label="Previous (flip left)">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M14 9H4M4 9L9 4M4 9L9 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </button>
+              <span className="releases__counter">{String(index + 1).padStart(2, '0')} / {String(TOTAL).padStart(2, '0')}</span>
+              <button className="releases__nav-btn" onClick={() => paginate(1, 'x')} aria-label="Next (flip right)">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9H14M14 9L9 4M14 9L9 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </button>
+            </div>
+            <button className="releases__nav-btn" onClick={() => paginate(1, 'y')} aria-label="Next (down)">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 4V14M9 14L4 9M9 14L14 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            </button>
+          </div>
+
+          <div className="releases__dots" role="tablist" aria-label="Select release">
+            {RELEASES.map((r, i) => (
+              <button
+                key={i}
+                role="tab"
+                aria-selected={i === index}
+                aria-label={r.title}
+                className={`releases__dot${i === index ? ' releases__dot--active' : ''}`}
+                onClick={() => setPage([i, { axis: 'x', sign: i > index ? 1 : -1 }])}
+              />
+            ))}
+          </div>
+        </motion.div>
       </div>
 
       <AnimatePresence>

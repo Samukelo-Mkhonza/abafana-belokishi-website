@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function ReleaseCard({ title, artist, type, image, links = [], letter, index = 0, onClick }) {
+export default function ReleaseCard({ title, artist, type, image, links = [], letter, index = 0, onClick, inCarousel = false }) {
   const cardRef = useRef(null);
   const glareRef = useRef(null);
 
@@ -13,28 +13,30 @@ export default function ReleaseCard({ title, artist, type, image, links = [], le
     const glare = glareRef.current;
     if (!card) return;
 
-    // Scroll-triggered entrance
-    const anim = gsap.fromTo(
-      card,
-      { opacity: 0, y: 70, scale: 0.88, rotationX: 8 },
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        rotationX: 0,
-        duration: 0.9,
-        delay: (index % 4) * 0.12,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: card,
-          start: 'top 90%',
-          toggleActions: 'play none none none',
-        },
-      }
-    );
+    let anim;
+    if (!inCarousel) {
+      anim = gsap.fromTo(
+        card,
+        { opacity: 0, y: 70, scale: 0.88, rotationX: 8 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          rotationX: 0,
+          duration: 0.9,
+          delay: (index % 4) * 0.12,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 90%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    }
 
     if (window.matchMedia('(hover: none)').matches) {
-      return () => { anim.scrollTrigger?.kill(); anim.kill(); };
+      return () => { anim?.scrollTrigger?.kill(); anim?.kill(); };
     }
 
     const onMove = (e) => {
@@ -115,17 +117,17 @@ export default function ReleaseCard({ title, artist, type, image, links = [], le
       card.removeEventListener('mouseleave', onLeave);
       card.removeEventListener('mousedown', onMouseDown);
       card.removeEventListener('mouseup', onMouseUp);
-      anim.scrollTrigger?.kill();
-      anim.kill();
+      anim?.scrollTrigger?.kill();
+      anim?.kill();
     };
-  }, [index]);
+  }, [index, inCarousel]);
 
   return (
     <div
       ref={cardRef}
       className="release-card"
       onClick={onClick}
-      style={{ cursor: 'pointer', opacity: 0 }}
+      style={{ cursor: 'pointer', opacity: inCarousel ? 1 : 0 }}
       role="button"
       tabIndex={0}
       onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && onClick?.()}

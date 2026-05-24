@@ -10,6 +10,8 @@ const SC_EMBED_SRC =
 
 const SPOTIFY_ARTIST_URL = 'https://open.spotify.com/artist/5bu8v4RFoGSEsGd30gyx1P';
 const SPOTIFY_EMBED_SRC = 'https://open.spotify.com/embed/artist/5bu8v4RFoGSEsGd30gyx1P?utm_source=generator&theme=0';
+const SPOTIFY_PLAYLIST_URL = 'https://open.spotify.com/playlist/5CXMGVu3rg045oaaYQAR6k';
+const SPOTIFY_PLAYLIST_EMBED_SRC = 'https://open.spotify.com/embed/playlist/5CXMGVu3rg045oaaYQAR6k?utm_source=generator&theme=0';
 
 const TABS = [
   { id: 'soundcloud', label: 'SoundCloud', icon: FaSoundcloud },
@@ -97,11 +99,21 @@ export default function SoundCloud() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
+                style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
               >
+                <iframe
+                  title="Abafana Belokishi Playlist on Spotify"
+                  width="100%"
+                  height="352"
+                  frameBorder="0"
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  loading="lazy"
+                  src={SPOTIFY_PLAYLIST_EMBED_SRC}
+                />
                 <iframe
                   title="King Fergo on Spotify"
                   width="100%"
-                  height="500"
+                  height="352"
                   frameBorder="0"
                   allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                   loading="lazy"
@@ -130,15 +142,26 @@ export default function SoundCloud() {
               Open on SoundCloud
             </a>
           ) : (
-            <a
-              href={SPOTIFY_ARTIST_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="soundcloud__cta-btn soundcloud__cta-btn--spotify"
-            >
-              <FaSpotify />
-              Open on Spotify
-            </a>
+            <>
+              <a
+                href={SPOTIFY_ARTIST_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="soundcloud__cta-btn soundcloud__cta-btn--spotify"
+              >
+                <FaSpotify />
+                Open Artist
+              </a>
+              <a
+                href={SPOTIFY_PLAYLIST_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="soundcloud__cta-btn soundcloud__cta-btn--spotify"
+              >
+                <FaSpotify />
+                Open Playlist
+              </a>
+            </>
           )}
         </motion.div>
       </div>

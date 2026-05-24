@@ -1448,6 +1448,8 @@ h1, h2, h3, h4 {
   margin-top: 2rem;
   display: flex;
   justify-content: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .soundcloud__cta-btn {

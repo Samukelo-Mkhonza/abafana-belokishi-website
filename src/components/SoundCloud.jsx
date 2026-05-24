@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaSoundcloud, FaSpotify } from 'react-icons/fa';
+import { FaSoundcloud, FaSpotify, FaYoutube } from 'react-icons/fa';
 
 const SC_PROFILE_URL = 'https://soundcloud.com/sabelomoloi07';
 const SC_EMBED_SRC =
@@ -12,6 +12,9 @@ const SPOTIFY_ARTIST_URL = 'https://open.spotify.com/artist/5bu8v4RFoGSEsGd30gyx
 const SPOTIFY_EMBED_SRC = 'https://open.spotify.com/embed/artist/5bu8v4RFoGSEsGd30gyx1P?utm_source=generator&theme=0';
 const SPOTIFY_PLAYLIST_URL = 'https://open.spotify.com/playlist/5CXMGVu3rg045oaaYQAR6k';
 const SPOTIFY_PLAYLIST_EMBED_SRC = 'https://open.spotify.com/embed/playlist/5CXMGVu3rg045oaaYQAR6k?utm_source=generator&theme=0';
+
+const YT_PLAYLIST_URL = 'https://www.youtube.com/playlist?list=PLky-eQTbtiYykZb2HzXQjkfu4wM-QxBbY';
+const YT_PLAYLIST_EMBED_SRC = 'https://www.youtube.com/embed/videoseries?list=PLky-eQTbtiYykZb2HzXQjkfu4wM-QxBbY';
 
 const TABS = [
   { id: 'soundcloud', label: 'SoundCloud', icon: FaSoundcloud },
@@ -81,6 +84,7 @@ export default function SoundCloud() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
+                style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
               >
                 <iframe
                   title="Abafana Belokishi on SoundCloud"
@@ -90,6 +94,16 @@ export default function SoundCloud() {
                   frameBorder="no"
                   allow="autoplay"
                   src={SC_EMBED_SRC}
+                />
+                <iframe
+                  title="Abafana Belokishi on YouTube"
+                  width="100%"
+                  height="400"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  loading="lazy"
+                  src={YT_PLAYLIST_EMBED_SRC}
                 />
               </motion.div>
             ) : (
@@ -132,15 +146,26 @@ export default function SoundCloud() {
           transition={{ duration: 0.5, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
         >
           {activeTab === 'soundcloud' ? (
-            <a
-              href={SC_PROFILE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="soundcloud__cta-btn"
-            >
-              <FaSoundcloud />
-              Open on SoundCloud
-            </a>
+            <>
+              <a
+                href={SC_PROFILE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="soundcloud__cta-btn"
+              >
+                <FaSoundcloud />
+                Open on SoundCloud
+              </a>
+              <a
+                href={YT_PLAYLIST_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="soundcloud__cta-btn soundcloud__cta-btn--youtube"
+              >
+                <FaYoutube />
+                Open Playlist
+              </a>
+            </>
           ) : (
             <>
               <a

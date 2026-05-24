@@ -1485,6 +1485,14 @@ h1, h2, h3, h4 {
   color: var(--bg);
 }
 
+.soundcloud__cta-btn--youtube svg {
+  color: #ff0000;
+}
+
+.soundcloud__cta-btn--youtube:hover svg {
+  color: var(--bg);
+}
+
 /* ===== PODCAST ===== */
 .podcast {
   background: #0a0a0a;

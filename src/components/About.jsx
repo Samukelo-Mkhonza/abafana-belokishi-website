@@ -42,7 +42,7 @@ function Counter({ target, suffix }) {
   );
 }
 
-export default function About() {
+export default function About({ theme }) {
   return (
     <section id="about" className="about section dot-grid">
       <div className="container">
@@ -58,7 +58,7 @@ export default function About() {
             <p className="about__quote-attr">— Abafana Belokishi Entertainment</p>
             <div className="about__circle-deco">
               <img
-                src="/images/ab-new-logo.JPG"
+                src={theme === 'dark' ? '/images/dark-mode-ab-logo.png' : '/images/ab-new-logo.JPG'}
                 alt="Abafana Belokishi Entertainment"
                 className="about__circle-logo"
               />

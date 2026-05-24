@@ -18,7 +18,7 @@ function App() {
       <Navbar theme={theme} onToggle={toggle} />
       <main>
         <Hero />
-        <About />
+        <About theme={theme} />
         <Artists />
         <Releases />
         <SoundCloud />

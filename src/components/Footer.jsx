@@ -24,7 +24,7 @@ export default function Footer() {
         <div className="footer__top">
           <div>
             <img
-              src="/images/ab-new-logo.JPG"
+              src="/images/dark-mode-ab-logo.png"
               alt="Abafana Belokishi"
               className="footer__brand-logo"
             />

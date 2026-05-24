@@ -49,7 +49,7 @@ export default function Navbar({ theme, onToggle }) {
           <div className="navbar__inner">
             <a href="#hero" className="navbar__logo" onClick={e => handleLink(e, '#hero')}>
               <img
-                src="/images/ab-new-logo.JPG"
+                src={theme === 'dark' ? '/images/dark-mode-ab-logo.png' : '/images/ab-new-logo.JPG'}
                 alt="Abafana Belokishi"
                 className="navbar__logo-img"
               />

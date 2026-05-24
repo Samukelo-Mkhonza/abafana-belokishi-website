@@ -1742,6 +1742,30 @@ h1, h2, h3, h4 {
 
 .form-group textarea { resize: vertical; min-height: 120px; }
 
+/* ===== LOCATION ===== */
+.location {
+  background: var(--surface-dark);
+}
+
+.location__desc {
+  max-width: 620px;
+  opacity: 0.65;
+  font-weight: 300;
+  line-height: 1.85;
+  font-size: 1.02rem;
+  margin-bottom: 2.5rem;
+}
+
+.location__map {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.location__map iframe {
+  display: block;
+}
+
 /* ===== FOOTER ===== */
 .footer {
   background: #1a1a1a;

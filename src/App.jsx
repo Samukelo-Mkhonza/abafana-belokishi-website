@@ -7,6 +7,7 @@ import Releases from './components/Releases';
 import SoundCloud from './components/SoundCloud';
 import Podcast from './components/Podcast';
 import Contact from './components/Contact';
+import Location from './components/Location';
 import Footer from './components/Footer';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <SoundCloud />
         <Podcast />
         <Contact />
+        <Location />
       </main>
       <Footer />
     </>

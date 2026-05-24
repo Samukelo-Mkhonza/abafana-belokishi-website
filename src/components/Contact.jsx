@@ -31,10 +31,13 @@ export default function Contact() {
   return (
     <section id="contact" className="contact section dot-grid">
       <div className="container">
-        <motion.p className="section-label" {...inView(0)}>— Get in Touch</motion.p>
-        <motion.h2 className="section-title" {...inView(0.1)} style={{ marginBottom: '3rem' }}>
-          Book &amp; Enquire
-        </motion.h2>
+        <div className="section-header">
+          <motion.h2 className="section-title" {...inView(0.1)}>
+            Book &amp; Enquire
+          </motion.h2>
+          <div className="section-rule" aria-hidden="true" />
+          <motion.p className="section-label" {...inView(0)}>— Get in Touch</motion.p>
+        </div>
 
         <div className="contact__grid">
           <motion.div {...inView(0.15)}>

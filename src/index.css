@@ -1492,6 +1492,11 @@ h1, h2, h3, h4 {
   overflow: hidden;
 }
 
+.podcast .section-rule {
+  background: #f5f4f0;
+  opacity: 0.35;
+}
+
 .podcast__waveform-bg {
   position: absolute;
   inset: 0;

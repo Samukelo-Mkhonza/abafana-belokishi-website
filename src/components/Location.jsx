@@ -11,8 +11,11 @@ export default function Location() {
   return (
     <section id="location" className="location section dot-grid">
       <div className="container">
-        <motion.p className="section-label" {...inView(0)}>— Find Us</motion.p>
-        <motion.h2 className="section-title" {...inView(0.1)}>Our Location</motion.h2>
+        <div className="section-header">
+          <motion.h2 className="section-title" {...inView(0.1)}>Our Location</motion.h2>
+          <div className="section-rule" aria-hidden="true" />
+          <motion.p className="section-label" {...inView(0)}>— Find Us</motion.p>
+        </div>
 
         <motion.p className="location__desc" {...inView(0.2)}>
           Rooted in Harding, KwaZulu-Natal — a small town with a big sound. This is where

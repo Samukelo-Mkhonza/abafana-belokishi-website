@@ -44,6 +44,7 @@ const BASE_ARTISTS = [
     name: 'SAB',
     genre: 'Hip-Hop / R&B',
     initials: 'SAB',
+    image: '/images/artists/sab-ab-profile-photo.jpg',
     bio: "SAB is Abafana Belokishi's hip-hop and R&B voice — crafting records that sit at the intersection of street realism and melodic soul. Drawing from the richness of township life, SAB delivers with authenticity and range, pushing the boundaries of what South African hip-hop can be.",
     socials: [
       { platform: 'Instagram', href: '#', handle: '@sab' },

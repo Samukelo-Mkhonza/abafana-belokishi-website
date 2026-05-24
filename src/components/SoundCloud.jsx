@@ -17,7 +17,7 @@ const YT_PLAYLIST_URL = 'https://www.youtube.com/playlist?list=PLky-eQTbtiYykZb2
 const YT_PLAYLIST_EMBED_SRC = 'https://www.youtube.com/embed/videoseries?list=PLky-eQTbtiYykZb2HzXQjkfu4wM-QxBbY';
 
 const TABS = [
-  { id: 'soundcloud', label: 'SoundCloud', icon: FaSoundcloud },
+  { id: 'soundcloud', label: 'SoundCloud & YouTube', icon: FaSoundcloud },
   { id: 'spotify', label: 'Spotify', icon: FaSpotify },
 ];
 
@@ -95,6 +95,9 @@ export default function SoundCloud() {
                   allow="autoplay"
                   src={SC_EMBED_SRC}
                 />
+                <div className="stream__section-divider">
+                  <span>YouTube</span>
+                </div>
                 <iframe
                   title="Abafana Belokishi on YouTube"
                   width="100%"
@@ -124,6 +127,9 @@ export default function SoundCloud() {
                   loading="lazy"
                   src={SPOTIFY_PLAYLIST_EMBED_SRC}
                 />
+                <div className="stream__section-divider">
+                  <span>King Fergo</span>
+                </div>
                 <iframe
                   title="King Fergo on Spotify"
                   width="100%"

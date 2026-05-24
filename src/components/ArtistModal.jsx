@@ -138,6 +138,9 @@ export default function ArtistModal({ artist, onClose }) {
 
         {(spotifyEmbedSrc || soundcloudEmbedSrc) && (
           <div className="artist-modal__embed">
+            <div className="stream__section-divider">
+              <span>Music</span>
+            </div>
             {spotifyEmbedSrc && (
               <iframe
                 title={`${artist.name} on Spotify`}

@@ -63,6 +63,7 @@ const BASE_ARTISTS = [
       { platform: 'Spotify',    href: '#', handle: 'Assign' },
       { platform: 'TikTok',     href: 'https://www.tiktok.com/@assign195?_r=1&_t=ZS-96cxJxifUTy', handle: '@assign195' },
       { platform: 'SoundCloud', href: 'https://soundcloud.com/sabelomoloi07', handle: '@assign_za' },
+      { platform: 'YouTube',    href: 'https://www.youtube.com/@Assign_da_YungKid', handle: '@Assign_da_YungKid' },
     ],
   },
 ];

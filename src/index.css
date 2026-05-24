@@ -620,39 +620,36 @@ h1, h2, h3, h4 {
   background: var(--bg);
 }
 
-/* Chain carousel */
+/* Multi-card swipe carousel */
 .releases__carousel {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   gap: 0;
-  max-width: 520px;
-  margin: 0 auto;
 }
 
+.releases__viewport {
+  width: 100%;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+}
+
+.releases__viewport:active {
+  cursor: grabbing;
+}
 
 .releases__track {
-  width: 100%;
-  aspect-ratio: 1;
-  position: relative;
-  overflow: hidden;
-  border-radius: 6px;
-  flex-shrink: 0;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.25);
-  perspective: 1400px;
+  display: flex;
+  gap: 20px;
+  will-change: transform;
 }
 
 .releases__slide {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  cursor: grab;
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
+  flex-shrink: 0;
+  aspect-ratio: 1;
 }
-
-.releases__slide:active { cursor: grabbing; }
 
 .releases__slide .release-card {
   width: 100%;
@@ -660,18 +657,12 @@ h1, h2, h3, h4 {
   aspect-ratio: unset;
 }
 
-.releases__dpad {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.6rem;
-  margin-top: 1.75rem;
-}
-
-.releases__dpad-row {
+.releases__controls {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 2rem;
+  margin-top: 1.75rem;
 }
 
 .releases__nav-btn {
@@ -689,7 +680,12 @@ h1, h2, h3, h4 {
   flex-shrink: 0;
 }
 
-.releases__nav-btn:hover {
+.releases__nav-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.releases__nav-btn:not(:disabled):hover {
   background: var(--fg);
   color: var(--bg);
   border-color: var(--fg);
@@ -709,8 +705,9 @@ h1, h2, h3, h4 {
   gap: 6px;
   flex-wrap: wrap;
   justify-content: center;
-  max-width: 240px;
+  max-width: 280px;
   margin-top: 1.25rem;
+  align-self: center;
 }
 
 .releases__dot {
@@ -1950,14 +1947,12 @@ h1, h2, h3, h4 {
   .section-header { flex-direction: column; align-items: flex-start; margin-bottom: 2.5rem; }
   .section-rule { display: none; }
   .artists__grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-  .releases__carousel { max-width: 420px; }
   .footer__top { grid-template-columns: 1fr; gap: 2.5rem; }
   .podcast__cta { margin-top: 2.5rem; }
 }
 
 @media (max-width: 480px) {
   .artists__grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
-  .releases__carousel { max-width: 360px; }
   .hero__ctas { flex-direction: column; }
   .btn { text-align: center; justify-content: center; }
   .about__stat-row { grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }

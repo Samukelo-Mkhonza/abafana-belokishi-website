@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ReleaseCard from './ReleaseCard';
 import ReleaseModal from './ReleaseModal';
@@ -25,14 +25,6 @@ const RELEASES = [
     image: dz('fef55077e7f493269dec148ce65778f0'),
     links: [sp],
     description: "King Fergo's latest studio album — a full sonic journey exploring themes of elevation, joy, and belonging. Paradise is amapiano at its peak: rich, layered, and unapologetically KwaZulu-Natal.",
-  },
-  {
-    title: 'Paradise',
-    artist: 'King Fergo',
-    type: 'Single · 2024',
-    image: dz('52e1d201f9d0c3544daa0a3b1e4b288c'),
-    links: [sp],
-    description: "The lead single from the Paradise album — a melodic, feel-good record that sets the tone for everything that follows. Pure bliss wrapped in amapiano keys.",
   },
   {
     title: 'L E G E N D A R Y',
@@ -117,65 +109,47 @@ const RELEASES = [
 ];
 
 const TOTAL = RELEASES.length;
+const GAP = 20;
 
-// dir = { axis: 'x'|'y', sign: 1|-1 }
-const slideVariants = {
-  enter: (dir) =>
-    dir.axis === 'x'
-      ? { rotateY: dir.sign > 0 ? 90 : -90, scale: 0.88, opacity: 0 }
-      : { y: dir.sign > 0 ? '108%' : '-108%', scale: 0.88, opacity: 0 },
-
-  center: (dir) => ({
-    rotateY: 0, y: 0, scale: 1, opacity: 1,
-    transition: dir?.axis === 'x'
-      ? {
-          rotateY: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
-          scale:   { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
-          opacity: { duration: 0.3 },
-        }
-      : {
-          y:       { type: 'spring', stiffness: 260, damping: 26, mass: 0.9 },
-          scale:   { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
-          opacity: { duration: 0.25 },
-        },
-  }),
-
-  exit: (dir) =>
-    dir.axis === 'x'
-      ? {
-          rotateY: dir.sign > 0 ? -90 : 90, scale: 0.88, opacity: 0,
-          transition: {
-            rotateY: { duration: 0.5, ease: [0.55, 0, 1, 0.45] },
-            scale:   { duration: 0.4 },
-            opacity: { duration: 0.2, delay: 0.15 },
-          },
-        }
-      : {
-          y: dir.sign > 0 ? '-108%' : '108%', scale: 0.88, opacity: 0,
-          transition: {
-            y:       { type: 'spring', stiffness: 260, damping: 26, mass: 0.9 },
-            scale:   { duration: 0.35 },
-            opacity: { duration: 0.2 },
-          },
-        },
-};
+function getVisibleCount(vw) {
+  if (vw >= 900) return 3;
+  if (vw >= 560) return 2;
+  return 1;
+}
 
 export default function Releases() {
-  const [[index, dir], setPage] = useState([0, { axis: 'x', sign: 1 }]);
+  const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState(null);
-  const [paused, setPaused] = useState(false);
-
-  const paginate = useCallback((sign, axis = 'x') => {
-    setPage(([prev]) => [(prev + sign + TOTAL) % TOTAL, { axis, sign }]);
-  }, []);
+  const viewportRef = useRef(null);
+  const [slidePx, setSlidePx] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(3);
 
   useEffect(() => {
-    if (paused) return;
-    const id = setInterval(() => paginate(1, 'x'), 6000);
-    return () => clearInterval(id);
-  }, [paused, paginate]);
+    const el = viewportRef.current;
+    if (!el) return;
+    const measure = () => {
+      const vw = el.offsetWidth;
+      const count = getVisibleCount(vw);
+      setVisibleCount(count);
+      setSlidePx((vw - GAP * (count - 1)) / count);
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
-  const release = RELEASES[index];
+  const maxIndex = Math.max(0, TOTAL - visibleCount);
+
+  const paginate = useCallback((dir) => {
+    setIndex(i => Math.max(0, Math.min(i + dir, maxIndex)));
+  }, [maxIndex]);
+
+  const goTo = useCallback((i) => {
+    setIndex(Math.min(i, maxIndex));
+  }, [maxIndex]);
+
+  const trackX = slidePx > 0 ? -(index * (slidePx + GAP)) : 0;
 
   return (
     <section id="releases" className="releases section">
@@ -209,57 +183,66 @@ export default function Releases() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
         >
-          <div className="releases__track">
-            <AnimatePresence initial={false} custom={dir} mode="wait">
-              <motion.div
-                key={index}
-                custom={dir}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                drag
-                dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
-                dragElastic={0.25}
-                onDragEnd={(_, { offset }) => {
-                  const ax = Math.abs(offset.x), ay = Math.abs(offset.y);
-                  if (ax > ay && ax > 40) {
-                    paginate(offset.x < 0 ? 1 : -1, 'x');
-                  } else if (ay > ax && ay > 40) {
-                    paginate(offset.y < 0 ? 1 : -1, 'y');
-                  }
-                }}
-                className="releases__slide"
-              >
-                <ReleaseCard
-                  {...release}
-                  index={0}
-                  inCarousel
-                  onClick={() => setSelected(release)}
-                />
-              </motion.div>
-            </AnimatePresence>
+          <div className="releases__viewport" ref={viewportRef}>
+            <motion.div
+              className="releases__track"
+              animate={{ x: trackX }}
+              transition={{ type: 'spring', stiffness: 280, damping: 28, mass: 0.8 }}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.08}
+              onDragEnd={(_, { offset, velocity }) => {
+                if (Math.abs(offset.x) > 40 || Math.abs(velocity.x) > 400) {
+                  paginate(offset.x < 0 ? 1 : -1);
+                }
+              }}
+            >
+              {RELEASES.map((release, i) => (
+                <motion.div
+                  key={i}
+                  className="releases__slide"
+                  style={{ width: slidePx > 0 ? slidePx : undefined }}
+                  animate={{
+                    scale: i >= index && i < index + visibleCount ? 1 : 0.93,
+                    opacity: i >= index && i < index + visibleCount ? 1 : 0.45,
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <ReleaseCard
+                    {...release}
+                    index={i}
+                    inCarousel
+                    onClick={() => setSelected(release)}
+                  />
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
 
-          {/* D-pad: ↑↓ = chain slide, ←→ = book flip */}
-          <div className="releases__dpad">
-            <button className="releases__nav-btn" onClick={() => paginate(-1, 'y')} aria-label="Previous (up)">
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 14V4M9 4L4 9M9 4L14 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+          <div className="releases__controls">
+            <button
+              className="releases__nav-btn"
+              onClick={() => paginate(-1)}
+              disabled={index === 0}
+              aria-label="Previous release"
+            >
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M14 9H4M4 9L9 4M4 9L9 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
             </button>
-            <div className="releases__dpad-row">
-              <button className="releases__nav-btn" onClick={() => paginate(-1, 'x')} aria-label="Previous (flip left)">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M14 9H4M4 9L9 4M4 9L9 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-              </button>
-              <span className="releases__counter">{String(index + 1).padStart(2, '0')} / {String(TOTAL).padStart(2, '0')}</span>
-              <button className="releases__nav-btn" onClick={() => paginate(1, 'x')} aria-label="Next (flip right)">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9H14M14 9L9 4M14 9L9 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-              </button>
-            </div>
-            <button className="releases__nav-btn" onClick={() => paginate(1, 'y')} aria-label="Next (down)">
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 4V14M9 14L4 9M9 14L14 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            <span className="releases__counter">
+              {String(index + 1).padStart(2, '0')} / {String(TOTAL).padStart(2, '0')}
+            </span>
+            <button
+              className="releases__nav-btn"
+              onClick={() => paginate(1)}
+              disabled={index >= maxIndex}
+              aria-label="Next release"
+            >
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M4 9H14M14 9L9 4M14 9L9 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
             </button>
           </div>
 
@@ -268,10 +251,10 @@ export default function Releases() {
               <button
                 key={i}
                 role="tab"
-                aria-selected={i === index}
+                aria-selected={i >= index && i < index + visibleCount}
                 aria-label={r.title}
-                className={`releases__dot${i === index ? ' releases__dot--active' : ''}`}
-                onClick={() => setPage([i, { axis: 'x', sign: i > index ? 1 : -1 }])}
+                className={`releases__dot${i >= index && i < index + visibleCount ? ' releases__dot--active' : ''}`}
+                onClick={() => goTo(i)}
               />
             ))}
           </div>

@@ -34,9 +34,10 @@ const BASE_ARTISTS = [
     image: '/images/artists/structure-ab-profile-photo.JPG',
     bio: "Structure brings the vocal heart to the Abafana Belokishi sound. His smooth, emotive delivery has become a signature element of the label's amapiano releases — weaving storytelling and raw feeling into every performance. A key collaborator on the KePiano One Way album and a standout presence on stage.",
     socials: [
-      { platform: 'Instagram', href: '#', handle: '@structure' },
+      { platform: 'Instagram', href: 'https://www.instagram.com/structure_sa?igsh=eHZmdmR3Z2d6cTdz', handle: '@structure_sa' },
+      { platform: 'Facebook', href: 'https://www.facebook.com/share/1CtppavLT5/?mibextid=wwXIfr', handle: 'Structure' },
       { platform: 'Spotify',   href: 'https://open.spotify.com/artist/5bu8v4RFoGSEsGd30gyx1P', handle: 'Structure' },
-      { platform: 'TikTok',   href: '#', handle: '@structure' },
+      { platform: 'TikTok',   href: 'https://www.tiktok.com/@structure_02ab?_r=1&_t=ZS-96cxpfQHaDa', handle: '@structure_02ab' },
     ],
   },
   {
@@ -57,9 +58,9 @@ const BASE_ARTISTS = [
     image: '/images/artists/assign-ab-profile-photo.JPG',
     bio: "Assign brings raw hip-hop energy to the Abafana Belokishi roster. Known for sharp lyricism and an unflinching perspective, Assign represents the next wave of South African hip-hop — grounded, hungry, and relentless. Every bar is a statement, every track a testament to the township's resilience.",
     socials: [
-      { platform: 'Instagram',  href: '#', handle: '@assign' },
+      { platform: 'Instagram',  href: 'https://www.instagram.com/assign_da_yungkid?igsh=MXd3MDJoemdmYjkwZw==', handle: '@assign_da_yungkid' },
       { platform: 'Spotify',    href: '#', handle: 'Assign' },
-      { platform: 'TikTok',     href: '#', handle: '@assign' },
+      { platform: 'TikTok',     href: 'https://www.tiktok.com/@assign195?_r=1&_t=ZS-96cxJxifUTy', handle: '@assign195' },
       { platform: 'SoundCloud', href: 'https://soundcloud.com/sabelomoloi07', handle: '@assign_za' },
     ],
   },

@@ -94,6 +94,9 @@ export default function ReleaseModal({ release, onClose }) {
 
         {embed && (
           <div className="release-modal__embed">
+            <div className="stream__section-divider">
+              <span>Music</span>
+            </div>
             <iframe
               title={`${release.title} on Spotify`}
               src={embed.src}

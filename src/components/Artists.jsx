@@ -57,7 +57,7 @@ const BASE_ARTISTS = [
     genre: 'Hip-Hop',
     initials: 'AS',
     image: '/images/artists/assign-ab-profile-photo.JPG',
-    bio: "Assign brings raw hip-hop energy to the Abafana Belokishi roster. Known for sharp lyricism and an unflinching perspective, Assign represents the next wave of South African hip-hop — grounded, hungry, and relentless. Every bar is a statement, every track a testament to the township's resilience.",
+    bio: "Assign brings raw hip-hop energy to the Abafana Belokishi roster. Known for sharp lyricism and an unflinching perspective, Assign represents the next wave of South African hip-hop — grounded, hungry, and relentless. Every bar is a statement, every track a testament to the township's resilience. He is also widely recognised for his regular Instagram freestyles and rhymes — a tradition he has kept alive since 2023.",
     socials: [
       { platform: 'Instagram',  href: 'https://www.instagram.com/assign_da_yungkid?igsh=MXd3MDJoemdmYjkwZw==', handle: '@assign_da_yungkid' },
       { platform: 'Spotify',    href: '#', handle: 'Assign' },

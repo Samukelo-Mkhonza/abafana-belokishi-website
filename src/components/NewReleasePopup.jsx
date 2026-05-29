@@ -12,21 +12,15 @@ const LATEST = {
   embedSrc: 'https://open.spotify.com/embed/album/1TVLfIlPfcs3g73lcZB85U?utm_source=generator',
 };
 
-const SESSION_KEY = 'ab_new_release_seen_v1';
-
 export default function NewReleasePopup() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (sessionStorage.getItem(SESSION_KEY)) return;
     const t = setTimeout(() => setVisible(true), 1500);
     return () => clearTimeout(t);
   }, []);
 
-  const dismiss = () => {
-    setVisible(false);
-    sessionStorage.setItem(SESSION_KEY, '1');
-  };
+  const dismiss = () => setVisible(false);
 
   useEffect(() => {
     if (!visible) return;
@@ -89,6 +83,9 @@ export default function NewReleasePopup() {
 
             {/* Embed */}
             <div className="nrp__embed">
+              <div className="stream__section-divider">
+                <span>Music</span>
+              </div>
               <iframe
                 title={`${LATEST.title} on Spotify`}
                 src={LATEST.embedSrc}

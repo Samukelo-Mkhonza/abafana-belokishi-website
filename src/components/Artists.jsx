@@ -48,7 +48,7 @@ const BASE_ARTISTS = [
     bio: "SAB is Abafana Belokishi's hip-hop and R&B voice — crafting records that sit at the intersection of street realism and melodic soul. Drawing from the richness of township life, SAB delivers with authenticity and range, pushing the boundaries of what South African hip-hop can be.",
     socials: [
       { platform: 'Instagram', href: '#', handle: '@sab' },
-      { platform: 'Spotify',   href: '#', handle: 'SAB' },
+      { platform: 'Spotify',   href: 'https://open.spotify.com/album/1TVLfIlPfcs3g73lcZB85U', handle: 'SAB' },
       { platform: 'TikTok',   href: '#', handle: '@sab' },
     ],
   },

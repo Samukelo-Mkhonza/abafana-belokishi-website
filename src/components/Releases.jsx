@@ -11,6 +11,14 @@ const dz = (hash) =>
 
 const RELEASES = [
   {
+    title: 'ECHOES OF TOMORROW',
+    artist: 'SAB',
+    type: 'Single · 2026',
+    image: 'https://i.scdn.co/image/ab67616d00001e022560559e20b1319460228b53',
+    links: [{ label: 'Spotify', href: 'https://open.spotify.com/album/1TVLfIlPfcs3g73lcZB85U' }],
+    description: "SAB's debut single — a cinematic hip-hop offering that blends introspective lyricism with polished production. ECHOES OF TOMORROW signals a bold new chapter for Abafana Belokishi's R&B voice, reaching beyond the township into something bigger and bolder.",
+  },
+  {
     title: 'Gutara',
     artist: 'King Fergo',
     type: 'Single · 2026',

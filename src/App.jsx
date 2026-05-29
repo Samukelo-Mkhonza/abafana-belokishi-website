@@ -9,6 +9,7 @@ import Podcast from './components/Podcast';
 import Contact from './components/Contact';
 import Location from './components/Location';
 import Footer from './components/Footer';
+import NewReleasePopup from './components/NewReleasePopup';
 
 function App() {
   const { theme, toggle } = useTheme();
@@ -27,6 +28,7 @@ function App() {
         <Location />
       </main>
       <Footer />
+      <NewReleasePopup />
     </>
   );
 }

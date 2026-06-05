@@ -15,13 +15,13 @@ const YT_EMBED_SRC = 'https://www.youtube.com/embed/videoseries?list=PLky-eQTbti
 
 const RELEASES = [
   {
-    title: 'YouTube Playlist',
-    artist: 'Abafana Belokishi',
-    type: 'Playlist · YouTube',
+    title: 'The Get Back',
+    artist: 'Assign',
+    type: 'EP · YouTube',
     image: '/images/The Get Back - Cover 1.jpeg',
     links: [{ label: 'YouTube', href: YT_PLAYLIST_URL }],
     embedSrc: YT_EMBED_SRC,
-    description: "The complete Abafana Belokishi YouTube playlist — every music video, freestyle, and visual release in one place. Watch the full catalogue from KwaZulu-Natal's finest.",
+    description: "Assign's third EP — The Get Back is a statement of return, resilience, and artistry refined. Stream the full project on YouTube.",
   },
   {
     title: 'ECHOES OF TOMORROW',

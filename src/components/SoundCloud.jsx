@@ -13,8 +13,8 @@ const SPOTIFY_EMBED_SRC = 'https://open.spotify.com/embed/artist/5bu8v4RFoGSEsGd
 const SPOTIFY_PLAYLIST_URL = 'https://open.spotify.com/playlist/5CXMGVu3rg045oaaYQAR6k';
 const SPOTIFY_PLAYLIST_EMBED_SRC = 'https://open.spotify.com/embed/playlist/5CXMGVu3rg045oaaYQAR6k?utm_source=generator&theme=0';
 
-const YT_PLAYLIST_URL = 'https://www.youtube.com/playlist?list=PLky-eQTbtiYykZb2HzXQjkfu4wM-QxBbY';
-const YT_PLAYLIST_EMBED_SRC = 'https://www.youtube.com/embed/videoseries?list=PLky-eQTbtiYykZb2HzXQjkfu4wM-QxBbY';
+const YT_PLAYLIST_URL = 'https://www.youtube.com/playlist?list=PLky-eQTbtiYxoX_693z9MR9F8vFYExSZQ';
+const YT_PLAYLIST_EMBED_SRC = 'https://www.youtube.com/embed/videoseries?list=PLky-eQTbtiYxoX_693z9MR9F8vFYExSZQ';
 
 const TABS = [
   { id: 'soundcloud', label: 'SoundCloud & YouTube', icon: FaSoundcloud },

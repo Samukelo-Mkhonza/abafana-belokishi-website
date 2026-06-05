@@ -3,13 +3,26 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ReleaseCard from './ReleaseCard';
 import ReleaseModal from './ReleaseModal';
 
+const YT_PLAYLIST_URL = 'https://www.youtube.com/playlist?list=PLky-eQTbtiYxoX_693z9MR9F8vFYExSZQ';
+
 const KING_FERGO_SPOTIFY = 'https://open.spotify.com/artist/5bu8v4RFoGSEsGd30gyx1P';
 const sp = { label: 'Spotify', href: KING_FERGO_SPOTIFY };
 
 const dz = (hash) =>
   `https://cdn-images.dzcdn.net/images/cover/${hash}/500x500-000000-80-0-0.jpg`;
 
+const YT_EMBED_SRC = 'https://www.youtube.com/embed/videoseries?list=PLky-eQTbtiYxoX_693z9MR9F8vFYExSZQ';
+
 const RELEASES = [
+  {
+    title: 'YouTube Playlist',
+    artist: 'Abafana Belokishi',
+    type: 'Playlist · YouTube',
+    image: '/images/The Get Back - Cover 1.jpeg',
+    links: [{ label: 'YouTube', href: YT_PLAYLIST_URL }],
+    embedSrc: YT_EMBED_SRC,
+    description: "The complete Abafana Belokishi YouTube playlist — every music video, freestyle, and visual release in one place. Watch the full catalogue from KwaZulu-Natal's finest.",
+  },
   {
     title: 'ECHOES OF TOMORROW',
     artist: 'SAB',
@@ -267,6 +280,7 @@ export default function Releases() {
             ))}
           </div>
         </motion.div>
+
       </div>
 
       <AnimatePresence>

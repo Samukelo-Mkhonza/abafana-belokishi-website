@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FaSpotify } from 'react-icons/fa';
+import { FaSpotify, FaYoutube } from 'react-icons/fa';
 import { MdClose } from 'react-icons/md';
+
+const YT_PLAYLIST_URL = 'https://www.youtube.com/playlist?list=PLky-eQTbtiYxoX_693z9MR9F8vFYExSZQ';
 
 const isMobile = () => window.innerWidth <= 520;
 
@@ -32,7 +34,8 @@ export default function ReleaseModal({ release, onClose }) {
   }, [onClose]);
 
   const link = release.links?.[0];
-  const embed = link ? spotifyEmbed(link.href) : null;
+  const isYouTube = link?.label === 'YouTube';
+  const embed = isYouTube ? null : (link ? spotifyEmbed(link.href) : null);
   const mobile = isMobile();
 
   const panelVariants = mobile
@@ -78,7 +81,7 @@ export default function ReleaseModal({ release, onClose }) {
               <p className="release-modal__desc">{release.description}</p>
             )}
 
-            {link && (
+            {link && !isYouTube && (
               <a
                 href={link.href}
                 target="_blank"
@@ -89,6 +92,15 @@ export default function ReleaseModal({ release, onClose }) {
                 Open in Spotify
               </a>
             )}
+            <a
+              href={YT_PLAYLIST_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="release-modal__yt-btn"
+            >
+              <FaYoutube />
+              {isYouTube ? 'Open Playlist' : 'Watch on YouTube'}
+            </a>
           </div>
         </div>
 
@@ -103,6 +115,24 @@ export default function ReleaseModal({ release, onClose }) {
               height={embed.height}
               frameBorder="0"
               allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+            />
+          </div>
+        )}
+
+        {isYouTube && release.embedSrc && (
+          <div className="release-modal__embed">
+            <div className="stream__section-divider">
+              <span>YouTube</span>
+            </div>
+            <iframe
+              title="Abafana Belokishi on YouTube"
+              src={release.embedSrc}
+              width="100%"
+              height="340"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
               loading="lazy"
             />
           </div>

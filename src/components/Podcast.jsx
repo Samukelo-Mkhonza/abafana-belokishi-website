@@ -15,6 +15,22 @@ export default function Podcast() {
       </div>
 
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+        <motion.div
+          className="podcast__identity"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <img
+            src="/images/abafana_youtube_banner_mobilesafe_2560x1440.png"
+            alt=""
+            className="podcast__banner-img"
+            aria-hidden="true"
+          />
+          <div className="podcast__banner-overlay" aria-hidden="true" />
+        </motion.div>
+
         <div className="section-header">
           <motion.h2
             className="section-title"

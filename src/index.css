@@ -1636,6 +1636,38 @@ h1, h2, h3, h4 {
   color: #f5f4f0;
 }
 
+.podcast__identity {
+  position: relative;
+  width: 100%;
+  height: clamp(160px, 22vw, 280px);
+  overflow: hidden;
+  border-radius: 4px;
+  margin-bottom: 4rem;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.5);
+}
+
+.podcast__banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+.podcast__banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(10, 10, 10, 0.82) 0%,
+    rgba(10, 10, 10, 0.35) 55%,
+    rgba(10, 10, 10, 0.65) 100%
+  );
+}
+
+
 .podcast__preview {
   margin-top: 3.5rem;
   width: 100%;
@@ -2077,6 +2109,7 @@ h1, h2, h3, h4 {
   .artists__grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
   .footer__top { grid-template-columns: 1fr; gap: 2.5rem; }
   .podcast__cta { margin-top: 2.5rem; }
+  .podcast__identity { height: clamp(120px, 28vw, 180px); margin-bottom: 2.5rem; }
 }
 
 @media (max-width: 480px) {

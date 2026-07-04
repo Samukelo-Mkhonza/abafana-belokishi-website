@@ -38,6 +38,9 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Test
+        run: npm test
+
       # base must match the repo name so assets resolve at
       # https://samukelo-mkhonza.github.io/abafana-belokishi-website/
       - name: Build

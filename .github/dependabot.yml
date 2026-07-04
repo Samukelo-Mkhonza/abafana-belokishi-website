@@ -17,12 +17,35 @@ updates:
           - patch
       development-dependencies:
         dependency-type: development
+        update-types:
+          - minor
+          - patch
+    ignore:
+      # Pinned for Node 20.16 compatibility — do NOT bump these majors.
+      # Vite 7+, @vitejs/plugin-react 7+, vitest 4+, and jsdom 25+ all
+      # require Node >=20.19. Revisit once the local Node version is raised.
+      - dependency-name: "vite"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@vitejs/plugin-react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "vitest"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@vitest/coverage-v8"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "jsdom"
+        update-types: ["version-update:semver-major"]
 
-  # Keep the GitHub Actions used in workflows up to date
+  # Keep the GitHub Actions used in workflows up to date.
+  # Grouped so paired actions (e.g. upload-pages-artifact + deploy-pages)
+  # bump together in one PR and can't drift into an incompatible mix.
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
       interval: weekly
+    groups:
+      github-actions:
+        patterns:
+          - "*"
     labels:
       - dependencies
       - github-actions

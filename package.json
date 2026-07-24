@@ -3,6 +3,20 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "description": "Official website for Abafana Belokishi Entertainment — a music label and podcast network based in Harding, KwaZulu-Natal, South Africa.",
+  "homepage": "https://samukelo-mkhonza.github.io/abafana-belokishi-website/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Samukelo-Mkhonza/abafana-belokishi-website.git"
+  },
+  "keywords": [
+    "react",
+    "vite",
+    "music-label",
+    "south-africa",
+    "github-pages",
+    "framer-motion"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",

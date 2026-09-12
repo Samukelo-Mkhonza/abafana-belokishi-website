@@ -24,11 +24,11 @@ describe('NewReleasePopup', () => {
     render(<NewReleasePopup />)
     await findDialog()
     expect(
-      screen.getByRole('heading', { name: /echoes of tomorrow/i })
+      screen.getByRole('heading', { name: /mapholoba/i })
     ).toBeInTheDocument()
     expect(
       screen.getByRole('link', { name: /listen on spotify/i })
-    ).toHaveAttribute('href', 'https://open.spotify.com/album/1TVLfIlPfcs3g73lcZB85U')
+    ).toHaveAttribute('href', 'https://open.spotify.com/album/48HGkUBmriYc01Ke0EXulE')
   })
 
   it('dismisses when the close button is pressed', async () => {

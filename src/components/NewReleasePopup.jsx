@@ -4,12 +4,12 @@ import { FaSpotify } from 'react-icons/fa';
 import { MdClose } from 'react-icons/md';
 
 const LATEST = {
-  title: 'ECHOES OF TOMORROW',
-  artist: 'SAB',
-  type: 'Single · 2026',
-  image: 'https://i.scdn.co/image/ab67616d00001e022560559e20b1319460228b53',
-  spotifyHref: 'https://open.spotify.com/album/1TVLfIlPfcs3g73lcZB85U',
-  embedSrc: 'https://open.spotify.com/embed/album/1TVLfIlPfcs3g73lcZB85U?utm_source=generator',
+  title: 'Mapholoba',
+  artist: 'King Fergo',
+  type: 'Album · 2026',
+  image: 'https://i.scdn.co/image/ab67616d00001e02dd7b498687bf4b4e599c997e',
+  spotifyHref: 'https://open.spotify.com/album/48HGkUBmriYc01Ke0EXulE',
+  embedSrc: 'https://open.spotify.com/embed/album/48HGkUBmriYc01Ke0EXulE?utm_source=generator',
 };
 
 export default function NewReleasePopup() {

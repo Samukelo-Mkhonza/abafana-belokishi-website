@@ -5,7 +5,7 @@ import ReleaseModal from './ReleaseModal';
 
 const YT_PLAYLIST_URL = 'https://www.youtube.com/playlist?list=PLky-eQTbtiYxoX_693z9MR9F8vFYExSZQ';
 
-const KING_FERGO_SPOTIFY = 'https://open.spotify.com/artist/5bu8v4RFoGSEsGd30gyx1P';
+const KING_FERGO_SPOTIFY = 'https://open.spotify.com/artist/2tyq2nUN54HaJX4FkjRkuJ';
 const sp = { label: 'Spotify', href: KING_FERGO_SPOTIFY };
 
 const dz = (hash) =>
@@ -14,6 +14,31 @@ const dz = (hash) =>
 const YT_EMBED_SRC = 'https://www.youtube.com/embed/videoseries?list=PLky-eQTbtiYxoX_693z9MR9F8vFYExSZQ';
 
 const RELEASES = [
+  {
+    title: 'Mapholoba',
+    artist: 'King Fergo',
+    type: 'Album · 2026',
+    image: 'https://i.scdn.co/image/ab67616d00001e02dd7b498687bf4b4e599c997e',
+    links: [{ label: 'Spotify', href: 'https://open.spotify.com/album/48HGkUBmriYc01Ke0EXulE' }],
+    embedSrc: 'https://open.spotify.com/embed/album/48HGkUBmriYc01Ke0EXulE?utm_source=generator',
+    description: "King Fergo's newest album — seven tracks of after-dark amapiano that lean into melody as much as groove, from the slow burn of Love On You to the floor-filling Move Is A Dance. Mapholoba is the most assured Abafana Belokishi record yet, built and mixed in KwaZulu-Natal.",
+  },
+  {
+    title: 'Be Gone',
+    artist: 'SAB',
+    type: 'Single · 2026',
+    image: 'https://i.scdn.co/image/ab67616d00001e022ed6940548ded1b6cc37e08a',
+    links: [{ label: 'Spotify', href: 'https://open.spotify.com/album/2XWTIbyLmlWi3KvOguFWyi' }],
+    description: "SAB's follow-up to ECHOES OF TOMORROW, trading cinematic scale for something sharper — a moody hip-hop cut with Rhyme Tyme trading bars over spare, heavy drums. Proof the Abafana Belokishi hip-hop lane is widening fast.",
+  },
+  {
+    title: "X's Change",
+    artist: 'Assign',
+    type: 'Single · 2026',
+    image: 'https://i.scdn.co/image/ab67616d00001e023ee162fe2b018958b62ce3a5',
+    links: [{ label: 'Spotify', href: 'https://open.spotify.com/album/0wWf8Cd592Vslhefsd1jO9' }],
+    description: "Assign's first single on Spotify — melodic South African hip-hop that carries the same restless energy as his Instagram freestyles. X's Change finally puts the Abafana Belokishi rapper's pen on record.",
+  },
   {
     title: 'The Get Back',
     artist: 'Assign',
@@ -102,6 +127,14 @@ const RELEASES = [
     image: dz('7c66950e59cd184fd7d78a013cbf5d86'),
     links: [sp],
     description: "The follow-up to the debut that expanded the sonic palette — deeper grooves, richer textures, and more soul. Vol. 2 showed the growth of an artist fully in command of his craft.",
+  },
+  {
+    title: 'MOLO',
+    artist: 'King Fergo',
+    type: 'Single · 2021',
+    image: 'https://i.scdn.co/image/ab67616d00001e02df48044a315770b2471190ef',
+    links: [{ label: 'Spotify', href: 'https://open.spotify.com/album/0wVLCGlc5mcAXAbQCnd8rf' }],
+    description: "A posse cut in the truest kasi sense — King Fergo hands the mic to S'phesh, Maviwest, Caro P and Structure over warm, rolling piano keys. MOLO is a greeting and an invitation, and it captures the Abafana Belokishi crew at their loosest.",
   },
   {
     title: 'Amapiano Kwa-K',

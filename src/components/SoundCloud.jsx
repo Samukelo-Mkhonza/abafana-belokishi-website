@@ -8,8 +8,8 @@ const SC_EMBED_SRC =
   '&color=%23ff5500&auto_play=false&hide_related=false' +
   '&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true';
 
-const SPOTIFY_ARTIST_URL = 'https://open.spotify.com/artist/5bu8v4RFoGSEsGd30gyx1P';
-const SPOTIFY_EMBED_SRC = 'https://open.spotify.com/embed/artist/5bu8v4RFoGSEsGd30gyx1P?utm_source=generator&theme=0';
+const SPOTIFY_ARTIST_URL = 'https://open.spotify.com/artist/2tyq2nUN54HaJX4FkjRkuJ';
+const SPOTIFY_EMBED_SRC = 'https://open.spotify.com/embed/artist/2tyq2nUN54HaJX4FkjRkuJ?utm_source=generator&theme=0';
 const SPOTIFY_PLAYLIST_URL = 'https://open.spotify.com/playlist/5CXMGVu3rg045oaaYQAR6k';
 const SPOTIFY_PLAYLIST_EMBED_SRC = 'https://open.spotify.com/embed/playlist/5CXMGVu3rg045oaaYQAR6k?utm_source=generator&theme=0';
 

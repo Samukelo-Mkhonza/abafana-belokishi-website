@@ -73,7 +73,7 @@ export default function Contact() {
           id="contact-title"
           eyebrow="Get in touch"
           title="Book & enquire"
-          intro="Whether you're looking to book an artist, collaborate on a podcast episode, or explore a partnership — we want to hear from you."
+          intro="Book an artist for a show, pitch a podcast guest or ask about working together. Use the form, or call or WhatsApp us."
         />
 
         <div className="contact__grid">
@@ -101,9 +101,7 @@ export default function Contact() {
                 <MdPlace aria-hidden="true" /> {MAP.label}
               </p>
               <p className="muted">
-                Rooted in Harding — a small town with a big sound. This is where Abafana
-                Belokishi was born, where our artists create, and where our story continues
-                to unfold.
+                The label is based in Harding, a small town in southern KwaZulu-Natal.
               </p>
               <Embed src={MAP.embed} height={220} title="map of Harding" action="Show" provider="Google Maps" allow="fullscreen" />
               <a className="text-link" href={MAP.link} target="_blank" rel="noreferrer">
@@ -115,10 +113,10 @@ export default function Contact() {
           <Reveal className="card contact__form-card" delay={0.1}>
             {sent ? (
               <div className="form-success" role="status">
-                <h3 className="form-success__title">Thanks, {form.name.split(' ')[0]} — enquiry ready</h3>
+                <h3 className="form-success__title">Thanks, {form.name.split(' ')[0]}. Your message is ready.</h3>
                 <p className="muted">
-                  Your email or WhatsApp app should have opened with your message filled in. Hit
-                  send there and we&apos;ll get back to you shortly.
+                  Your email or WhatsApp app should have opened with the message filled in. It
+                  only reaches us once you press send there.
                 </p>
                 <p className="muted">
                   Nothing opened? Email <a className="text-link" href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a> or
@@ -151,7 +149,7 @@ export default function Contact() {
 
                 <Field id="message" label="Message" error={errors.message}>
                   <textarea id="message" name="message" rows={5} value={form.message} onChange={onChange} required
-                    placeholder="Tell us about your event, dates, venue or idea…"
+                    placeholder="Event, date, venue, or what you have in mind"
                     aria-invalid={!!errors.message} aria-describedby={describe('message')} />
                 </Field>
 

@@ -57,7 +57,7 @@ describe('Contact', () => {
 
     expect(window.location.href).toBe('')
     expect(screen.getByText(/tell us your name/i)).toBeInTheDocument()
-    expect(screen.getByText(/doesn’t look right/i)).toBeInTheDocument()
+    expect(screen.getByText(/doesn't look right/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/full name/i)).toHaveAttribute('aria-invalid', 'true')
     expect(screen.getByLabelText(/full name/i)).toHaveFocus()
   })
@@ -77,7 +77,7 @@ describe('Contact', () => {
 
     expect(window.location.href).toContain('mailto:abafanabelokishipodcasters@gmail.com')
     expect(window.location.href).toContain('Thabo')
-    expect(screen.getByRole('status')).toHaveTextContent(/enquiry ready/i)
+    expect(screen.getByRole('status')).toHaveTextContent(/your message is ready/i)
     expect(screen.queryByLabelText(/full name/i)).toBeNull()
   })
 

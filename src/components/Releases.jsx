@@ -26,7 +26,7 @@ export default function Releases() {
           id="releases-title"
           eyebrow="Discography"
           title="Music"
-          intro="Every Abafana Belokishi release, newest first. Select a cover for the story behind it and a player."
+          intro="Every release, newest first. Open one for the track list, credits and a player."
         />
 
         <div className="filter-bar" role="group" aria-label="Filter releases by artist">

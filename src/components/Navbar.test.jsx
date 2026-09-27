@@ -1,14 +1,11 @@
 import { describe, it, expect, vi } from 'vitest'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, within, waitForElementToBeRemoved } from '../test/render'
 import Navbar from './Navbar'
 
-// The desktop nav anchors carry role="listitem"; the logo/mobile anchors
-// keep the implicit link role.
 const NAV = {
   About: '#about',
   Artists: '#artists',
-  Releases: '#releases',
-  Stream: '#soundcloud',
+  Music: '#releases',
   Podcast: '#podcast',
   Contact: '#contact',
 }
@@ -16,9 +13,9 @@ const NAV = {
 describe('Navbar', () => {
   it('renders every navigation item pointing at its section', () => {
     render(<Navbar theme="light" onToggle={() => {}} />)
+    const nav = screen.getByRole('navigation', { name: /main navigation/i })
     for (const [label, href] of Object.entries(NAV)) {
-      // Desktop nav anchors carry role="listitem", so query by text.
-      expect(screen.getByText(label)).toHaveAttribute('href', href)
+      expect(within(nav).getByRole('link', { name: label })).toHaveAttribute('href', href)
     }
   })
 
@@ -31,6 +28,15 @@ describe('Navbar', () => {
 
     const closeBtn = screen.getByRole('button', { name: /close menu/i })
     expect(closeBtn).toHaveAttribute('aria-expanded', 'true')
+    expect(screen.getByRole('navigation', { name: /mobile navigation/i })).toBeInTheDocument()
+  })
+
+  it('closes the mobile menu with Escape', async () => {
+    render(<Navbar theme="light" onToggle={() => {}} />)
+    fireEvent.click(screen.getByRole('button', { name: /open menu/i }))
+    fireEvent.keyDown(document, { key: 'Escape' })
+    await waitForElementToBeRemoved(() => screen.queryByRole('navigation', { name: /mobile navigation/i }))
+    expect(screen.getByRole('button', { name: /open menu/i })).toHaveAttribute('aria-expanded', 'false')
   })
 
   it('forwards theme toggling to the provided handler', () => {
@@ -46,7 +52,7 @@ describe('Navbar', () => {
     section.id = 'about'
     document.body.appendChild(section)
 
-    fireEvent.click(screen.getByText('About'))
+    fireEvent.click(screen.getByRole('link', { name: 'About' }))
     expect(section.scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' })
 
     section.remove()

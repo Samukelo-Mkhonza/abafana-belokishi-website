@@ -1,13 +1,12 @@
+import { LazyMotion, MotionConfig, domAnimation } from 'framer-motion';
 import { useTheme } from './hooks/useTheme';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Artists from './components/Artists';
 import Releases from './components/Releases';
-import SoundCloud from './components/SoundCloud';
 import Podcast from './components/Podcast';
 import Contact from './components/Contact';
-import Location from './components/Location';
 import Footer from './components/Footer';
 import NewReleasePopup from './components/NewReleasePopup';
 
@@ -15,21 +14,22 @@ function App() {
   const { theme, toggle } = useTheme();
 
   return (
-    <>
-      <Navbar theme={theme} onToggle={toggle} />
-      <main>
-        <Hero />
-        <About theme={theme} />
-        <Artists />
-        <Releases />
-        <SoundCloud />
-        <Podcast />
-        <Contact />
-        <Location />
-      </main>
-      <Footer />
-      <NewReleasePopup />
-    </>
+    <LazyMotion features={domAnimation} strict>
+      <MotionConfig reducedMotion="user">
+        <a href="#main" className="skip-link">Skip to content</a>
+        <Navbar theme={theme} onToggle={toggle} />
+        <main id="main" tabIndex={-1}>
+          <Hero />
+          <About />
+          <Artists />
+          <Releases />
+          <Podcast />
+          <Contact />
+        </main>
+        <Footer />
+        <NewReleasePopup />
+      </MotionConfig>
+    </LazyMotion>
   );
 }
 

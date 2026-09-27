@@ -1,117 +1,136 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import ThemeToggle from './ThemeToggle';
-
-const NAV_LINKS = [
-  { label: 'About', href: '#about' },
-  { label: 'Artists', href: '#artists' },
-  { label: 'Releases', href: '#releases' },
-  { label: 'Stream', href: '#soundcloud' },
-  { label: 'Podcast', href: '#podcast' },
-  { label: 'Contact', href: '#contact' },
-];
+import { NAV_LINKS } from '../data/site';
+import { asset } from '../lib/asset';
+import { scrollToHash } from '../lib/scroll';
 
 export default function Navbar({ theme, onToggle }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('');
+  const [active, setActive] = useState('');
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   useEffect(() => {
-    const sections = document.querySelectorAll('section[id]');
     const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(`#${entry.target.id}`);
         });
       },
-      { rootMargin: '-20% 0px -60% 0px' }
+      { rootMargin: '-45% 0px -50% 0px' },
     );
-    sections.forEach(s => observer.observe(s));
+    document.querySelectorAll('main section[id]').forEach((s) => observer.observe(s));
     return () => observer.disconnect();
   }, []);
 
-  const handleLink = (e, href) => {
-    e.preventDefault();
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e) => e.key === 'Escape' && setMenuOpen(false);
+    const onResize = () => window.innerWidth > 900 && setMenuOpen(false);
+    document.addEventListener('keydown', onKey);
+    window.addEventListener('resize', onResize);
+    document.body.classList.add('menu-open');
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      window.removeEventListener('resize', onResize);
+      document.body.classList.remove('menu-open');
+    };
+  }, [menuOpen]);
+
+  const go = (e, href) => {
     setMenuOpen(false);
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+    scrollToHash(e, href);
   };
 
-  return (
-    <>
-      <nav className={`navbar${scrolled ? ' scrolled' : ''}`} aria-label="Main navigation">
-        <div className="container">
-          <div className="navbar__inner">
-            <a href="#hero" className="navbar__logo" onClick={e => handleLink(e, '#hero')}>
-              <img
-                src={scrolled && theme !== 'dark' ? '/images/ab-new-logo.JPG' : '/images/dark-mode-ab-logo.png'}
-                alt="Abafana Belokishi"
-                className="navbar__logo-img"
-              />
-              <div>
-                <span className="navbar__logo-text">ABAFANA BELOKISHI</span>
-                <span className="navbar__logo-sub">Entertainment</span>
-              </div>
-            </a>
+  const logo = theme === 'dark' ? 'images/web/logo-dark.webp' : 'images/web/logo-light.webp';
 
-            <div className="navbar__links" role="list">
-              {NAV_LINKS.map(({ label, href }) => (
+  return (
+    <header className={`site-header${scrolled || menuOpen ? ' is-scrolled' : ''}`}>
+      <div className="container site-header__inner">
+        <a href="#top" className="brand" onClick={(e) => go(e, '#top')}>
+          <img src={asset(logo)} alt="" width="40" height="40" className="brand__logo" />
+          <span className="brand__text">
+            <span className="brand__name">Abafana Belokishi</span>
+            <span className="brand__sub">Entertainment</span>
+          </span>
+        </a>
+
+        <nav aria-label="Main navigation" className="site-nav">
+          <ul className="site-nav__list">
+            {NAV_LINKS.map(({ label, href }) => (
+              <li key={href}>
                 <a
-                  key={label}
                   href={href}
-                  className={`navbar__link${activeSection === label.toLowerCase() ? ' active' : ''}`}
-                  role="listitem"
-                  onClick={e => handleLink(e, href)}
+                  className="site-nav__link"
+                  aria-current={active === href ? 'true' : undefined}
+                  onClick={(e) => go(e, href)}
                 >
                   {label}
                 </a>
-              ))}
-            </div>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-            <div className="navbar__right">
-              <ThemeToggle theme={theme} onToggle={onToggle} />
-              <button
-                className={`hamburger${menuOpen ? ' open' : ''}`}
-                onClick={() => setMenuOpen(o => !o)}
-                aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-                aria-expanded={menuOpen}
-              >
-                <span className="hamburger__bar" />
-                <span className="hamburger__bar" />
-                <span className="hamburger__bar" />
-              </button>
-            </div>
-          </div>
+        <div className="site-header__actions">
+          <a href="#contact" className="btn btn--primary btn--sm site-header__cta" onClick={(e) => go(e, '#contact')}>
+            Book us
+          </a>
+          <ThemeToggle theme={theme} onToggle={onToggle} />
+          <button
+            type="button"
+            className={`icon-btn menu-btn${menuOpen ? ' is-open' : ''}`}
+            onClick={() => setMenuOpen((o) => !o)}
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+          >
+            <span className="menu-btn__bar" />
+            <span className="menu-btn__bar" />
+          </button>
         </div>
-      </nav>
+      </div>
 
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
+          <m.nav
+            id="mobile-menu"
             className="mobile-menu"
-            initial={{ opacity: 0, y: -10 }}
+            aria-label="Mobile navigation"
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
+            exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
           >
-            {NAV_LINKS.map(({ label, href }) => (
-              <a
-                key={label}
-                href={href}
-                className={`navbar__link${activeSection === label.toLowerCase() ? ' active' : ''}`}
-                onClick={e => handleLink(e, href)}
-              >
-                {label}
-              </a>
-            ))}
-          </motion.div>
+            <ul className="container">
+              {NAV_LINKS.map(({ label, href }) => (
+                <li key={href}>
+                  <a
+                    href={href}
+                    className="mobile-menu__link"
+                    aria-current={active === href ? 'true' : undefined}
+                    onClick={(e) => go(e, href)}
+                  >
+                    {label}
+                  </a>
+                </li>
+              ))}
+              <li>
+                <a href="#contact" className="btn btn--primary btn--block" onClick={(e) => go(e, '#contact')}>
+                  Book an artist
+                </a>
+              </li>
+            </ul>
+          </m.nav>
         )}
       </AnimatePresence>
-    </>
+    </header>
   );
 }

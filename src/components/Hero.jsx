@@ -3,7 +3,7 @@ import { FaSpotify } from 'react-icons/fa';
 import Waveform from './Waveform';
 import { FEATURED_RELEASE } from '../data/releases';
 import { scrollToHash } from '../lib/scroll';
-import { largeCover } from '../lib/asset';
+import { largeCover, isArtistLink } from '../lib/asset';
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
@@ -70,7 +70,7 @@ export default function Hero() {
                 target="_blank"
                 rel="noreferrer"
                 className="icon-btn icon-btn--spotify"
-                aria-label={`Listen to ${latest.title} on Spotify`}
+                aria-label={isArtistLink(spotify.href) ? `${latest.artist} on Spotify` : `Listen to ${latest.title} on Spotify`}
               >
                 <FaSpotify aria-hidden="true" />
               </a>

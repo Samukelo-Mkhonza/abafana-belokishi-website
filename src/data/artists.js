@@ -8,7 +8,7 @@ export const ARTISTS = [
     slug: 'king-fergo',
     image: asset('images/web/artists/king-fergo.webp'),
     thumb: asset('images/web/artists/king-fergo-sm.webp'),
-    bio: "King Fergo started Abafana Belokishi Entertainment. His first single, SBWL, came out in May 2020 with Structure, and his first album, Amapiano Kwa-K, followed at the end of that year. He has made four albums since then, counting that one: AmaPiano Kwa-K, Vol. 2 (2021), Abafana Belokishi (KePiano One Way) (2022) and Mapholoba (2026). He makes hip-hop too. In 2023 he put out four rap singles, among them PIKIPIKI (Kasi Flavor), a posse cut with Structure, Rhyme Tyme, Rude P and Styl Makhathaza.",
+    bio: "King Fergo started Abafana Belokishi Entertainment. His first single, SBWL, came out in May 2020 with Structure, and his first album, Amapiano Kwa-K, followed at the end of that year. He has made four albums since then, counting that one: AmaPiano Kwa-K, Vol. 2 (2021), Abafana Belokishi (KePiano One Way) (2022) and Mapholoba (2026). He has worked with Ngane Sikobi of Native Rhythms and with Danger, formerly of Big Nuz. He makes hip-hop too. In 2023 he put out four rap singles, among them PIKIPIKI (Kasi Flavor), a posse cut with Structure, Rhyme Tyme, Rude P and Styl Makhathaza.",
     socials: [
       { platform: 'Spotify',   href: 'https://open.spotify.com/artist/2tyq2nUN54HaJX4FkjRkuJ', handle: 'King Fergo' },
       { platform: 'Instagram', href: 'https://www.instagram.com/realkingfergo?igsh=YnIyYWx1ZGw4azhz', handle: '@realkingfergo' },

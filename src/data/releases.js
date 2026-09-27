@@ -63,7 +63,7 @@ export const RELEASES = [
     image: asset('images/web/the-get-back.webp'),
     links: [{ label: 'YouTube', href: YT_PLAYLIST_URL }],
     embedSrc: YT_EMBED_SRC,
-    description: 'Four tracks: G-Unit, Never, I Get Lonely and Ending (Outro). IILESTDON produced, mixed and mastered all of it. The whole EP is on YouTube.',
+    description: 'Four tracks: G-Unit, Never, I Get Lonely and Ending (Outro). IIILESTDON produced, mixed and mastered all of it. The whole EP is on YouTube.',
   },
   {
     title: 'ECHOES OF TOMORROW',
@@ -179,8 +179,8 @@ export const RELEASES = [
   },
 ];
 
-// The hero card and the new-release card feature this one, not simply the newest
-// entry, so a quick single doesn't bump the album off the front page.
-export const FEATURED_RELEASE = RELEASES.find((r) => r.title === 'Mapholoba');
+// The hero card and the new-release card feature this one. It is set by hand rather
+// than taken from the top of the list so the label chooses what leads the page.
+export const FEATURED_RELEASE = RELEASES.find((r) => r.title === "Ngiyam'thanda");
 
 export const FIRST_RELEASE_YEAR = Math.min(...RELEASES.map((r) => Number(r.type.match(/\d{4}/)?.[0] ?? Infinity)));

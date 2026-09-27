@@ -13,6 +13,12 @@ describe('asset', () => {
     expect(largeCover('https://i.scdn.co/image/ab67616d00001e02abc')).toBe('https://i.scdn.co/image/ab67616d0000b273abc')
     expect(largeCover('https://example.com/a.jpg')).toBe('https://example.com/a.jpg')
   })
+
+  it('upgrades Deezer covers to 1000px', () => {
+    expect(largeCover('https://cdn-images.dzcdn.net/images/cover/abc123/500x500-000000-80-0-0.jpg')).toBe(
+      'https://cdn-images.dzcdn.net/images/cover/abc123/1000x1000-000000-80-0-0.jpg'
+    )
+  })
 })
 
 describe('spotifyEmbed', () => {

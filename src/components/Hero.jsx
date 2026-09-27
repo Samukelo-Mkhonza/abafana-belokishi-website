@@ -1,7 +1,7 @@
 import { m } from 'framer-motion';
 import { FaSpotify } from 'react-icons/fa';
 import Waveform from './Waveform';
-import { LATEST_RELEASE } from '../data/releases';
+import { FEATURED_RELEASE } from '../data/releases';
 import { scrollToHash } from '../lib/scroll';
 import { largeCover } from '../lib/asset';
 
@@ -12,7 +12,7 @@ const fadeUp = (delay = 0) => ({
 });
 
 export default function Hero() {
-  const latest = LATEST_RELEASE;
+  const latest = FEATURED_RELEASE;
   const spotify = latest.links.find((l) => l.label === 'Spotify');
 
   return (
@@ -21,7 +21,7 @@ export default function Hero() {
       <div className="container hero__grid">
         <div className="hero__content">
           <m.p className="eyebrow" {...fadeUp(0.05)}>
-            Music label · Podcast · Harding, KZN
+            Record label and podcast · Harding, KZN
           </m.p>
 
           {/* Headline and lede render without a fade: they are the LCP element. */}
@@ -32,8 +32,8 @@ export default function Hero() {
           </h1>
 
           <p className="hero__lede">
-            A KwaZulu-Natal entertainment house amplifying South African voices
-            through amapiano, hip-hop and honest conversation.
+            Amapiano and hip-hop from King Fergo, Structure, SAB and Assign, and a
+            podcast about music and kasi life.
           </p>
 
           <m.div className="hero__ctas" {...fadeUp(0.35)}>

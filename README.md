@@ -41,13 +41,13 @@ Lighthouse (mobile, production build): Performance 99, Accessibility 100, Best P
 - [ESLint](https://eslint.org/) for linting
 - [sharp](https://sharp.pixelplumbing.com/) (dev only) for generating web images
 
-> **Node compatibility:** Vite 8 and jsdom need Node **20.19+** or **22.12+**. CI uses the latest Node 20.
+> **Node compatibility:** use Node **22** (22.22.2 or newer), which is what CI and the deploy workflow run. The test tooling (Vitest 5, jsdom 30) no longer supports Node 20.
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 20.19+ (or 22.12+)
+- Node.js 22 (22.22.2+)
 - npm
 
 ### Installation

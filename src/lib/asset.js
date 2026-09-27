@@ -14,5 +14,10 @@ export function largeCover(url) {
 
 // Some releases only link to the artist's Spotify page, not an album page.
 export function isArtistLink(href) {
-  return /open\.spotify\.com\/artist\//.test(href);
+  try {
+    const url = new URL(href);
+    return url.hostname === 'open.spotify.com' && url.pathname.startsWith('/artist/');
+  } catch {
+    return false;
+  }
 }

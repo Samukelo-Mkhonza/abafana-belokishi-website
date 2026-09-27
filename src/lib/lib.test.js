@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { asset, largeCover } from './asset'
+import { asset, largeCover, isArtistLink } from './asset'
 import { spotifyEmbed } from './embeds'
 import { validateEnquiry } from './validateEnquiry'
 
@@ -18,6 +18,16 @@ describe('asset', () => {
     expect(largeCover('https://cdn-images.dzcdn.net/images/cover/abc123/500x500-000000-80-0-0.jpg')).toBe(
       'https://cdn-images.dzcdn.net/images/cover/abc123/1000x1000-000000-80-0-0.jpg'
     )
+  })
+})
+
+describe('isArtistLink', () => {
+  it('only matches Spotify artist pages on the real Spotify host', () => {
+    expect(isArtistLink('https://open.spotify.com/artist/2tyq2nUN54HaJX4FkjRkuJ')).toBe(true)
+    expect(isArtistLink('https://open.spotify.com/album/48HGkUBmriYc01Ke0EXulE')).toBe(false)
+    expect(isArtistLink('https://evil.example/open.spotify.com/artist/x')).toBe(false)
+    expect(isArtistLink('https://open.spotify.com.evil.example/artist/x')).toBe(false)
+    expect(isArtistLink('#')).toBe(false)
   })
 })
 

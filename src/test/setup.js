@@ -30,6 +30,10 @@ window.matchMedia = window.matchMedia || function matchMedia(query) {
 
 // jsdom does not implement IntersectionObserver (used by Navbar).
 class IntersectionObserverStub {
+  constructor(callback, options) {
+    this.callback = callback
+    this.options = options
+  }
   observe() {}
   unobserve() {}
   disconnect() {}

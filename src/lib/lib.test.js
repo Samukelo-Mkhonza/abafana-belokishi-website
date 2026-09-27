@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { asset, largeCover } from './asset'
+import { asset, largeCover, isArtistLink } from './asset'
 import { spotifyEmbed } from './embeds'
 import { validateEnquiry } from './validateEnquiry'
 
@@ -12,6 +12,22 @@ describe('asset', () => {
   it('upgrades 300px Spotify covers to 640px and leaves other URLs alone', () => {
     expect(largeCover('https://i.scdn.co/image/ab67616d00001e02abc')).toBe('https://i.scdn.co/image/ab67616d0000b273abc')
     expect(largeCover('https://example.com/a.jpg')).toBe('https://example.com/a.jpg')
+  })
+
+  it('upgrades Deezer covers to 1000px', () => {
+    expect(largeCover('https://cdn-images.dzcdn.net/images/cover/abc123/500x500-000000-80-0-0.jpg')).toBe(
+      'https://cdn-images.dzcdn.net/images/cover/abc123/1000x1000-000000-80-0-0.jpg'
+    )
+  })
+})
+
+describe('isArtistLink', () => {
+  it('only matches Spotify artist pages on the real Spotify host', () => {
+    expect(isArtistLink('https://open.spotify.com/artist/2tyq2nUN54HaJX4FkjRkuJ')).toBe(true)
+    expect(isArtistLink('https://open.spotify.com/album/48HGkUBmriYc01Ke0EXulE')).toBe(false)
+    expect(isArtistLink('https://evil.example/open.spotify.com/artist/x')).toBe(false)
+    expect(isArtistLink('https://open.spotify.com.evil.example/artist/x')).toBe(false)
+    expect(isArtistLink('#')).toBe(false)
   })
 })
 

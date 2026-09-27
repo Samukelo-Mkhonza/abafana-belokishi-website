@@ -24,8 +24,9 @@ export default function Podcast() {
           <p className="eyebrow eyebrow--accent">The podcast</p>
           <h2 id="podcast-title" className="section-title">Abafana Belokishi Podcast</h2>
           <p className="podcast__lede">
-            Real conversations about music, culture, and the journey of building something
-            from the ground up. New episodes live on YouTube.
+            Long conversations about music and life ekasi. Full episodes go up on YouTube and
+            short clips go on TikTok. Start with the first episode: Nosipho Ncayiyana on
+            ukugudlana, mental health and therapy.
           </p>
           <div className="btn-row">
             <a href={CHANNELS.youtube} target="_blank" rel="noreferrer" className="btn btn--youtube">
@@ -41,7 +42,7 @@ export default function Podcast() {
           <Embed
             src={CHANNELS.podcastEpisodeEmbed}
             ratio="16 / 9"
-            title="the latest podcast episode"
+            title="episode 1 with Nosipho Ncayiyana"
             provider="YouTube"
             poster={CHANNELS.podcastEpisodeThumb}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

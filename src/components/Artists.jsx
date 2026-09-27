@@ -16,7 +16,7 @@ export default function Artists() {
           id="artists-title"
           eyebrow="The roster"
           title="Artists"
-          intro="Amapiano and hip-hop voices from Harding, KwaZulu-Natal. Select an artist for their story and music."
+          intro="Open a profile for the bio, links and a player."
         />
 
         <ul className="artists__grid">

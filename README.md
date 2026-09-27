@@ -8,17 +8,18 @@ Official website for **Abafana Belokishi Entertainment** — a music label, podc
 
 Abafana Belokishi was built by artists, for artists — spanning Amapiano, Hip-Hop, and long-form podcast conversation. The label represents artists **King Fergo**, **SAB**, **Assign**, and **Structure**.
 
-This repository contains the single-page marketing site: a hero featuring the latest release, the label's story, the artist roster, a filterable discography with streaming players, the podcast, and a booking form with a location map.
+This repository contains the single-page marketing site: a hero featuring the current album, the label's story, the artist roster, a filterable discography with streaming players, the podcast, and a booking form with a location map.
 
 ## Features
 
-- **Hero** — headline plus a card for the latest release, linked to Spotify
-- **About** — the label's story with animated stat counters
+- **Hero** — headline plus a card for the featured release, linked to Spotify
+- **About** — the label's story, with figures (first release year, number of releases, number of artists) calculated from the data files
 - **Artists** — roster grid; each card opens a profile with bio, socials and a player
-- **Music** — full discography, newest first, filterable by artist, with a detail dialog per release and a "Listen everywhere" player (Spotify, SoundCloud, YouTube)
+- **Music** — full discography, newest first, filterable by artist, with a detail dialog per release and a "Where to listen" player (label playlist on Spotify, Assign on SoundCloud, The Get Back on YouTube)
 - **Podcast** — latest episode and links to YouTube and TikTok
 - **Contact** — validated enquiry form that opens a pre-filled email *or* WhatsApp message, direct phone/WhatsApp/email links, and a map of Harding
-- **New-release card** — a small corner card announcing the latest drop, shown once per release
+- **New-release card** — a small corner card for the featured release, shown once per release
+- **Mobile menu** — a side drawer with focus trapping, Esc/backdrop to close and page scroll locked while open
 - **Light/dark theme** that follows the device setting, can be toggled, and never flashes on load
 
 ### Production quality
@@ -125,7 +126,7 @@ scripts/
 
 ### Updating content
 
-- **New release:** add it to the top of `RELEASES` in `src/data/releases.js`. The hero card and new-release card use the first entry automatically.
+- **New release:** add it to the top of `RELEASES` in `src/data/releases.js`. Keep descriptions to facts that can be checked (date, tracks, who is on it). The hero card and new-release card show `FEATURED_RELEASE`, set in the same file; change it when there is a new album or single to lead with.
 - **Artist details:** edit `src/data/artists.js`. Social links set to `'#'` are hidden until a real URL is added.
 - **Contact details and label socials:** edit `src/data/site.js`.
 - **Images in JSX** must go through `asset('images/...')` so they resolve under the GitHub Pages base path.

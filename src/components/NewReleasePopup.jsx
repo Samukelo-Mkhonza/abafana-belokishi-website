@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { FaSpotify } from 'react-icons/fa';
 import { MdClose } from 'react-icons/md';
-import { LATEST_RELEASE } from '../data/releases';
+import { FEATURED_RELEASE } from '../data/releases';
 
-const storageKey = `ab-seen-release:${LATEST_RELEASE.title}`;
+const storageKey = `ab-seen-release:${FEATURED_RELEASE.title}`;
 
 function alreadySeen() {
   try {
@@ -18,7 +18,7 @@ function alreadySeen() {
 // latest drop once per release without getting in the way of the page.
 export default function NewReleasePopup() {
   const [visible, setVisible] = useState(false);
-  const latest = LATEST_RELEASE;
+  const latest = FEATURED_RELEASE;
   const spotify = latest.links.find((l) => l.label === 'Spotify');
 
   useEffect(() => {

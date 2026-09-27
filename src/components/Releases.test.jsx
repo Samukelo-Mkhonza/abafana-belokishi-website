@@ -49,7 +49,7 @@ describe('Releases', () => {
     render(<Releases />)
     expect(document.querySelector('iframe')).toBeNull()
 
-    fireEvent.click(screen.getByRole('button', { name: /play the abafana belokishi playlist/i }))
+    fireEvent.click(screen.getByRole('button', { name: /play abafana belokishi: the playlist/i }))
     const iframe = document.querySelector('iframe')
     expect(iframe).toHaveAttribute('src', expect.stringContaining('open.spotify.com/embed/playlist'))
   })
@@ -59,6 +59,6 @@ describe('Releases', () => {
     const tabs = screen.getByRole('tablist', { name: /streaming platform/i })
     fireEvent.click(within(tabs).getByRole('tab', { name: /soundcloud/i }))
     expect(within(tabs).getByRole('tab', { name: /soundcloud/i })).toHaveAttribute('aria-selected', 'true')
-    expect(screen.getByRole('link', { name: /open soundcloud/i })).toHaveAttribute('href', 'https://soundcloud.com/sabelomoloi07')
+    expect(screen.getByRole('link', { name: /open assign on soundcloud/i })).toHaveAttribute('href', 'https://soundcloud.com/sabelomoloi07')
   })
 })

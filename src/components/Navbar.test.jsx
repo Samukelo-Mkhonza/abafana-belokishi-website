@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { render, screen, fireEvent, within, waitForElementToBeRemoved } from '../test/render'
+import { render, screen, fireEvent, within, waitFor, waitForElementToBeRemoved } from '../test/render'
 import Navbar from './Navbar'
 
 const NAV = {
@@ -19,24 +19,71 @@ describe('Navbar', () => {
     }
   })
 
-  it('toggles the mobile menu and updates its aria state', () => {
+  it('opens the menu drawer as a dialog and updates the button state', () => {
     render(<Navbar theme="light" onToggle={() => {}} />)
     const openBtn = screen.getByRole('button', { name: /open menu/i })
     expect(openBtn).toHaveAttribute('aria-expanded', 'false')
 
     fireEvent.click(openBtn)
 
-    const closeBtn = screen.getByRole('button', { name: /close menu/i })
-    expect(closeBtn).toHaveAttribute('aria-expanded', 'true')
-    expect(screen.getByRole('navigation', { name: /mobile navigation/i })).toBeInTheDocument()
+    expect(openBtn).toHaveAttribute('aria-expanded', 'true')
+    const drawer = screen.getByRole('dialog', { name: 'Menu' })
+    expect(within(drawer).getByRole('navigation', { name: /mobile navigation/i })).toBeInTheDocument()
+    expect(within(drawer).getByRole('button', { name: /close menu/i })).toHaveFocus()
+    expect(document.documentElement).toHaveClass('scroll-locked')
   })
 
-  it('closes the mobile menu with Escape', async () => {
+  it('closes the drawer with Escape, unlocks the page and returns focus to the menu button', async () => {
+    render(<Navbar theme="light" onToggle={() => {}} />)
+    const openBtn = screen.getByRole('button', { name: /open menu/i })
+    openBtn.focus()
+    fireEvent.click(openBtn)
+    const drawer = screen.getByRole('dialog', { name: 'Menu' })
+
+    fireEvent.keyDown(document, { key: 'Escape' })
+    await waitForElementToBeRemoved(drawer)
+
+    expect(openBtn).toHaveAttribute('aria-expanded', 'false')
+    expect(openBtn).toHaveFocus()
+    expect(document.documentElement).not.toHaveClass('scroll-locked')
+  })
+
+  it('closes the drawer when the backdrop is tapped', async () => {
     render(<Navbar theme="light" onToggle={() => {}} />)
     fireEvent.click(screen.getByRole('button', { name: /open menu/i }))
-    fireEvent.keyDown(document, { key: 'Escape' })
-    await waitForElementToBeRemoved(() => screen.queryByRole('navigation', { name: /mobile navigation/i }))
-    expect(screen.getByRole('button', { name: /open menu/i })).toHaveAttribute('aria-expanded', 'false')
+    const drawer = screen.getByRole('dialog', { name: 'Menu' })
+    fireEvent.click(document.querySelector('.drawer-backdrop'))
+    await waitForElementToBeRemoved(drawer)
+  })
+
+  it('keeps Tab focus inside the drawer', () => {
+    render(<Navbar theme="light" onToggle={() => {}} />)
+    fireEvent.click(screen.getByRole('button', { name: /open menu/i }))
+    const drawer = screen.getByRole('dialog', { name: 'Menu' })
+    const controls = drawer.querySelectorAll('a[href], button')
+    const last = controls[controls.length - 1]
+
+    last.focus()
+    fireEvent.keyDown(document, { key: 'Tab' })
+    expect(controls[0]).toHaveFocus()
+    fireEvent.keyDown(document, { key: 'Tab', shiftKey: true })
+    expect(last).toHaveFocus()
+  })
+
+  it('closes the drawer and scrolls to the section when a menu link is tapped', async () => {
+    render(<Navbar theme="light" onToggle={() => {}} />)
+    const section = document.createElement('section')
+    section.id = 'podcast'
+    document.body.appendChild(section)
+
+    fireEvent.click(screen.getByRole('button', { name: /open menu/i }))
+    const drawer = screen.getByRole('dialog', { name: 'Menu' })
+    fireEvent.click(within(drawer).getByRole('link', { name: 'Podcast' }))
+
+    await waitForElementToBeRemoved(drawer)
+    await waitFor(() => expect(section.scrollIntoView).toHaveBeenCalled())
+    expect(section).toHaveFocus()
+    section.remove()
   })
 
   it('forwards theme toggling to the provided handler', () => {

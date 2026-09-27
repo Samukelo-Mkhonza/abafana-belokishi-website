@@ -21,7 +21,7 @@ function notFoundPage() {
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="robots" content="noindex" />
-<title>Page not found — Abafana Belokishi Entertainment</title>
+<title>Page not found | Abafana Belokishi Entertainment</title>
 <link rel="icon" type="image/png" href="${base}images/web/favicon-32.png" />
 <style>
   body{margin:0;min-height:100svh;display:grid;place-items:center;padding:1.5rem;background:#0b0b0c;color:#f3f1ec;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center}
@@ -36,7 +36,7 @@ function notFoundPage() {
 <main>
   <img src="${base}images/web/logo-dark.webp" alt="" />
   <h1>Page not found</h1>
-  <p>This page doesn’t exist — but the music does.</p>
+  <p>We couldn't find that page.</p>
   <a href="${base}">Back to the homepage</a>
 </main>
 </body>

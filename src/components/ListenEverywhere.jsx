@@ -9,31 +9,31 @@ const TABS = [
     id: 'spotify',
     label: 'Spotify',
     icon: FaSpotify,
-    title: 'the Abafana Belokishi playlist',
+    title: 'Abafana Belokishi: The Playlist',
     src: CHANNELS.spotifyPlaylistEmbed,
     height: 352,
     href: CHANNELS.spotifyPlaylist,
-    cta: 'Follow the playlist',
+    cta: 'Open the playlist on Spotify',
   },
   {
     id: 'soundcloud',
     label: 'SoundCloud',
     icon: FaSoundcloud,
-    title: 'Abafana Belokishi on SoundCloud',
+    title: 'Assign on SoundCloud',
     src: CHANNELS.soundcloudEmbed,
     height: 352,
     href: CHANNELS.soundcloud,
-    cta: 'Open SoundCloud',
+    cta: 'Open Assign on SoundCloud',
   },
   {
     id: 'youtube',
     label: 'YouTube',
     icon: FaYoutube,
-    title: 'the YouTube playlist',
+    title: 'The Get Back on YouTube',
     src: YT_PLAYLIST_EMBED_SRC,
     ratio: '16 / 9',
     href: YT_PLAYLIST_URL,
-    cta: 'Open on YouTube',
+    cta: 'Open The Get Back on YouTube',
   },
 ];
 
@@ -54,8 +54,8 @@ export default function ListenEverywhere() {
   return (
     <div className="listen">
       <div className="listen__intro">
-        <h3 className="listen__title">Listen everywhere</h3>
-        <p className="muted">Stream the full catalogue on your platform of choice.</p>
+        <h3 className="listen__title">Where to listen</h3>
+        <p className="muted">The label playlist on Spotify, Assign on SoundCloud and The Get Back on YouTube.</p>
         <div role="tablist" aria-label="Streaming platform" className="segmented">
           {TABS.map(({ id, label, icon: Icon }, i) => (
             <button

@@ -11,16 +11,33 @@ const dz = (hash) =>
 
 const YT_EMBED_SRC = YT_PLAYLIST_EMBED_SRC;
 
-// Newest first — the first entry is featured in the hero and the new-release card.
+// Newest first. Dates, track lists and credits were checked against Spotify and
+// Deezer in September 2026; keep descriptions to facts that can be checked.
 export const RELEASES = [
+  {
+    title: "Ngiyam'thanda",
+    artist: 'King Fergo',
+    type: 'Single · 2026',
+    image: 'https://i.scdn.co/image/ab67616d00001e02ada5f2c306b6ac24a35d3a6e',
+    links: [{ label: 'Spotify', href: 'https://open.spotify.com/album/1WQSuk54VomPv8GDE6Msya' }],
+    description: "King Fergo's newest single, out 26 September 2026, with Holly M, Turn Twenty and Akhonna.",
+  },
+  {
+    title: 'Your Son Can Rap - Prelude',
+    artist: 'Assign',
+    type: 'EP · 2026',
+    image: 'https://i.scdn.co/image/ab67616d00001e0230d81f31b01ef0c0692db946',
+    links: [{ label: 'Spotify', href: 'https://open.spotify.com/album/09W6crPmusmdKyukofJMM5' }],
+    description: 'Four tracks with IIILESTDON, out 25 September 2026: Intro (Still Doing Me), G-Unit (The Get Back), I Get Lonely and Snowball Effect.',
+  },
   {
     title: 'Mapholoba',
     artist: 'King Fergo',
     type: 'Album · 2026',
     image: 'https://i.scdn.co/image/ab67616d00001e02dd7b498687bf4b4e599c997e',
     links: [{ label: 'Spotify', href: 'https://open.spotify.com/album/48HGkUBmriYc01Ke0EXulE' }],
-    embedSrc: 'https://open.spotify.com/embed/album/48HGkUBmriYc01Ke0EXulE?utm_source=generator',
-    description: "King Fergo's newest album — seven tracks of after-dark amapiano that lean into melody as much as groove, from the slow burn of Love On You to the floor-filling Move Is A Dance. Mapholoba is the most assured Abafana Belokishi record yet, built and mixed in KwaZulu-Natal.",
+    embedSrc: 'https://open.spotify.com/embed/album/48HGkUBmriYc01Ke0EXulE',
+    description: "Seven tracks, released 4 September 2026. It opens with Love On You and ends with Good Times. It's King Fergo's first album since Abafana Belokishi (KePiano One Way) in 2022.",
   },
   {
     title: 'Be Gone',
@@ -28,7 +45,7 @@ export const RELEASES = [
     type: 'Single · 2026',
     image: 'https://i.scdn.co/image/ab67616d00001e022ed6940548ded1b6cc37e08a',
     links: [{ label: 'Spotify', href: 'https://open.spotify.com/album/2XWTIbyLmlWi3KvOguFWyi' }],
-    description: "SAB's follow-up to ECHOES OF TOMORROW, trading cinematic scale for something sharper — a moody hip-hop cut with Rhyme Tyme trading bars over spare, heavy drums. Proof the Abafana Belokishi hip-hop lane is widening fast.",
+    description: "SAB's second release, out 13 August 2026. Rhyme Tyme is on it too.",
   },
   {
     title: "X's Change",
@@ -36,7 +53,7 @@ export const RELEASES = [
     type: 'Single · 2026',
     image: 'https://i.scdn.co/image/ab67616d00001e023ee162fe2b018958b62ce3a5',
     links: [{ label: 'Spotify', href: 'https://open.spotify.com/album/0wWf8Cd592Vslhefsd1jO9' }],
-    description: "Assign's first single on Spotify — melodic South African hip-hop that carries the same restless energy as his Instagram freestyles. X's Change finally puts the Abafana Belokishi rapper's pen on record.",
+    description: "Assign's first single on Spotify, released 26 June 2026. No features, just Assign.",
   },
   {
     title: 'The Get Back',
@@ -45,7 +62,7 @@ export const RELEASES = [
     image: asset('images/web/the-get-back.webp'),
     links: [{ label: 'YouTube', href: YT_PLAYLIST_URL }],
     embedSrc: YT_EMBED_SRC,
-    description: "Assign's third EP — The Get Back is a statement of return, resilience, and artistry refined. Stream the full project on YouTube.",
+    description: 'Four tracks: G-Unit, Never, I Get Lonely and Ending (Outro). IIILESTDON produced, mixed and mastered all of it. The whole EP is on YouTube.',
   },
   {
     title: 'ECHOES OF TOMORROW',
@@ -53,7 +70,7 @@ export const RELEASES = [
     type: 'Single · 2026',
     image: 'https://i.scdn.co/image/ab67616d00001e022560559e20b1319460228b53',
     links: [{ label: 'Spotify', href: 'https://open.spotify.com/album/1TVLfIlPfcs3g73lcZB85U' }],
-    description: "SAB's debut single — a cinematic hip-hop offering that blends introspective lyricism with polished production. ECHOES OF TOMORROW signals a bold new chapter for Abafana Belokishi's R&B voice, reaching beyond the township into something bigger and bolder.",
+    description: "SAB's first release on Spotify, out 29 May 2026. There are three songs: ECHOES OF TOMORROW, FONDNESS with Assign, and ALPHA with King Fergo.",
   },
   {
     title: 'Gutara',
@@ -61,39 +78,15 @@ export const RELEASES = [
     type: 'Single · 2026',
     image: dz('3155b0c5180c2fc4376f0f68650d3f13'),
     links: [sp],
-    description: "King Fergo's freshest drop — a high-energy amapiano banger built for the dancefloor. Gutara blends infectious piano loops with hard-hitting bass, proving the Abafana Belokishi sound is only getting bigger.",
+    description: 'King Fergo and Structure, released 14 May 2026.',
   },
   {
     title: 'Paradise',
     artist: 'King Fergo',
-    type: 'Album · 2025',
-    image: dz('fef55077e7f493269dec148ce65778f0'),
+    type: 'Single · 2024',
+    image: dz('52e1d201f9d0c3544daa0a3b1e4b288c'),
     links: [sp],
-    description: "King Fergo's latest studio album — a full sonic journey exploring themes of elevation, joy, and belonging. Paradise is amapiano at its peak: rich, layered, and unapologetically KwaZulu-Natal.",
-  },
-  {
-    title: 'L E G E N D A R Y',
-    artist: 'King Fergo',
-    type: 'Hip-Hop · 2023',
-    image: dz('92d378e2038debd5e494d0cb23391cea'),
-    links: [sp],
-    description: "A bold hip-hop statement track celebrating the grind, the come-up, and the legacy being built from the township up. This is King Fergo in full confidence mode.",
-  },
-  {
-    title: 'PIKIPIKI (Kasi Flavor)',
-    artist: 'King Fergo',
-    type: 'Hip-Hop · 2023',
-    image: dz('a6b128ce93aeb9ea66463f06fa747310'),
-    links: [sp],
-    description: "A hard-hitting hip-hop track with an infectious kasi flavor. PIKIPIKI brings the raw energy of the streets directly to the speakers — no filter, all flavor.",
-  },
-  {
-    title: 'BACKSEAT',
-    artist: 'King Fergo',
-    type: 'Hip-Hop · 2023',
-    image: dz('628e5cc9ac8986cd33872d5f5e77bb4c'),
-    links: [sp],
-    description: "A smooth hip-hop record with hypnotic flow and cinematic energy. BACKSEAT is for the drive home after a long night — laid-back, atmospheric, and deeply felt.",
+    description: 'A King Fergo solo single, released 30 August 2024.',
   },
   {
     title: 'JMK',
@@ -101,15 +94,39 @@ export const RELEASES = [
     type: 'Single · 2023',
     image: dz('21cc1674a0127495da26f510182b11e7'),
     links: [sp],
-    description: "A tribute to the journey, the music, and the culture that fuels it all. JMK is personal, gritty, and honest — the kind of record only someone who's lived it could make.",
+    description: 'A King Fergo solo single, released 3 November 2023.',
+  },
+  {
+    title: 'BACKSEAT',
+    artist: 'King Fergo',
+    type: 'Single · 2023',
+    image: dz('628e5cc9ac8986cd33872d5f5e77bb4c'),
+    links: [sp],
+    description: 'Hip-hop with sab and Trevor, released 31 October 2023.',
+  },
+  {
+    title: 'PIKIPIKI (Kasi Flavor)',
+    artist: 'King Fergo',
+    type: 'Single · 2023',
+    image: dz('a6b128ce93aeb9ea66463f06fa747310'),
+    links: [sp],
+    description: 'A hip-hop posse cut from 16 June 2023. King Fergo shares it with Structure, Rhyme Tyme, Rude P and Styl Makhathaza.',
+  },
+  {
+    title: 'L E G E N D A R Y',
+    artist: 'King Fergo',
+    type: 'Single · 2023',
+    image: dz('92d378e2038debd5e494d0cb23391cea'),
+    links: [sp],
+    description: 'Hip-hop with sab, released 1 June 2023.',
   },
   {
     title: 'HELLO H. HELLO B. (Freestyle)',
     artist: 'King Fergo',
-    type: 'Hip-Hop · 2023',
+    type: 'Single · 2023',
     image: dz('2da3d3dbc7761461a62d663aeec290b9'),
     links: [sp],
-    description: "Raw and unfiltered hip-hop — a freestyle that strips everything back and lets the bars speak. HELLO H. HELLO B. showcases King Fergo's lyrical range and versatility in pure, unpolished form.",
+    description: 'A freestyle with Turn Twenty, released 17 February 2023.',
   },
   {
     title: 'Abafana Belokishi (KePiano One Way)',
@@ -117,7 +134,15 @@ export const RELEASES = [
     type: 'Album · 2022',
     image: dz('e37e30a945da94e5c193b0b35422e61d'),
     links: [{ label: 'Spotify', href: 'https://open.spotify.com/album/3M5gqdVY0HUjvOcwKsxPks' }],
-    description: "The landmark album that put the Abafana Belokishi sound on the map. KePiano One Way blends kasi culture with deep piano house, telling the story of a generation through every track. A must-listen from start to finish.",
+    description: "King Fergo's third album, released 6 October 2022. It has 20 tracks, with Trevor, Maviwest, S'phesh, Structure, Bonesh, Denvelic, Akhonna, Jalie ZA, Syba and Yonela Luke.",
+  },
+  {
+    title: 'Ubomi (Radio Edit)',
+    artist: 'King Fergo',
+    type: 'Single · 2021',
+    image: dz('2534d290e10315cc11c7cbef7d256db1'),
+    links: [sp],
+    description: 'A radio edit of Ubomi with Structure, released 17 December 2021. The full version, which also has Akhonna on it, is on Amapiano Kwa-K. Ubomi means "life" in isiXhosa.',
   },
   {
     title: 'AmaPiano Kwa-K, Vol. 2',
@@ -125,7 +150,7 @@ export const RELEASES = [
     type: 'Album · 2021',
     image: dz('7c66950e59cd184fd7d78a013cbf5d86'),
     links: [sp],
-    description: "The follow-up to the debut that expanded the sonic palette — deeper grooves, richer textures, and more soul. Vol. 2 showed the growth of an artist fully in command of his craft.",
+    description: 'Seven tracks, released 11 December 2021, almost exactly a year after the first volume. Abafana Belokishi, Potsoyi and Kwaze Kwamnandi are on it.',
   },
   {
     title: 'MOLO',
@@ -133,7 +158,7 @@ export const RELEASES = [
     type: 'Single · 2021',
     image: 'https://i.scdn.co/image/ab67616d00001e02df48044a315770b2471190ef',
     links: [{ label: 'Spotify', href: 'https://open.spotify.com/album/0wVLCGlc5mcAXAbQCnd8rf' }],
-    description: "A posse cut in the truest kasi sense — King Fergo hands the mic to S'phesh, Maviwest, Caro P and Structure over warm, rolling piano keys. MOLO is a greeting and an invitation, and it captures the Abafana Belokishi crew at their loosest.",
+    description: "A posse cut from 15 August 2021: King Fergo with S'phesh, Maviwest, Caro P and Structure.",
   },
   {
     title: 'Amapiano Kwa-K',
@@ -141,7 +166,7 @@ export const RELEASES = [
     type: 'Album · 2020',
     image: dz('c016c2bea91cc24cd042a53106847709'),
     links: [{ label: 'Spotify', href: 'https://open.spotify.com/album/59NReRQxf2uBaHZUtNhMpx' }],
-    description: "The debut album that started it all. Raw, township-rooted amapiano straight from KwaZulu-Natal — this is where the Abafana Belokishi story began. Pure, unfiltered, and ahead of its time.",
+    description: "King Fergo's first album, from late 2020. Structure is on all eight tracks, including Ubomi and Sebenza.",
   },
   {
     title: 'SBWL',
@@ -149,16 +174,12 @@ export const RELEASES = [
     type: 'Single · 2020',
     image: 'https://i.scdn.co/image/ab67616d0000b2738c520785542cfcaff9f58c97',
     links: [{ label: 'Spotify', href: 'https://open.spotify.com/album/4IuxmFdc7pdJH4OGcmz0kJ' }],
-    description: "An early single that captures the hunger and the hustle of building something from nothing. SBWL (Sisi Ngithanda Wena Babe) is a fan favourite that resonates far beyond the township.",
-  },
-  {
-    title: 'Ubomi',
-    artist: 'King Fergo',
-    type: 'Single · 2020',
-    image: dz('2534d290e10315cc11c7cbef7d256db1'),
-    links: [sp],
-    description: "A soulful reflection on life, growth, and purpose. Ubomi (meaning 'Life' in isiXhosa) is rooted in the township experience — honest, moving, and impossible to forget.",
+    description: "King Fergo's first single, made with Structure and released 12 May 2020.",
   },
 ];
 
-export const LATEST_RELEASE = RELEASES[0];
+// The hero card and the new-release card feature this one. It is set by hand rather
+// than taken from the top of the list so the label chooses what leads the page.
+export const FEATURED_RELEASE = RELEASES.find((r) => r.title === "Ngiyam'thanda");
+
+export const FIRST_RELEASE_YEAR = Math.min(...RELEASES.map((r) => Number(r.type.match(/\d{4}/)?.[0] ?? Infinity)));

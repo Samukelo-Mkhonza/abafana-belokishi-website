@@ -28,7 +28,7 @@ describe('NewReleasePopup', () => {
     ).toBeInTheDocument()
     expect(
       screen.getByRole('link', { name: /listen on spotify/i })
-    ).toHaveAttribute('href', 'https://open.spotify.com/artist/2tyq2nUN54HaJX4FkjRkuJ')
+    ).toHaveAttribute('href', 'https://open.spotify.com/album/1WQSuk54VomPv8GDE6Msya')
   })
 
   it('dismisses when the close button is pressed', async () => {

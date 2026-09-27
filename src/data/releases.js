@@ -5,7 +5,6 @@ export const YT_PLAYLIST_EMBED_SRC = 'https://www.youtube.com/embed/videoseries?
 
 const KING_FERGO_SPOTIFY = 'https://open.spotify.com/artist/2tyq2nUN54HaJX4FkjRkuJ';
 const sp = { label: 'Spotify', href: KING_FERGO_SPOTIFY };
-const ASSIGN_SPOTIFY = { label: 'Spotify', href: 'https://open.spotify.com/artist/3XoiNab3csSA07GnFOxptt' };
 
 const dz = (hash) =>
   `https://cdn-images.dzcdn.net/images/cover/${hash}/500x500-000000-80-0-0.jpg`;
@@ -19,16 +18,16 @@ export const RELEASES = [
     title: "Ngiyam'thanda",
     artist: 'King Fergo',
     type: 'Single · 2026',
-    image: dz('a7fe92efe88c3ce1acb70a984d9c43e6'),
-    links: [sp],
-    description: "King Fergo's newest single, out 26 September 2026, with HOLLY M, Turn Twenty and Akhonna.",
+    image: 'https://i.scdn.co/image/ab67616d00001e02ada5f2c306b6ac24a35d3a6e',
+    links: [{ label: 'Spotify', href: 'https://open.spotify.com/album/1WQSuk54VomPv8GDE6Msya' }],
+    description: "King Fergo's newest single, out 26 September 2026, with Holly M, Turn Twenty and Akhonna.",
   },
   {
     title: 'Your Son Can Rap - Prelude',
     artist: 'Assign',
     type: 'EP · 2026',
-    image: dz('65aba5dfa51854847adb887e188e2162'),
-    links: [ASSIGN_SPOTIFY],
+    image: 'https://i.scdn.co/image/ab67616d00001e0230d81f31b01ef0c0692db946',
+    links: [{ label: 'Spotify', href: 'https://open.spotify.com/album/09W6crPmusmdKyukofJMM5' }],
     description: 'Four tracks with IIILESTDON, out 25 September 2026: Intro (Still Doing Me), G-Unit (The Get Back), I Get Lonely and Snowball Effect.',
   },
   {

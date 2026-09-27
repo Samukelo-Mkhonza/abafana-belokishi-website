@@ -1,17 +1,70 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-ZA">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/jpeg" href="/images/64058f4f-59c0-4ddb-8649-b082d04a4149.jpg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Abafana Belokishi Entertainment</title>
-    <meta name="description" content="Born from the township. Built for the world. Abafana Belokishi Entertainment — a South African music and podcast powerhouse." />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Abafana Belokishi Entertainment — Music label &amp; podcast from Harding, KZN</title>
+    <meta name="description" content="Born from the township. Built for the world. Abafana Belokishi Entertainment is an amapiano and hip-hop label and podcast from Harding, KwaZulu-Natal. Meet King Fergo, Structure, SAB and Assign." />
+    <link rel="canonical" href="https://samukelo-mkhonza.github.io/abafana-belokishi-website/" />
+    <meta name="theme-color" content="#0b0b0c" />
+    <meta name="color-scheme" content="light dark" />
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/web/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/images/web/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Abafana Belokishi Entertainment" />
+    <meta property="og:title" content="Abafana Belokishi Entertainment" />
+    <meta property="og:description" content="Amapiano, hip-hop and the Abafana Belokishi Podcast — straight from Harding, KwaZulu-Natal." />
+    <meta property="og:url" content="https://samukelo-mkhonza.github.io/abafana-belokishi-website/" />
+    <meta property="og:image" content="https://samukelo-mkhonza.github.io/abafana-belokishi-website/images/web/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Abafana Belokishi Entertainment logo" />
+    <meta property="og:locale" content="en_ZA" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Abafana Belokishi Entertainment" />
+    <meta name="twitter:description" content="Amapiano, hip-hop and the Abafana Belokishi Podcast — straight from Harding, KwaZulu-Natal." />
+    <meta name="twitter:image" content="https://samukelo-mkhonza.github.io/abafana-belokishi-website/images/web/og-image.jpg" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Abafana Belokishi Entertainment",
+        "url": "https://samukelo-mkhonza.github.io/abafana-belokishi-website/",
+        "logo": "https://samukelo-mkhonza.github.io/abafana-belokishi-website/images/web/icon-512.png",
+        "email": "abafanabelokishipodcasters@gmail.com",
+        "telephone": "+27625302863",
+        "address": { "@type": "PostalAddress", "addressLocality": "Harding", "addressRegion": "KwaZulu-Natal", "addressCountry": "ZA" },
+        "sameAs": [
+          "https://www.youtube.com/@abafanabelokishipodcast",
+          "https://www.tiktok.com/@abafanabelokishipodcast",
+          "https://open.spotify.com/playlist/5CXMGVu3rg045oaaYQAR6k"
+        ]
+      }
+    </script>
+
+    <!-- Apply the saved or system theme before first paint so there is no flash. -->
+    <script>
+      (function () {
+        var t;
+        try { t = localStorage.getItem('ab-theme'); } catch (e) {}
+        if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', t);
+        document.documentElement.style.colorScheme = t;
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <p style="padding:2rem;font-family:system-ui,sans-serif">
+        Abafana Belokishi Entertainment — music label and podcast from Harding, KwaZulu-Natal.
+        Email abafanabelokishipodcasters@gmail.com or call 062 530 2863.
+      </p>
+    </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

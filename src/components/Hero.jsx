@@ -1,106 +1,86 @@
-import { useState, useCallback } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { m } from 'framer-motion';
+import { FaSpotify } from 'react-icons/fa';
 import Waveform from './Waveform';
+import { LATEST_RELEASE } from '../data/releases';
+import { scrollToHash } from '../lib/scroll';
+import { largeCover } from '../lib/asset';
 
 const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 30 },
+  initial: { opacity: 0, y: 24 },
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
 });
 
 export default function Hero() {
-  const { scrollY } = useScroll();
-  const bgY = useTransform(scrollY, [0, 700], ['0%', '25%']);
-  const [mouse, setMouse] = useState({ x: 50, y: 50 });
-
-  const handleMouseMove = useCallback((e) => {
-    const r = e.currentTarget.getBoundingClientRect();
-    setMouse({
-      x: ((e.clientX - r.left) / r.width) * 100,
-      y: ((e.clientY - r.top) / r.height) * 100,
-    });
-  }, []);
+  const latest = LATEST_RELEASE;
+  const spotify = latest.links.find((l) => l.label === 'Spotify');
 
   return (
-    <section id="hero" className="hero" onMouseMove={handleMouseMove}>
-      <motion.div
-        className="hero__banner-bg"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: 'url(/images/fb9a3bbb-3559-4926-8317-7e59d5913691.jpg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          opacity: 0.07,
-          pointerEvents: 'none',
-          y: bgY,
-        }}
-        aria-hidden="true"
-      />
-
-      <div
-        className="hero__mouse-glow"
-        style={{ '--mx': `${mouse.x}%`, '--my': `${mouse.y}%` }}
-        aria-hidden="true"
-      />
-
-      <div className="hero__bg-circle" aria-hidden="true" />
-      <span className="hero__ab-mono" aria-hidden="true">AB</span>
-
-      <div className="hero__waveform-top" aria-hidden="true">
-        <Waveform className="waveform-svg" />
-      </div>
-
-      <div className="container">
+    <section id="top" className="hero" aria-labelledby="hero-title">
+      <div className="hero__glow" aria-hidden="true" />
+      <div className="container hero__grid">
         <div className="hero__content">
-          <motion.p className="hero__eyebrow" {...fadeUp(0.1)}>
-            Abafana Belokishi Entertainment
-          </motion.p>
+          <m.p className="eyebrow" {...fadeUp(0.05)}>
+            Music label · Podcast · Harding, KZN
+          </m.p>
 
-          <motion.h1 className="hero__title" {...fadeUp(0.25)}>
-            Born from<br />
-            <em>the</em> Township.<br />
-            Built for<br />
-            <em>the</em> World.
-          </motion.h1>
+          {/* Headline and lede render without a fade: they are the LCP element. */}
+          <h1 id="hero-title" className="hero__title">
+            Born from <span className="hero__muted">the</span> township.
+            <br />
+            Built for <span className="hero__muted">the</span> world.
+          </h1>
 
-          <motion.p className="hero__tagline" {...fadeUp(0.4)}>
-            A KwaZulu-Natal entertainment powerhouse amplifying South African voices
-            through music, podcasting, and culture.
-          </motion.p>
+          <p className="hero__lede">
+            A KwaZulu-Natal entertainment house amplifying South African voices
+            through amapiano, hip-hop and honest conversation.
+          </p>
 
-          <motion.div className="hero__ctas" {...fadeUp(0.55)}>
-            <a
-              href="#artists"
-              className="btn btn--primary"
-              onClick={e => {
-                e.preventDefault();
-                document.querySelector('#artists')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              Meet the Artists
+          <m.div className="hero__ctas" {...fadeUp(0.35)}>
+            <a href="#releases" className="btn btn--primary" onClick={(e) => scrollToHash(e, '#releases')}>
+              Hear the music
             </a>
-            <a
-              href="#podcast"
-              className="btn btn--outline"
-              onClick={e => {
-                e.preventDefault();
-                document.querySelector('#podcast')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              Listen to the Podcast
+            <a href="#artists" className="btn btn--ghost" onClick={(e) => scrollToHash(e, '#artists')}>
+              Meet the artists
             </a>
-          </motion.div>
+          </m.div>
         </div>
+
+        <m.aside className="hero__feature" aria-label="Latest release" {...fadeUp(0.3)}>
+          <div className="hero__cover">
+            <img
+              src={largeCover(latest.image)}
+              srcSet={`${latest.image} 300w, ${largeCover(latest.image)} 640w`}
+              sizes="(max-width: 480px) 96px, 360px"
+              alt={`${latest.title} cover art`}
+              width="640"
+              height="640"
+            />
+            <span className="badge badge--accent hero__badge">Out now</span>
+          </div>
+          <div className="hero__feature-meta">
+            <div>
+              <p className="hero__feature-type">{latest.type}</p>
+              <p className="hero__feature-title">{latest.title}</p>
+              <p className="hero__feature-artist">{latest.artist}</p>
+            </div>
+            {spotify && (
+              <a
+                href={spotify.href}
+                target="_blank"
+                rel="noreferrer"
+                className="icon-btn icon-btn--spotify"
+                aria-label={`Listen to ${latest.title} on Spotify`}
+              >
+                <FaSpotify aria-hidden="true" />
+              </a>
+            )}
+          </div>
+        </m.aside>
       </div>
 
       <div className="hero__waveform" aria-hidden="true">
-        <Waveform className="waveform-svg" />
-      </div>
-
-      <div className="scroll-indicator" aria-hidden="true">
-        <div className="scroll-indicator__line" />
-        <span className="scroll-indicator__label">Scroll</span>
+        <Waveform />
       </div>
     </section>
   );

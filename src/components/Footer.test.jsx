@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { render, screen, fireEvent, within } from '@testing-library/react'
+import { render, screen, fireEvent, within } from '../test/render'
 import Footer from './Footer'
 
 describe('Footer', () => {
@@ -12,11 +12,9 @@ describe('Footer', () => {
   it('renders the footer navigation with anchor hrefs', () => {
     render(<Footer />)
     const nav = screen.getByRole('navigation', { name: /footer navigation/i })
-    for (const label of ['About', 'Artists', 'Releases', 'Podcast', 'Contact']) {
-      expect(within(nav).getByRole('link', { name: label })).toHaveAttribute(
-        'href',
-        `#${label.toLowerCase()}`
-      )
+    const expected = { About: '#about', Artists: '#artists', Music: '#releases', Podcast: '#podcast', Contact: '#contact' }
+    for (const [label, href] of Object.entries(expected)) {
+      expect(within(nav).getByRole('link', { name: label })).toHaveAttribute('href', href)
     }
   })
 
@@ -29,6 +27,13 @@ describe('Footer', () => {
       'href',
       'https://www.youtube.com/@abafanabelokishipodcast'
     )
+  })
+
+  it('only links social accounts that have a real URL', () => {
+    render(<Footer />)
+    for (const link of screen.getAllByRole('link')) {
+      expect(link.getAttribute('href')).not.toBe('#')
+    }
   })
 
   it('smooth-scrolls to the target section when a nav link is clicked', () => {

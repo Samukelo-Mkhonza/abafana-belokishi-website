@@ -8,39 +8,46 @@ Official website for **Abafana Belokishi Entertainment** — a music label, podc
 
 Abafana Belokishi was built by artists, for artists — spanning Amapiano, Hip-Hop, and long-form podcast conversation. The label represents artists **King Fergo**, **SAB**, **Assign**, and **Structure**.
 
-This repository contains the single-page marketing site: an animated hero, the label's story, an artist roster, release showcase with embedded streaming, a YouTube podcast feed, a booking/enquiry form, and a location map.
+This repository contains the single-page marketing site: a hero featuring the latest release, the label's story, the artist roster, a filterable discography with streaming players, the podcast, and a booking form with a location map.
 
 ## Features
 
-- **Hero** — animated landing section introducing the label
-- **About** — label story with animated stat counters (years active, releases, monthly listeners)
-- **Artists** — roster grid with per-artist modal profiles
-- **Releases** — release catalogue with embedded players and a dedicated "New Release" popup for the latest drop
-- **SoundCloud / Spotify embeds** — inline streaming for releases
-- **Podcast** — embedded YouTube video feed with a link to the full channel
-- **Contact** — booking/enquiry form (opens a pre-filled email) plus direct phone, email, and WhatsApp links
-- **Location** — embedded map centered on Harding, KwaZulu-Natal
-- **Light/dark theme toggle** with a dedicated logo per theme
-- Fully responsive, animated with [Framer Motion](https://www.framer.com/motion/)
+- **Hero** — headline plus a card for the latest release, linked to Spotify
+- **About** — the label's story with animated stat counters
+- **Artists** — roster grid; each card opens a profile with bio, socials and a player
+- **Music** — full discography, newest first, filterable by artist, with a detail dialog per release and a "Listen everywhere" player (Spotify, SoundCloud, YouTube)
+- **Podcast** — latest episode and links to YouTube and TikTok
+- **Contact** — validated enquiry form that opens a pre-filled email *or* WhatsApp message, direct phone/WhatsApp/email links, and a map of Harding
+- **New-release card** — a small corner card announcing the latest drop, shown once per release
+- **Light/dark theme** that follows the device setting, can be toggled, and never flashes on load
+
+### Production quality
+
+- **Design system** — all colours, type sizes, spacing, radii and shadows are CSS custom properties in `src/index.css`, defined for both themes
+- **Performance** — third-party players (Spotify, SoundCloud, YouTube, Google Maps) only load when a visitor presses play; images are resized WebP; fonts are self-hosted and preloaded; Framer Motion loads only the features in use
+- **Accessibility** — skip link, semantic landmarks, visible focus, dialogs with focus trap / Esc / focus return, keyboard-operable tabs, `prefers-reduced-motion` support, WCAG AA contrast in both themes
+- **SEO & sharing** — descriptive meta tags, Open Graph/Twitter cards (1200×630 preview image for WhatsApp and socials), JSON-LD organisation data, web app manifest and icons, sitemap, and a branded 404 page
+
+Lighthouse (mobile, production build): Performance 99, Accessibility 100, Best Practices 100, SEO 100.
 
 ## Tech Stack
 
-- [React 19](https://react.dev/) + [Vite 6](https://vitejs.dev/)
-- [React Router](https://reactrouter.com/)
-- [Framer Motion](https://www.framer.com/motion/) for animation
-- [GSAP](https://gsap.com/) for supplementary motion
+- [React 19](https://react.dev/) + [Vite 8](https://vitejs.dev/)
+- [Framer Motion](https://www.framer.com/motion/) (via `LazyMotion`) for animation
 - [react-icons](https://react-icons.github.io/react-icons/)
-- Plain CSS (custom properties, no Tailwind/CSS framework)
+- Self-hosted fonts via [Fontsource](https://fontsource.org/) (Bebas Neue, DM Sans)
+- Plain CSS with custom properties (no Tailwind/CSS framework)
 - [Vitest](https://vitest.dev/) + [React Testing Library](https://testing-library.com/react) for tests
 - [ESLint](https://eslint.org/) for linting
+- [sharp](https://sharp.pixelplumbing.com/) (dev only) for generating web images
 
-> **Node compatibility:** this project targets Node **20.x**. Vite 6 and jsdom 24 are deliberately pinned (not upgraded to Vite 8 / jsdom 25+) because those newer versions require Node ≥20.19, which isn't guaranteed on every dev machine running this project.
+> **Node compatibility:** Vite 8 and jsdom need Node **20.19+** or **22.12+**. CI uses the latest Node 20.
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 20.x
+- Node.js 20.19+ (or 22.12+)
 - npm
 
 ### Installation
@@ -87,18 +94,41 @@ npm run test:watch    # watch mode
 npm run test:coverage # with coverage report
 ```
 
+### Images
+
+```bash
+npm run images
+```
+
+Regenerates the web-sized WebP files, icons and social preview image in `public/images/web/` from the originals in `assets-source/`. Run it after adding or replacing a photo, logo or cover.
+
 ## Project Structure
 
 ```
 src/
-  components/   # page sections (Hero, About, Artists, Releases, Podcast, Contact, Location, Footer, ...)
+  components/    # page sections (Hero, About, Artists, Releases, Podcast, Contact, Footer, ...)
+    ui/          # shared building blocks: Modal, Embed (click-to-load player), Reveal, SectionHeader
+  data/          # content: releases.js, artists.js, site.js (contact details, socials, nav)
   hooks/         # useTheme (light/dark mode)
-  assets/        # bundled images
+  lib/           # helpers: base-path-aware asset URLs, embed URLs, form validation, scrolling
+  test/          # test setup and a render helper
+  index.css      # design tokens and all styles
   App.jsx        # page composition
   main.jsx       # entry point
 public/
-  images/        # logos, banners, artist photos
+  images/web/    # optimised images actually served by the site
+  manifest.webmanifest, sitemap.xml
+assets-source/   # full-size originals (not deployed)
+scripts/
+  optimise-images.mjs
 ```
+
+### Updating content
+
+- **New release:** add it to the top of `RELEASES` in `src/data/releases.js`. The hero card and new-release card use the first entry automatically.
+- **Artist details:** edit `src/data/artists.js`. Social links set to `'#'` are hidden until a real URL is added.
+- **Contact details and label socials:** edit `src/data/site.js`.
+- **Images in JSX** must go through `asset('images/...')` so they resolve under the GitHub Pages base path.
 
 ## Deployment
 

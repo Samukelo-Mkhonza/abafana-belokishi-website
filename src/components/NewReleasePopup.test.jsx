@@ -4,7 +4,7 @@ import {
   screen,
   fireEvent,
   waitForElementToBeRemoved,
-} from '@testing-library/react'
+} from '../test/render'
 import NewReleasePopup from './NewReleasePopup'
 
 // The popup reveals itself 1500ms after mount and animates out via
@@ -44,6 +44,18 @@ describe('NewReleasePopup', () => {
     const dialog = await findDialog()
     fireEvent.keyDown(document, { key: 'Escape' })
     await waitForElementToBeRemoved(dialog, { timeout: 3000 })
+    expect(screen.queryByRole('dialog')).toBeNull()
+  })
+
+  it('stays dismissed for the same release on the next visit', async () => {
+    const { unmount } = render(<NewReleasePopup />)
+    const dialog = await findDialog()
+    fireEvent.click(screen.getByRole('button', { name: /close/i }))
+    await waitForElementToBeRemoved(dialog, { timeout: 3000 })
+    unmount()
+
+    render(<NewReleasePopup />)
+    await new Promise((r) => setTimeout(r, 1700))
     expect(screen.queryByRole('dialog')).toBeNull()
   })
 })

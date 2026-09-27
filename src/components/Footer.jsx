@@ -1,94 +1,68 @@
-import { FaFacebook, FaInstagram, FaYoutube, FaSpotify, FaTiktok } from 'react-icons/fa';
 import { MdEmail, MdPhone } from 'react-icons/md';
-
-const NAV = ['About', 'Artists', 'Releases', 'Podcast', 'Contact'];
-const SOCIALS = [
-  { icon: <FaInstagram />, label: 'Instagram', handle: '@abafana_belokishi_ent', href: '#' },
-  { icon: <FaFacebook />, label: 'Facebook', handle: 'Abafana Belokishi Ent', href: '#' },
-  { icon: <FaYoutube />, label: 'YouTube', handle: '@abafanabelokishipodcast', href: 'https://www.youtube.com/@abafanabelokishipodcast' },
-  { icon: <FaSpotify />, label: 'Spotify', handle: 'Abafana Belokishi', href: 'https://open.spotify.com/playlist/5CXMGVu3rg045oaaYQAR6k' },
-  { icon: <FaTiktok />, label: 'TikTok', handle: '@abafanabelokishipodcast', href: 'https://www.tiktok.com/@abafanabelokishipodcast' },
-];
+import PlatformIcon from './ui/PlatformIcon';
+import { CONTACT, NAV_LINKS, SOCIALS, SITE_NAME } from '../data/site';
+import { asset } from '../lib/asset';
+import { scrollToHash } from '../lib/scroll';
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
-  const scroll = (id) => (e) => {
-    e.preventDefault();
-    document.querySelector(`#${id.toLowerCase()}`)?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
-    <footer className="footer">
+    <footer className="site-footer">
       <div className="container">
-        <div className="footer__top">
+        <div className="site-footer__top">
+          <div className="site-footer__brand">
+            <img src={asset('images/web/logo-dark.webp')} alt="" width="48" height="48" loading="lazy" />
+            <p className="site-footer__name">Abafana Belokishi</p>
+            <p className="site-footer__tagline">Born from the township. Built for the world.</p>
+          </div>
+
+          <nav aria-label="Footer navigation">
+            <p className="site-footer__heading">Explore</p>
+            <ul className="site-footer__list">
+              {NAV_LINKS.map(({ label, href }) => (
+                <li key={href}>
+                  <a href={href} className="site-footer__link" onClick={(e) => scrollToHash(e, href)}>
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
           <div>
-            <img
-              src="/images/dark-mode-ab-logo.png"
-              alt="Abafana Belokishi"
-              className="footer__brand-logo"
-            />
-            <div className="footer__brand-name">ABAFANA BELOKISHI</div>
-            <div className="footer__brand-sub">Entertainment</div>
-            <p className="footer__tagline">
-              Born from the township.<br />Built for the world.
-            </p>
+            <p className="site-footer__heading">Follow</p>
+            <ul className="site-footer__list">
+              {SOCIALS.map(({ platform, handle, href }) => (
+                <li key={platform}>
+                  <a href={href} className="site-footer__link" target="_blank" rel="noreferrer" aria-label={`${platform}: ${handle}`}>
+                    <PlatformIcon platform={platform} /> {platform}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
           <div>
-            <p className="footer__col-title">Navigate</p>
-            <nav className="footer__links" aria-label="Footer navigation">
-              {NAV.map(item => (
-                <a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  className="footer__link"
-                  onClick={scroll(item)}
-                >
-                  {item}
+            <p className="site-footer__heading">Contact</p>
+            <ul className="site-footer__list">
+              <li>
+                <a href={`mailto:${CONTACT.email}`} className="site-footer__link site-footer__link--wrap">
+                  <MdEmail aria-hidden="true" /> {CONTACT.email}
                 </a>
-              ))}
-            </nav>
-          </div>
-
-          <div>
-            <p className="footer__col-title">Connect</p>
-            <div className="footer__socials">
-              {SOCIALS.map(({ icon, label, handle, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  className="footer__social"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={`${label}: ${handle}`}
-                >
-                  <span className="footer__social-icon" aria-hidden="true">{icon}</span>
-                  <span>{handle}</span>
+              </li>
+              <li>
+                <a href={CONTACT.phoneHref} className="site-footer__link">
+                  <MdPhone aria-hidden="true" /> {CONTACT.phoneDisplay}
                 </a>
-              ))}
-
-              <a href="mailto:abafanabelokishipodcasters@gmail.com" className="footer__social">
-                <span className="footer__social-icon" aria-hidden="true"><MdEmail /></span>
-                <span>abafanabelokishipodcasters@gmail.com</span>
-              </a>
-
-              <a href="tel:+27625302863" className="footer__social">
-                <span className="footer__social-icon" aria-hidden="true"><MdPhone /></span>
-                <span>062 530 2863</span>
-              </a>
-            </div>
+              </li>
+            </ul>
           </div>
         </div>
 
-        <div className="footer__bottom">
-          <p className="footer__copy">
-            &copy; {year} Abafana Belokishi Entertainment. All rights reserved. KwaZulu-Natal, South Africa.
-          </p>
-          <div className="footer__legal">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms</a>
-          </div>
+        <div className="site-footer__bottom">
+          <p>&copy; {year} {SITE_NAME}. All rights reserved.</p>
+          <p>Harding, KwaZulu-Natal, South Africa</p>
         </div>
       </div>
     </footer>

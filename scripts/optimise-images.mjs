@@ -8,8 +8,8 @@ const SRC = 'assets-source';
 const OUT = 'public/images/web';
 
 const jobs = [
-  { src: 'dark-mode-ab-logo.png', out: 'logo-dark.webp', width: 256 },
-  { src: 'ab-new-logo.JPG', out: 'logo-light.webp', width: 256 },
+  { src: 'ab-logo-white-transparent.png', out: 'logo-dark.webp', width: 256, alpha: true },
+  { src: 'ab-logo-black-transparent.png', out: 'logo-light.webp', width: 256, alpha: true },
   { src: 'The Get Back - Cover 1.jpeg', out: 'the-get-back.webp', width: 640 },
   { src: 'abafana_youtube_banner_mobilesafe_2560x1440.png', out: 'podcast-banner.webp', width: 1600 },
   { src: 'abafana_youtube_banner_mobilesafe_2560x1440.png', out: 'podcast-banner-sm.webp', width: 800 },
@@ -32,11 +32,12 @@ const icons = [
 
 await mkdir(path.join(OUT, 'artists'), { recursive: true });
 
-for (const { src, out, width, square } of jobs) {
+for (const { src, out, width, square, alpha } of jobs) {
   await sharp(path.join(SRC, src))
     .rotate()
     .resize(square ? { width, height: width, fit: 'cover', position: 'attention' } : { width, withoutEnlargement: true })
-    .webp({ quality: 78 })
+    // Logos keep their transparency; quality must stay high or edges band.
+    .webp(alpha ? { quality: 90, alphaQuality: 100 } : { quality: 78 })
     .toFile(path.join(OUT, out));
 }
 

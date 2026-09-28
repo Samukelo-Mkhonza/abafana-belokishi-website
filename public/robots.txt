@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://abafanabelokishientertainment.co.za/sitemap.xml

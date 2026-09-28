@@ -21,7 +21,7 @@ export default function Hero() {
       <div className="container hero__grid">
         <div className="hero__content">
           <m.p className="eyebrow" {...fadeUp(0.05)}>
-            Record label and podcast · Harding, KZN
+            Abafana Belokishi Entertainment · Harding, KZN
           </m.p>
 
           {/* Headline and lede render without a fade: they are the LCP element. */}

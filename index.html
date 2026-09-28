@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Abafana Belokishi Entertainment | Record label and podcast, Harding KZN</title>
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="description" content="Record label and podcast from Harding, KwaZulu-Natal. Amapiano and hip-hop from King Fergo, Structure, SAB and Assign, and the Abafana Belokishi Podcast on YouTube." />
     <link rel="canonical" href="https://abafanabelokishientertainment.co.za/" />
     <meta name="theme-color" content="#0b0b0c" />
@@ -31,17 +32,35 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Abafana Belokishi Entertainment",
-        "url": "https://abafanabelokishientertainment.co.za/",
-        "logo": "https://abafanabelokishientertainment.co.za/images/web/icon-512.png",
-        "email": "abafanabelokishipodcasters@gmail.com",
-        "telephone": "+27625302863",
-        "address": { "@type": "PostalAddress", "addressLocality": "Harding", "addressRegion": "KwaZulu-Natal", "addressCountry": "ZA" },
-        "sameAs": [
-          "https://www.youtube.com/@abafanabelokishipodcast",
-          "https://www.tiktok.com/@abafanabelokishipodcast",
-          "https://open.spotify.com/playlist/5CXMGVu3rg045oaaYQAR6k"
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://abafanabelokishientertainment.co.za/#website",
+            "url": "https://abafanabelokishientertainment.co.za/",
+            "name": "Abafana Belokishi Entertainment",
+            "alternateName": ["Abafana Belokishi", "Abafana Belokishi Ent"],
+            "inLanguage": "en-ZA",
+            "publisher": { "@id": "https://abafanabelokishientertainment.co.za/#organization" }
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://abafanabelokishientertainment.co.za/#organization",
+            "name": "Abafana Belokishi Entertainment",
+            "alternateName": ["Abafana Belokishi", "Abafana Belokishi Ent", "Abafana Belokishi Podcast"],
+            "description": "Record label and podcast from Harding, KwaZulu-Natal, South Africa, releasing amapiano and hip-hop from King Fergo, Structure, SAB and Assign.",
+            "url": "https://abafanabelokishientertainment.co.za/",
+            "logo": "https://abafanabelokishientertainment.co.za/images/web/icon-512.png",
+            "image": "https://abafanabelokishientertainment.co.za/images/web/og-image.jpg",
+            "email": "abafanabelokishipodcasters@gmail.com",
+            "telephone": "+27625302863",
+            "address": { "@type": "PostalAddress", "addressLocality": "Harding", "addressRegion": "KwaZulu-Natal", "addressCountry": "ZA" },
+            "areaServed": "ZA",
+            "sameAs": [
+              "https://www.youtube.com/@abafanabelokishipodcast",
+              "https://www.tiktok.com/@abafanabelokishipodcast",
+              "https://open.spotify.com/playlist/5CXMGVu3rg045oaaYQAR6k"
+            ]
+          }
         ]
       }
     </script>
@@ -60,10 +79,14 @@
   <body>
     <div id="root"></div>
     <noscript>
-      <p style="padding:2rem;font-family:system-ui,sans-serif">
-        Abafana Belokishi Entertainment is a record label and podcast from Harding, KwaZulu-Natal.
-        Email abafanabelokishipodcasters@gmail.com or call 062 530 2863.
-      </p>
+      <div style="padding:2rem;font-family:system-ui,sans-serif">
+        <h1>Abafana Belokishi Entertainment</h1>
+        <p>
+          Abafana Belokishi Entertainment is a record label and podcast from Harding, KwaZulu-Natal,
+          South Africa, releasing amapiano and hip-hop from King Fergo, Structure, SAB and Assign.
+        </p>
+        <p>Email abafanabelokishipodcasters@gmail.com or call 062 530 2863.</p>
+      </div>
     </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>

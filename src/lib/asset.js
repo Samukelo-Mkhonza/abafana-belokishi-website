@@ -1,5 +1,5 @@
-// Files in public/ are served under Vite's base path (/abafana-belokishi-website/
-// on GitHub Pages), so string paths in JSX must be prefixed or they 404 in production.
+// Files in public/ are served under Vite's base path (/ on the custom domain), so
+// string paths in JSX must be prefixed or they 404 if the base ever changes.
 export function asset(path) {
   return `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
 }

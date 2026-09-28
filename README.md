@@ -2,7 +2,7 @@
 
 Official website for **Abafana Belokishi Entertainment** — a music label, podcast network, and creative collective rooted in Harding, KwaZulu-Natal, South Africa. "Abafana Belokishi" translates to *"The Boys of the Township,"* and the site exists to give the label's artists, releases, and podcast a home online.
 
-**Live site:** https://samukelo-mkhonza.github.io/abafana-belokishi-website/
+**Live site:** https://abafanabelokishientertainment.co.za/
 
 ## About
 
@@ -133,7 +133,7 @@ scripts/
 
 ## Deployment
 
-The site auto-deploys to **GitHub Pages** on every push to `main` via [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml): it lints, tests, builds with `--base=/abafana-belokishi-website/`, and publishes `dist/`. A separate [`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs lint/test/build on pull requests, and [CodeQL](.github/workflows/codeql.yml) + [Dependabot](.github/dependabot.yml) provide ongoing security scanning.
+The site auto-deploys to **GitHub Pages** on every push to `main` via [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml): it lints, tests, builds with `--base=/`, and publishes `dist/` to the custom domain [abafanabelokishientertainment.co.za](https://abafanabelokishientertainment.co.za/) (set under **Settings → Pages → Custom domain**, with DNS at GoDaddy). A separate [`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs lint/test/build on pull requests, and [CodeQL](.github/workflows/codeql.yml) + [Dependabot](.github/dependabot.yml) provide ongoing security scanning.
 
 ## Contact
 

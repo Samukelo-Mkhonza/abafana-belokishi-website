@@ -31,7 +31,7 @@ address the issue before any public disclosure.
 In scope:
 
 - This repository's source code and GitHub Actions workflows.
-- The deployed site at https://samukelo-mkhonza.github.io/abafana-belokishi-website/
+- The deployed site at https://abafanabelokishientertainment.co.za/
 
 Out of scope:
 

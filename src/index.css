@@ -259,6 +259,10 @@ section[id]:focus { outline: none; }
 }
 .btn:active { transform: translateY(1px); }
 .btn svg { font-size: 1.15em; flex-shrink: 0; }
+/* With a large system text size, labels must wrap rather than push past the screen edge. */
+@media (max-width: 480px) {
+  .btn { max-width: 100%; white-space: normal; text-align: center; padding-block: var(--space-2); }
+}
 .btn--sm { min-height: 44px; padding: 0 var(--space-4); }
 .btn--block { width: 100%; }
 
@@ -529,7 +533,7 @@ section[id]:focus { outline: none; }
   margin-top: auto;
   padding-top: var(--space-6);
 }
-.drawer__contact { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2); }
+.drawer__contact { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); }
 @media (max-height: 480px) {
   .drawer__link { min-height: 48px; font-size: 1.6rem; }
   .drawer__foot { padding-top: var(--space-4); }
@@ -626,15 +630,22 @@ section[id]:focus { outline: none; }
   pointer-events: none;
 }
 
+/* Long release titles must shrink or wrap rather than widen the hero: the page
+   clips horizontal overflow, so anything wider than the screen is cut off. */
+.hero__feature-meta > div { min-width: 0; }
+.hero__feature-title { overflow-wrap: break-word; }
+.hero__feature-meta .icon-btn { flex-shrink: 0; }
+
 @media (max-width: 860px) {
   .hero { min-height: 0; }
-  .hero__grid { grid-template-columns: 1fr; }
+  .hero__grid { grid-template-columns: minmax(0, 1fr); }
   .hero__feature { justify-self: start; max-width: 340px; transform: none; }
 }
 @media (max-width: 480px) {
   .hero__ctas .btn { flex: 1 1 100%; }
-  .hero__feature { max-width: none; display: grid; grid-template-columns: 96px 1fr; align-items: center; gap: var(--space-3); }
+  .hero__feature { max-width: none; display: grid; grid-template-columns: 96px minmax(0, 1fr); align-items: center; gap: var(--space-3); }
   .hero__feature-meta { padding: 0 var(--space-2) 0 0; }
+  .hero__feature-title { font-size: clamp(1.35rem, 0.9rem + 3vw, 1.9rem); }
   .hero__badge { display: none; }
 }
 
@@ -691,7 +702,7 @@ section[id]:focus { outline: none; }
   color: var(--text-subtle);
 }
 @media (max-width: 860px) {
-  .about__grid { grid-template-columns: 1fr; }
+  .about__grid { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* ==========================================================================
@@ -744,7 +755,7 @@ section[id]:focus { outline: none; }
 .profile__head,
 .release-detail__head {
   display: grid;
-  grid-template-columns: 180px 1fr;
+  grid-template-columns: 180px minmax(0, 1fr);
   gap: var(--space-5);
   align-items: center;
   padding-right: var(--space-7);
@@ -772,7 +783,7 @@ section[id]:focus { outline: none; }
 
 @media (max-width: 560px) {
   .profile__head,
-  .release-detail__head { grid-template-columns: 1fr; padding-right: 0; }
+  .release-detail__head { grid-template-columns: minmax(0, 1fr); padding-right: 0; }
   .profile__photo,
   .release-detail__cover { max-width: 160px; }
 }
@@ -859,7 +870,7 @@ section[id]:focus { outline: none; }
   letter-spacing: var(--tracking-display);
   text-transform: uppercase;
 }
-@media (max-width: 860px) { .listen { grid-template-columns: 1fr; } }
+@media (max-width: 860px) { .listen { grid-template-columns: minmax(0, 1fr); } }
 
 /* ==========================================================================
    Click-to-load embeds
@@ -969,7 +980,7 @@ section[id]:focus { outline: none; }
 .podcast__lede { margin-block: var(--space-4) var(--space-6); font-size: var(--fs-md); color: var(--text-muted); }
 .podcast__player .embed { box-shadow: var(--shadow-lg); }
 .podcast__waveform { position: absolute; left: 0; right: 0; bottom: 0; height: 56px; color: var(--accent); opacity: 0.2; }
-@media (max-width: 860px) { .podcast__grid { grid-template-columns: 1fr; } }
+@media (max-width: 860px) { .podcast__grid { grid-template-columns: minmax(0, 1fr); } }
 
 /* ==========================================================================
    Contact
@@ -1062,9 +1073,9 @@ section[id]:focus { outline: none; }
 .form-success { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-4); }
 .form-success__title { font-family: var(--font-display); font-size: var(--fs-xl); line-height: 1; letter-spacing: var(--tracking-display); }
 
-@media (max-width: 860px) { .contact__grid { grid-template-columns: 1fr; } }
+@media (max-width: 860px) { .contact__grid { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 560px) {
-  .form__row { grid-template-columns: 1fr; }
+  .form__row { grid-template-columns: minmax(0, 1fr); }
   .form__actions .btn { flex: 1 1 100%; }
 }
 
@@ -1116,7 +1127,7 @@ section[id]:focus { outline: none; }
   color: #8f8a81;
 }
 @media (max-width: 860px) { .site-footer__top { grid-template-columns: repeat(2, minmax(0, 1fr)); } .site-footer__brand { grid-column: 1 / -1; } }
-@media (max-width: 420px) { .site-footer__top { grid-template-columns: 1fr; } }
+@media (max-width: 420px) { .site-footer__top { grid-template-columns: minmax(0, 1fr); } }
 
 /* ==========================================================================
    Modal & toast

@@ -9,20 +9,28 @@ on:
     tags: ['*']
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   mirror:
     name: Push mirror
     runs-on: ubuntu-latest
     steps:
       - name: Checkout (full history)
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Push to GitLab
         env:
           GITLAB_TOKEN: ${{ secrets.GITLAB_MIRROR_TOKEN }}
+        # The token goes in as a one-off auth header instead of the remote URL,
+        # so it never lands in .git/config or in git's error output.
         run: |
-          git remote add gitlab "https://oauth2:${GITLAB_TOKEN}@gitlab.com/Samukelo-Mkhonza/abafana-belokishi-website.git"
-          git push gitlab --all
-          git push gitlab --tags
+          auth=$(printf 'oauth2:%s' "$GITLAB_TOKEN" | base64 -w0)
+          echo "::add-mask::$auth"
+          git remote add gitlab https://gitlab.com/Samukelo-Mkhonza/abafana-belokishi-website.git
+          git -c http.https://gitlab.com/.extraheader="Authorization: Basic $auth" push gitlab --all
+          git -c http.https://gitlab.com/.extraheader="Authorization: Basic $auth" push gitlab --tags

@@ -1,7 +1,7 @@
 import { asset } from '../lib/asset';
 
 export const YT_PLAYLIST_URL = 'https://www.youtube.com/playlist?list=PLky-eQTbtiYxoX_693z9MR9F8vFYExSZQ';
-export const YT_PLAYLIST_EMBED_SRC = 'https://www.youtube.com/embed/videoseries?list=PLky-eQTbtiYxoX_693z9MR9F8vFYExSZQ';
+export const YT_PLAYLIST_EMBED_SRC = 'https://www.youtube-nocookie.com/embed/videoseries?list=PLky-eQTbtiYxoX_693z9MR9F8vFYExSZQ';
 
 const KING_FERGO_SPOTIFY = 'https://open.spotify.com/artist/2tyq2nUN54HaJX4FkjRkuJ';
 const sp = { label: 'Spotify', href: KING_FERGO_SPOTIFY };

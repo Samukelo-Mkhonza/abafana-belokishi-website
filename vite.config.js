@@ -22,7 +22,7 @@ function notFoundPage() {
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="robots" content="noindex" />
 <title>Page not found | Abafana Belokishi Entertainment</title>
-<link rel="icon" type="image/png" href="${base}images/web/favicon-32.png" />
+<link rel="icon" href="${base}favicon.ico" sizes="16x16 32x32 48x48" />
 <style>
   body{margin:0;min-height:100svh;display:grid;place-items:center;padding:1.5rem;background:#0b0b0c;color:#f3f1ec;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center}
   img{width:72px;height:72px;border-radius:50%;margin:0 auto 1.5rem}

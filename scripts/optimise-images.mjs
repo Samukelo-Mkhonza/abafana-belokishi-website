@@ -1,6 +1,6 @@
 // Regenerates the web-sized images in public/images/web from the originals.
 // Run after adding or replacing a source image: `npm run images`.
-import { mkdir } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
 
@@ -23,6 +23,8 @@ const jobs = [
   }),
 ];
 
+const ICON_SRC = path.join(SRC, '64058f4f-59c0-4ddb-8649-b082d04a4149.jpg');
+
 const icons = [
   { out: 'favicon-32.png', size: 32 },
   { out: 'apple-touch-icon.png', size: 180 },
@@ -43,11 +45,31 @@ for (const { src, out, width, square, alpha } of jobs) {
 
 // Black-on-white logo reads best at small sizes and on both browser themes.
 for (const { out, size } of icons) {
-  await sharp(path.join(SRC, '64058f4f-59c0-4ddb-8649-b082d04a4149.jpg'))
+  await sharp(ICON_SRC)
     .resize(size, size)
     .png()
     .toFile(path.join(OUT, out));
 }
+
+// Google Search only shows a favicon that is square and a multiple of 48px,
+// and falls back to /favicon.ico, so ship one there with a 48px frame.
+const icoSizes = [16, 32, 48];
+const frames = await Promise.all(icoSizes.map((size) => sharp(ICON_SRC).resize(size, size).png().toBuffer()));
+const header = Buffer.alloc(6 + 16 * frames.length);
+header.writeUInt16LE(1, 2);
+header.writeUInt16LE(frames.length, 4);
+let offset = header.length;
+frames.forEach((png, i) => {
+  const entry = 6 + 16 * i;
+  header.writeUInt8(icoSizes[i], entry);
+  header.writeUInt8(icoSizes[i], entry + 1);
+  header.writeUInt16LE(1, entry + 4);
+  header.writeUInt16LE(32, entry + 6);
+  header.writeUInt32LE(png.length, entry + 8);
+  header.writeUInt32LE(offset, entry + 12);
+  offset += png.length;
+});
+await writeFile('public/favicon.ico', Buffer.concat([header, ...frames]));
 
 // 1200x630 is the size WhatsApp, Facebook and X all crop link previews to.
 await sharp(path.join(SRC, 'fb9a3bbb-3559-4926-8317-7e59d5913691.jpg'))
@@ -55,4 +77,4 @@ await sharp(path.join(SRC, 'fb9a3bbb-3559-4926-8317-7e59d5913691.jpg'))
   .jpeg({ quality: 82, mozjpeg: true })
   .toFile(path.join(OUT, 'og-image.jpg'));
 
-console.log(`Wrote ${jobs.length + icons.length + 1} images to ${OUT}`);
+console.log(`Wrote ${jobs.length + icons.length + 1} images to ${OUT}, plus public/favicon.ico`);

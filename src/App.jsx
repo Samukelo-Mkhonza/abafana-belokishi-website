@@ -9,6 +9,7 @@ import Podcast from './components/Podcast';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import NewReleasePopup from './components/NewReleasePopup';
+import ChatBot from './components/ChatBot';
 
 function App() {
   const { theme, toggle } = useTheme();
@@ -28,6 +29,7 @@ function App() {
         </main>
         <Footer />
         <NewReleasePopup />
+        <ChatBot />
       </MotionConfig>
     </LazyMotion>
   );

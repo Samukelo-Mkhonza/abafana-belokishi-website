@@ -19,6 +19,7 @@ This repository contains the single-page marketing site: a hero featuring the cu
 - **Podcast** — latest episode and links to YouTube and TikTok
 - **Contact** — validated enquiry form that opens a pre-filled email *or* WhatsApp message, direct phone/WhatsApp/email links, and a map of Harding
 - **New-release card** — a small corner card for the featured release, shown once per release
+- **Chat** — an offline FAQ bot in the corner. It matches keywords against the data files in the browser (no AI service, no network calls) and answers about the label, artists, releases, the podcast, bookings and location, with links
 - **Mobile menu** — a side drawer with focus trapping, Esc/backdrop to close and page scroll locked while open
 - **Light/dark theme** that follows the device setting, can be toggled, and never flashes on load
 
@@ -129,6 +130,7 @@ scripts/
 - **New release:** add it to the top of `RELEASES` in `src/data/releases.js`. Keep descriptions to facts that can be checked (date, tracks, who is on it). The hero card and new-release card show `FEATURED_RELEASE`, set in the same file; change it when there is a new album or single to lead with.
 - **Artist details:** edit `src/data/artists.js`. Social links set to `'#'` are hidden until a real URL is added.
 - **Contact details and label socials:** edit `src/data/site.js`.
+- **Chat answers** update themselves from the data files. To teach the bot a new kind of question, add an intent with keywords to `src/lib/chatbot.js` and a case to `src/lib/chatbot.test.js`.
 - **Images in JSX** must go through `asset('images/...')` so they resolve under the GitHub Pages base path.
 
 ## Deployment

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { render, screen, fireEvent, within, waitForElementToBeRemoved } from '../test/render'
+import { render, screen, fireEvent, within, waitFor, waitForElementToBeRemoved } from '../test/render'
 import Releases from './Releases'
 import { RELEASES } from '../data/releases'
 
@@ -42,7 +42,9 @@ describe('Releases', () => {
 
     fireEvent.keyDown(document, { key: 'Escape' })
     await waitForElementToBeRemoved(dialog)
-    expect(card).toHaveFocus()
+    // Focus goes back in the modal's unmount cleanup, which React can run just
+    // after the dialog leaves the DOM.
+    await waitFor(() => expect(card).toHaveFocus())
   })
 
   it('only loads a streaming player after the visitor asks for it', () => {

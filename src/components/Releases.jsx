@@ -6,7 +6,9 @@ import ListenEverywhere from './ListenEverywhere';
 import SectionHeader from './ui/SectionHeader';
 import { RELEASES } from '../data/releases';
 
-const INITIAL_COUNT = 8;
+// One large sleeve plus eight small ones fills every row at each grid width
+// (four, three and two columns) without leaving a gap.
+const INITIAL_COUNT = 9;
 const ALL = 'All';
 
 export default function Releases() {

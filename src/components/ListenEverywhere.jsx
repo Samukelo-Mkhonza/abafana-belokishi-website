@@ -2,7 +2,11 @@ import { useRef, useState } from 'react';
 import { FaSpotify, FaSoundcloud, FaYoutube } from 'react-icons/fa';
 import Embed from './ui/Embed';
 import { CHANNELS } from '../data/site';
-import { YT_PLAYLIST_URL, YT_PLAYLIST_EMBED_SRC } from '../data/releases';
+import { RELEASES, FEATURED_RELEASE, YT_PLAYLIST_URL, YT_PLAYLIST_EMBED_SRC } from '../data/releases';
+
+// Each player waits behind the label's own cover art; these are covers the page
+// has already loaded further up, so they cost no extra data.
+const coverOf = (title) => RELEASES.find((r) => r.title === title)?.image;
 
 const TABS = [
   {
@@ -11,6 +15,7 @@ const TABS = [
     icon: FaSpotify,
     title: 'Abafana Belokishi: The Playlist',
     src: CHANNELS.spotifyPlaylistEmbed,
+    poster: FEATURED_RELEASE.image,
     height: 352,
     href: CHANNELS.spotifyPlaylist,
     cta: 'Open the playlist on Spotify',
@@ -21,6 +26,7 @@ const TABS = [
     icon: FaSoundcloud,
     title: 'Assign on SoundCloud',
     src: CHANNELS.soundcloudEmbed,
+    poster: coverOf('Your Son Can Rap - Prelude'),
     height: 352,
     href: CHANNELS.soundcloud,
     cta: 'Open Assign on SoundCloud',
@@ -31,6 +37,7 @@ const TABS = [
     icon: FaYoutube,
     title: 'The Get Back on YouTube',
     src: YT_PLAYLIST_EMBED_SRC,
+    poster: coverOf('The Get Back'),
     ratio: '16 / 9',
     href: YT_PLAYLIST_URL,
     cta: 'Open The Get Back on YouTube',
@@ -81,7 +88,7 @@ export default function ListenEverywhere() {
       </div>
 
       <div id="listen-panel" role="tabpanel" aria-labelledby={`listen-tab-${tab.id}`} className="listen__player">
-        <Embed key={tab.id} src={tab.src} height={tab.height} ratio={tab.ratio} title={tab.title} provider={tab.label} />
+        <Embed key={tab.id} src={tab.src} height={tab.height} ratio={tab.ratio} poster={tab.poster} title={tab.title} provider={tab.label} />
       </div>
     </div>
   );

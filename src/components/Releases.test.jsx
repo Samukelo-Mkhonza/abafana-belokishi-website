@@ -8,7 +8,7 @@ const cards = () => within(screen.getAllByRole('list')[0]).getAllByRole('button'
 describe('Releases', () => {
   it('shows the newest releases first and reveals the rest on demand', () => {
     render(<Releases />)
-    expect(cards()).toHaveLength(8)
+    expect(cards()).toHaveLength(9)
     expect(cards()[0]).toHaveTextContent(RELEASES[0].title)
 
     fireEvent.click(screen.getByRole('button', { name: `Show all ${RELEASES.length} releases` }))

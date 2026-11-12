@@ -58,4 +58,16 @@ describe('NewReleasePopup', () => {
     await new Promise((r) => setTimeout(r, 1700))
     expect(screen.queryByRole('dialog')).toBeNull()
   })
+
+  it('stays away on a phone, where the hero already shows the release', async () => {
+    const original = window.matchMedia
+    window.matchMedia = (query) => ({ ...original(query), matches: query === '(max-width: 480px)' })
+    try {
+      render(<NewReleasePopup />)
+      await new Promise((resolve) => setTimeout(resolve, 1700))
+      expect(screen.queryByRole('dialog')).toBeNull()
+    } finally {
+      window.matchMedia = original
+    }
+  })
 })

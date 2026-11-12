@@ -19,6 +19,8 @@ const jobs = [
     return [
       { src, out: `artists/${slug}.webp`, width: 720, square: true },
       { src, out: `artists/${slug}-sm.webp`, width: 360, square: true },
+      // The hero line-up shows each photo a quarter of a phone screen wide.
+      { src, out: `artists/${slug}-xs.webp`, width: 180, square: true },
     ];
   }),
 ];

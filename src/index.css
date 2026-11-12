@@ -4,7 +4,7 @@
    use raw values, so both themes and all breakpoints stay consistent.
    ========================================================================== */
 :root {
-  /* Palette — monochrome brand with the gold from the podcast artwork as the single accent */
+  /* Palette — paper and ink, with the red of the Ngiyam'thanda rose as the single accent */
   --bg: #f6f4ef;
   --bg-alt: #eeebe4;
   --surface: #ffffff;
@@ -14,13 +14,13 @@
   --text-subtle: #67625a;
   --border: #dcd7cd;
   --border-strong: #121212;
-  --accent: #8a5d0c;
-  --accent-soft: rgb(138 93 12 / 0.12);
+  --accent: #b8141c;
+  --accent-soft: rgb(184 20 28 / 0.1);
   --on-accent: #ffffff;
   --inverse-bg: #121212;
   --inverse-text: #f6f4ef;
   --overlay: rgb(10 10 10 / 0.6);
-  --focus: #b07a15;
+  --focus: #b8141c;
   --danger: #b3261e;
   --spotify: #1db954;
   --youtube: #ff0033;
@@ -85,13 +85,13 @@
   --text-subtle: #8f8a81;
   --border: #2a2a2f;
   --border-strong: #f3f1ec;
-  --accent: #e0b25a;
-  --accent-soft: rgb(224 178 90 / 0.14);
+  --accent: #ff5a52;
+  --accent-soft: rgb(255 90 82 / 0.14);
   --on-accent: #111111;
   --inverse-bg: #f3f1ec;
   --inverse-text: #0b0b0c;
   --overlay: rgb(0 0 0 / 0.72);
-  --focus: #e0b25a;
+  --focus: #ff5a52;
   --danger: #ff8a80;
   --shadow: 0 10px 30px -12px rgb(0 0 0 / 0.7);
   --shadow-lg: 0 30px 80px -20px rgb(0 0 0 / 0.85);
@@ -248,7 +248,7 @@ section[id]:focus { outline: none; }
   gap: var(--space-2);
   min-height: 48px;
   padding: 0 var(--space-5);
-  border-radius: var(--radius-pill);
+  border-radius: 2px;
   border: 1.5px solid transparent;
   font-size: var(--fs-sm);
   font-weight: 600;
@@ -553,100 +553,203 @@ section[id]:focus { outline: none; }
 }
 
 /* ==========================================================================
-   Hero
+   Hero — set like a gig poster: a masthead line, the tagline as large as the
+   sheet allows, and the four artists lined up edge to edge underneath.
    ========================================================================== */
 .hero {
   position: relative;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  min-height: min(calc(100svh - var(--header-h)), 900px);
-  padding-block: clamp(3rem, 2rem + 5vw, 6rem) clamp(5rem, 4rem + 5vw, 8rem);
+  padding-top: clamp(1.25rem, 0.75rem + 2vw, 2.5rem);
 }
-.hero__glow {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(60% 55% at 85% 30%, var(--accent-soft), transparent 70%),
-    radial-gradient(45% 40% at 0% 100%, color-mix(in srgb, var(--text) 6%, transparent), transparent 70%);
-  pointer-events: none;
-}
-.hero__grid {
-  position: relative;
+.hero__inner {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.85fr);
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  column-gap: clamp(2rem, 1rem + 4vw, 5rem);
   align-items: center;
-  gap: clamp(2rem, 1rem + 5vw, 6rem);
 }
-.hero__title {
-  font-family: var(--font-display);
-  font-size: var(--fs-hero);
-  line-height: 0.9;
-  letter-spacing: var(--tracking-display);
+.hero__masthead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-5);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border-strong);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-caps);
   text-transform: uppercase;
 }
+.hero__title {
+  margin-block: clamp(1rem, 0.5rem + 2vw, 2rem) clamp(1rem, 0.6rem + 1.6vw, 1.75rem);
+  font-family: var(--font-display);
+  /* Sized from the sheet's width so each sentence fills one line on a wide screen. */
+  /* The cap is in px, not rem: the line already fills the container, so a larger
+     system text size must not push it past the edge. */
+  font-size: min(11.2vw, 142px);
+  line-height: 0.86;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+}
+.hero__line { display: block; white-space: nowrap; }
 .hero__muted { color: var(--text-subtle); }
+.hero__stop { color: var(--accent); }
+.hero__pitch { padding-block: clamp(1.5rem, 1rem + 2vw, 2.5rem); }
 .hero__lede {
-  margin-top: var(--space-5);
   max-width: 34rem;
   font-size: var(--fs-md);
   color: var(--text-muted);
 }
-.hero__ctas { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
+.hero__ctas { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-5); }
 
-.hero__feature {
+/* The current release, shown as a record sleeve with its details printed beside it. */
+.hero__sleeve {
   justify-self: end;
-  width: 100%;
-  max-width: 380px;
-  padding: var(--space-3);
-  border-radius: var(--radius-lg);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-lg);
-  transform: rotate(2deg);
-}
-.hero__cover { position: relative; border-radius: var(--radius); overflow: hidden; aspect-ratio: 1; background: var(--surface-2); }
-.hero__cover img { width: 100%; height: 100%; object-fit: cover; }
-.hero__badge { position: absolute; top: var(--space-3); left: var(--space-3); }
-.hero__feature-meta {
-  display: flex;
+  display: grid;
+  grid-template-columns: clamp(88px, 6vw + 60px, 132px) minmax(0, 1fr);
+  gap: var(--space-4);
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
-  padding: var(--space-4) var(--space-2) var(--space-2);
+  width: 100%;
+  max-width: 27rem;
+  margin-block: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  padding-top: var(--space-4);
+  border-top: 3px solid var(--accent);
 }
-.hero__feature-type { font-size: var(--fs-xs); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--text-subtle); }
-.hero__feature-title { font-family: var(--font-display); font-size: 1.9rem; line-height: 1; letter-spacing: var(--tracking-display); }
-.hero__feature-artist { font-size: var(--fs-sm); color: var(--text-muted); }
+.hero__sleeve-cover { width: 100%; aspect-ratio: 1; object-fit: cover; background: var(--surface-2); }
+.hero__sleeve-text { min-width: 0; }
+.hero__sleeve-kicker {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--text-subtle);
+}
+.hero__sleeve-now { color: var(--accent); margin-right: var(--space-2); }
+.hero__sleeve-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.25rem);
+  line-height: 1;
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+  /* Long titles wrap between words where they can, and never widen the page. */
+  overflow-wrap: break-word;
+}
+.hero__sleeve-artist { font-size: var(--fs-sm); color: var(--text-muted); }
+.hero__sleeve-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.3em;
+}
+.hero__sleeve-link:hover { color: var(--accent); }
 
-.hero__waveform {
+/* The line-up: one photo per artist, printed in one ink until it is hovered. */
+.hero__lineup {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  background: #0b0b0c;
+}
+.hero__face {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1;
+  animation: hero-cut 520ms var(--ease) both;
+  animation-delay: 120ms;
+}
+/* Staggered by position; the site's CSP allows no inline styles. */
+.hero__face:nth-child(2) { animation-delay: 210ms; }
+.hero__face:nth-child(3) { animation-delay: 300ms; }
+.hero__face:nth-child(4) { animation-delay: 390ms; }
+.hero__face + .hero__face { border-left: 1px solid #0b0b0c; }
+.hero__face img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  filter: grayscale(1) contrast(1.08);
+  transition: filter var(--dur-slow) var(--ease);
+}
+.hero__face:hover img { filter: none; }
+.hero__face::after {
+  content: '';
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 72px;
-  color: var(--text);
-  opacity: 0.12;
+  inset: 45% 0 0;
+  background: linear-gradient(to top, rgb(0 0 0 / 0.86), transparent);
   pointer-events: none;
 }
+.hero__face-name {
+  position: absolute;
+  z-index: 1;
+  left: clamp(0.5rem, 1.2vw, 1.25rem);
+  right: clamp(0.25rem, 1vw, 1rem);
+  bottom: clamp(0.4rem, 1vw, 1rem);
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 0.2rem + 3.6vw, 3.25rem);
+  line-height: 0.92;
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+  color: #f6f4ef;
+}
+@keyframes hero-cut {
+  from { clip-path: inset(0 0 100% 0); }
+  to { clip-path: inset(0); }
+}
 
-/* Long release titles must shrink or wrap rather than widen the hero: the page
-   clips horizontal overflow, so anything wider than the screen is cut off. */
-.hero__feature-meta > div { min-width: 0; }
-.hero__feature-title { overflow-wrap: break-word; }
-.hero__feature-meta .icon-btn { flex-shrink: 0; }
+/* Every release title, running under the line-up like the credits strip on a poster. */
+.ticker {
+  overflow: hidden;
+  border-block: 1px solid var(--border-strong);
+  background: var(--bg);
+}
+.ticker__track {
+  display: flex;
+  width: max-content;
+  animation: ticker 70s linear infinite;
+}
+.ticker:hover .ticker__track { animation-play-state: paused; }
+.ticker__list { display: flex; flex-shrink: 0; }
+.ticker__list li {
+  display: flex;
+  align-items: center;
+  padding-block: var(--space-2);
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.ticker__list li::after {
+  content: '';
+  width: 0.4em;
+  height: 0.4em;
+  margin-inline: 1.1em;
+  background: var(--accent);
+}
+@keyframes ticker {
+  to { transform: translateX(-50%); }
+}
 
 @media (max-width: 860px) {
-  .hero { min-height: 0; }
-  .hero__grid { grid-template-columns: minmax(0, 1fr); }
-  .hero__feature { justify-self: start; max-width: 340px; transform: none; }
+  .hero__inner { grid-template-columns: minmax(0, 1fr); }
+  .hero__pitch { padding-bottom: 0; }
+  .hero__sleeve { justify-self: start; }
+  .hero__face { aspect-ratio: 3 / 4; }
+  /* Narrow sheets stack the tagline four lines deep, as large as the longest fits. */
+  .hero__title { font-size: min(19.5vw, 6rem); }
+  .hero__line { white-space: normal; }
 }
 @media (max-width: 480px) {
   .hero__ctas .btn { flex: 1 1 100%; }
-  .hero__feature { max-width: none; display: grid; grid-template-columns: 96px minmax(0, 1fr); align-items: center; gap: var(--space-3); }
-  .hero__feature-meta { padding: 0 var(--space-2) 0 0; }
-  .hero__feature-title { font-size: clamp(1.35rem, 0.9rem + 3vw, 1.9rem); }
-  .hero__badge { display: none; }
+  .hero__sleeve { max-width: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__face { animation: none; }
+  .ticker__track { animation: none; }
 }
 
 /* Waveform */

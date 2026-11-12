@@ -67,7 +67,7 @@ export default function Contact() {
   const describe = (name) => (errors[name] ? `${name}-error` : undefined);
 
   return (
-    <section id="contact" className="section section--alt" aria-labelledby="contact-title">
+    <section id="contact" className="section section--alt contact" aria-labelledby="contact-title">
       <div className="container">
         <SectionHeader
           id="contact-title"
@@ -89,7 +89,8 @@ export default function Contact() {
                     <span className="channel__icon" aria-hidden="true"><Icon /></span>
                     <span className="channel__text">
                       <span className="channel__label">{label}</span>
-                      <span className="channel__value">{value}</span>
+                      {/* Bebas Neue has capitals only, and an email address reads wrongly in capitals. */}
+                      <span className={`channel__value${label === 'Email' ? ' channel__value--plain' : ''}`}>{value}</span>
                     </span>
                   </a>
                 </li>
@@ -110,7 +111,7 @@ export default function Contact() {
             </div>
           </Reveal>
 
-          <Reveal className="card contact__form-card" delay={0.1}>
+          <Reveal className="contact__slip" delay={0.1}>
             {sent ? (
               <div className="form-success" role="status">
                 <h3 className="form-success__title">Thanks, {form.name.split(' ')[0]}. Your message is ready.</h3>

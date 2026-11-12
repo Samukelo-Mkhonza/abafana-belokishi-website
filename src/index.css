@@ -1165,63 +1165,63 @@ section[id]:focus { outline: none; }
 .contact__grid {
   display: grid;
   grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-  gap: clamp(1.5rem, 1rem + 3vw, 4rem);
+  gap: clamp(2rem, 1rem + 4vw, 5rem);
   align-items: start;
 }
-.contact__aside { display: flex; flex-direction: column; gap: var(--space-5); }
+.contact__aside { display: flex; flex-direction: column; gap: var(--space-6); }
 
-.channel-list { display: flex; flex-direction: column; gap: var(--space-2); }
+/* The ways to reach the label, set like the booking lines at the foot of a poster. */
+.channel-list { border-top: 2px solid var(--border-strong); }
+.channel-list > li { border-bottom: 1px solid var(--border-strong); }
 .channel {
-  display: flex;
-  align-items: center;
-  gap: var(--space-4);
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
-}
-.channel:hover { border-color: var(--text); }
-.channel__icon {
   display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background: var(--accent-soft);
-  color: var(--accent);
-  font-size: 1.2rem;
+  grid-template-columns: 1.5rem minmax(0, 1fr);
+  column-gap: var(--space-3);
+  align-items: baseline;
+  padding-block: var(--space-3);
+  transition: color var(--dur) var(--ease);
 }
+.channel:hover { color: var(--accent); }
+.channel__icon { align-self: center; font-size: 1.15rem; color: var(--accent); }
+.channel__icon svg { display: block; }
 .channel__text { display: flex; flex-direction: column; min-width: 0; }
-.channel__label { font-size: var(--fs-xs); font-weight: 600; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--text-subtle); }
-.channel__value { font-weight: 600; overflow-wrap: anywhere; }
-
-.location-card {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  padding: var(--space-5);
-  border-radius: var(--radius-lg);
-  background: var(--surface);
-  border: 1px solid var(--border);
+.channel__label { font-size: var(--fs-xs); font-weight: 600; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--text-muted); }
+.channel__value {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.5rem);
+  line-height: 1.05;
+  letter-spacing: var(--tracking-display);
+  overflow-wrap: anywhere;
 }
+
+.channel__value--plain { font-family: var(--font-body); font-size: var(--fs-md); font-weight: 600; letter-spacing: 0; line-height: 1.4; }
+
+.location-card { display: flex; flex-direction: column; gap: var(--space-3); }
 .location-card__title { display: flex; align-items: center; gap: var(--space-2); font-weight: 700; }
 .location-card__title svg { color: var(--accent); font-size: 1.25rem; }
 .location-card .muted { font-size: var(--fs-sm); }
+.location-card .embed { border-radius: 0; }
+
+/* The form is a booking slip: one ruled sheet with a line to write on per field. */
+.contact__slip {
+  padding: clamp(1.25rem, 1rem + 1.5vw, 2.25rem);
+  background: var(--surface);
+  border: 2px solid var(--border-strong);
+}
 
 .form { display: flex; flex-direction: column; gap: var(--space-5); }
 .form__row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5); }
 .field { display: flex; flex-direction: column; gap: var(--space-2); }
-.field label { font-size: var(--fs-sm); font-weight: 600; }
+.field label { font-size: var(--fs-xs); font-weight: 600; letter-spacing: var(--tracking-caps); text-transform: uppercase; }
 .field input,
 .field select,
 .field textarea {
   width: 100%;
   min-height: 48px;
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-3);
+  border-radius: 0;
   border: 1px solid var(--border);
+  border-bottom: 2px solid var(--border-strong);
   background: var(--bg);
   color: var(--text);
   font-size: var(--fs-base);

@@ -10,6 +10,12 @@ describe('Artists', () => {
     }
   })
 
+  it("prints each artist's genre on their line of the roster", () => {
+    render(<Artists />)
+    const row = screen.getByRole('button', { name: /^Assign/ })
+    expect(within(row).getByText('Hip-hop')).toBeInTheDocument()
+  })
+
   it('opens a profile with only real social links, and closes it', async () => {
     render(<Artists />)
     fireEvent.click(screen.getByRole('button', { name: /^SAB/ }))

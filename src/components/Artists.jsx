@@ -16,13 +16,13 @@ export default function Artists() {
           id="artists-title"
           eyebrow="The roster"
           title="Artists"
-          intro="Open a profile for the bio, links and a player."
+          action={<p className="bill__hint">Pick a name for the bio, links and a player</p>}
         />
 
-        <ul className="artists__grid">
+        <ul className="bill">
           {ARTISTS.map((artist, i) => (
-            <Reveal as="li" key={artist.slug} delay={i * 0.06}>
-              <ArtistCard {...artist} onOpen={() => setSelected(artist)} />
+            <Reveal as="li" key={artist.slug} delay={i * 0.06} y={12}>
+              <ArtistCard {...artist} index={i} onOpen={() => setSelected(artist)} />
             </Reveal>
           ))}
         </ul>

@@ -59,9 +59,10 @@
   --header-h: 68px;
 
   /* Shape & depth */
-  --radius-sm: 8px;
-  --radius: 14px;
-  --radius-lg: 22px;
+  /* Corners are cut square, like trimmed print; only round controls stay round. */
+  --radius-sm: 2px;
+  --radius: 2px;
+  --radius-lg: 2px;
   --radius-pill: 999px;
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.06), 0 1px 1px rgb(0 0 0 / 0.04);
   --shadow: 0 10px 30px -12px rgb(0 0 0 / 0.25);
@@ -381,13 +382,11 @@ section[id]:focus { outline: none; }
   position: sticky;
   top: 0;
   z-index: 100;
-  background: color-mix(in srgb, var(--bg) 82%, transparent);
-  backdrop-filter: saturate(180%) blur(14px);
-  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  background: var(--bg);
   border-bottom: 1px solid transparent;
   transition: border-color var(--dur) var(--ease), background-color var(--dur) var(--ease);
 }
-.site-header.is-scrolled { border-bottom-color: var(--border); }
+.site-header.is-scrolled { border-bottom-color: var(--border-strong); }
 
 .site-header__inner {
   display: flex;
@@ -469,8 +468,6 @@ section[id]:focus { outline: none; }
   position: absolute;
   inset: 0;
   background: var(--overlay);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
   touch-action: none;
 }
 .drawer {
@@ -976,6 +973,7 @@ section[id]:focus { outline: none; }
   color: var(--text-subtle);
 }
 .release-card__meta {
+  order: 1;
   font-size: var(--fs-xs);
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -983,6 +981,7 @@ section[id]:focus { outline: none; }
   color: var(--text-muted);
 }
 .release-card__title {
+  order: 2;
   margin-top: var(--space-1);
   font-family: var(--font-display);
   font-size: clamp(1.35rem, 1.1rem + 0.9vw, 1.75rem);
@@ -1260,20 +1259,31 @@ section[id]:focus { outline: none; }
    Footer
    ========================================================================== */
 .site-footer {
-  padding-block: var(--space-8) var(--space-6);
+  padding-block: var(--space-7) var(--space-6);
   background: #0b0b0c;
   color: #b5b0a7;
+  overflow: hidden;
+}
+/* The label's name closes the page the way it would close a poster: as wide as the sheet. */
+.site-footer__wordmark {
+  font-family: var(--font-display);
+  font-size: min(14.6vw, 184px);
+  line-height: 0.82;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #f3f1ec;
+  margin-bottom: var(--space-5);
 }
 .site-footer__top {
   display: grid;
   grid-template-columns: 1.3fr 0.8fr 0.8fr 1.3fr;
   gap: var(--space-6);
-  padding-bottom: var(--space-7);
-  border-bottom: 1px solid #2a2a2f;
+  padding-block: var(--space-6) var(--space-7);
+  border-block: 1px solid #f3f1ec;
 }
 .site-footer__brand img { width: 48px; height: 48px; border-radius: 50%; margin-bottom: var(--space-4); }
-.site-footer__name { font-family: var(--font-display); font-size: 1.75rem; letter-spacing: 0.06em; color: #f3f1ec; line-height: 1; }
-.site-footer__tagline { margin-top: var(--space-2); font-size: var(--fs-sm); max-width: 16rem; }
+.site-footer__tagline { font-family: var(--font-display); font-size: 1.5rem; line-height: 1; letter-spacing: var(--tracking-display); text-transform: uppercase; color: #f3f1ec; max-width: 14rem; }
 .site-footer__heading {
   margin-bottom: var(--space-3);
   font-size: var(--fs-xs);
@@ -1305,6 +1315,8 @@ section[id]:focus { outline: none; }
 }
 @media (max-width: 860px) { .site-footer__top { grid-template-columns: repeat(2, minmax(0, 1fr)); } .site-footer__brand { grid-column: 1 / -1; } }
 @media (max-width: 420px) { .site-footer__top { grid-template-columns: minmax(0, 1fr); } }
+/* At the very end of the page the last line must clear the chat button. */
+@media (max-width: 480px) { .site-footer { padding-bottom: calc(var(--space-6) + 56px); } }
 
 /* ==========================================================================
    Modal & toast
@@ -1317,8 +1329,6 @@ section[id]:focus { outline: none; }
   place-items: center;
   padding: var(--space-4);
   background: var(--overlay);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
 }
 .modal__panel {
   position: relative;
@@ -1380,7 +1390,7 @@ section[id]:focus { outline: none; }
   gap: var(--space-2);
   min-height: var(--launcher);
   padding: 0 var(--space-5);
-  border-radius: var(--radius-pill);
+  border-radius: 2px;
   background: var(--inverse-bg);
   color: var(--inverse-text);
   font-weight: 600;

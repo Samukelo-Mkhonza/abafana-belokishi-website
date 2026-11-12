@@ -13,10 +13,11 @@ export default function ReleaseCard({ title, artist, type, image, onOpen }) {
           <span className="release-card__letter" aria-hidden="true">{title.charAt(0)}</span>
         )}
       </span>
+      {/* The title comes first for screen readers; CSS prints the artist line above it. */}
+      <span className="release-card__title">{title}</span>
       <span className="release-card__meta">
         {artist} <span aria-hidden="true">·</span> {type}
       </span>
-      <span className="release-card__title">{title}</span>
     </button>
   );
 }

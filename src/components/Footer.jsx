@@ -10,10 +10,11 @@ export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="container">
+        <p className="site-footer__wordmark">Abafana Belokishi</p>
+
         <div className="site-footer__top">
           <div className="site-footer__brand">
             <img src={asset('images/web/logo-dark.webp')} alt="" width="48" height="48" loading="lazy" />
-            <p className="site-footer__name">Abafana Belokishi</p>
             <p className="site-footer__tagline">Born from the township. Built for the world.</p>
           </div>
 

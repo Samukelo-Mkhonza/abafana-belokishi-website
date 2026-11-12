@@ -1,15 +1,15 @@
-import { m } from 'framer-motion';
 import { FaSpotify } from 'react-icons/fa';
-import Waveform from './Waveform';
-import { FEATURED_RELEASE } from '../data/releases';
+import { MdArrowOutward } from 'react-icons/md';
+import { ARTISTS } from '../data/artists';
+import { FEATURED_RELEASE, RELEASES } from '../data/releases';
 import { scrollToHash } from '../lib/scroll';
-import { largeCover, isArtistLink } from '../lib/asset';
+import { isArtistLink } from '../lib/asset';
 
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 24 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
-});
+// A phone shows each face about 90px wide, so it gets a 180px copy of the photo.
+const xs = (thumb) => thumb.replace('-sm.webp', '-xs.webp');
+
+// The ticker repeats its list once so the loop has no visible seam.
+const TICKER = RELEASES.map((r) => r.title);
 
 export default function Hero() {
   const latest = FEATURED_RELEASE;
@@ -17,70 +17,101 @@ export default function Hero() {
 
   return (
     <section id="top" className="hero" aria-labelledby="hero-title">
-      <div className="hero__glow" aria-hidden="true" />
-      <div className="container hero__grid">
-        <div className="hero__content">
-          <m.p className="eyebrow" {...fadeUp(0.05)}>
-            Abafana Belokishi Entertainment · Harding, KZN
-          </m.p>
+      <div className="container hero__head">
+        <p className="hero__masthead">
+          <span>Abafana Belokishi Entertainment</span>
+          <span>Harding, KZN</span>
+        </p>
 
-          {/* Headline and lede render without a fade: they are the LCP element. */}
-          <h1 id="hero-title" className="hero__title">
-            Born from <span className="hero__muted">the</span> township.
-            <br />
-            Built for <span className="hero__muted">the</span> world.
-          </h1>
+        {/* The headline is the LCP element, so it renders without any animation. */}
+        <h1 id="hero-title" className="hero__title">
+          <span className="hero__line">
+            Born from <span className="hero__muted">the</span> township<span className="hero__stop">.</span>
+          </span>{' '}
+          <span className="hero__line">
+            Built for <span className="hero__muted">the</span> world<span className="hero__stop">.</span>
+          </span>
+        </h1>
+      </div>
 
+      <ul className="hero__lineup" aria-label="The artists">
+        {ARTISTS.map((a) => (
+          <li key={a.slug} className="hero__face">
+            <img
+              src={a.thumb}
+              srcSet={`${xs(a.thumb)} 180w, ${a.thumb} 360w, ${a.image} 720w`}
+              sizes="(max-width: 860px) 25vw, 320px"
+              alt={a.name}
+              width="360"
+              height="360"
+              // The headline is what the visitor reads first; the photos must not
+              // compete with the script for a slow connection.
+              fetchPriority="low"
+              loading="lazy"
+              decoding="async"
+            />
+            <p className="hero__face-name" aria-hidden="true">{a.name}</p>
+          </li>
+        ))}
+      </ul>
+
+      <div className="container hero__inner hero__inner--foot">
+        <div className="hero__pitch">
           <p className="hero__lede">
             Amapiano and hip-hop from King Fergo, Structure, SAB and Assign, and a
             podcast about music and kasi life.
           </p>
-
-          <m.div className="hero__ctas" {...fadeUp(0.35)}>
+          <div className="hero__ctas">
             <a href="#releases" className="btn btn--primary" onClick={(e) => scrollToHash(e, '#releases')}>
               Hear the music
             </a>
             <a href="#artists" className="btn btn--ghost" onClick={(e) => scrollToHash(e, '#artists')}>
               Meet the artists
             </a>
-          </m.div>
+          </div>
         </div>
 
-        <m.aside className="hero__feature" aria-label="Latest release" {...fadeUp(0.3)}>
-          <div className="hero__cover">
-            <img
-              src={largeCover(latest.image)}
-              srcSet={`${latest.image} 300w, ${largeCover(latest.image)} 640w`}
-              sizes="(max-width: 480px) 96px, 360px"
-              alt={`${latest.title} cover art`}
-              width="640"
-              height="640"
-            />
-            <span className="badge badge--accent hero__badge">Out now</span>
-          </div>
-          <div className="hero__feature-meta">
-            <div>
-              <p className="hero__feature-type">{latest.type}</p>
-              <p className="hero__feature-title">{latest.title}</p>
-              <p className="hero__feature-artist">{latest.artist}</p>
-            </div>
+        <aside className="hero__sleeve" aria-label="Latest release">
+          <img
+            className="hero__sleeve-cover"
+            src={latest.image}
+            alt={`${latest.title} cover art`}
+            width="300"
+            height="300"
+            loading="lazy"
+            decoding="async"
+          />
+          <div className="hero__sleeve-text">
+            <p className="hero__sleeve-kicker">
+              <span className="hero__sleeve-now">Out now</span> {latest.type}
+            </p>
+            <p className="hero__sleeve-title">{latest.title}</p>
+            <p className="hero__sleeve-artist">{latest.artist}</p>
             {spotify && (
               <a
                 href={spotify.href}
                 target="_blank"
                 rel="noreferrer"
-                className="icon-btn icon-btn--spotify"
+                className="hero__sleeve-link"
                 aria-label={isArtistLink(spotify.href) ? `${latest.artist} on Spotify` : `Listen to ${latest.title} on Spotify`}
               >
-                <FaSpotify aria-hidden="true" />
+                <FaSpotify aria-hidden="true" /> Listen on Spotify <MdArrowOutward aria-hidden="true" />
               </a>
             )}
           </div>
-        </m.aside>
+        </aside>
       </div>
 
-      <div className="hero__waveform" aria-hidden="true">
-        <Waveform />
+      <div className="ticker" aria-hidden="true">
+        <div className="ticker__track">
+          {[0, 1].map((n) => (
+            <ul key={n} className="ticker__list">
+              {TICKER.map((title) => (
+                <li key={title}>{title}</li>
+              ))}
+            </ul>
+          ))}
+        </div>
       </div>
     </section>
   );

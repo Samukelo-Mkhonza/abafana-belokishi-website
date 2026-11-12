@@ -22,6 +22,9 @@ export default function NewReleasePopup() {
   const spotify = latest.links.find((l) => l.label === 'Spotify');
 
   useEffect(() => {
+    // On a phone the hero already shows this release with its Spotify link, and a
+    // card over the top would cover the headline and buttons.
+    if (window.matchMedia('(max-width: 480px)').matches) return;
     if (alreadySeen()) return;
     const t = setTimeout(() => setVisible(true), 1500);
     return () => clearTimeout(t);

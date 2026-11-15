@@ -888,34 +888,106 @@ section[id]:focus { outline: none; }
   .bill__more { align-self: start; margin-top: var(--space-2); min-height: 0; }
 }
 
-/* Release detail dialog */
-.release-detail__head {
-  display: grid;
-  grid-template-columns: 180px minmax(0, 1fr);
-  gap: var(--space-5);
-  align-items: center;
-  padding-right: var(--space-7);
+/* Release detail: the cover runs to the edges of the sheet like the front of a
+   sleeve, with the notes ruled off underneath it. */
+.modal__panel.sleeve { padding: 0; }
+.sleeve__head { display: grid; grid-template-columns: 300px minmax(0, 1fr); }
+/* The cover is never cropped: it stays square whatever the notes beside it need. */
+.sleeve__cover { align-self: start; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; background: var(--surface-2); }
+.sleeve__intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-width: 0;
+  /* The top leaves room for the close button. */
+  padding: var(--space-8) clamp(1.25rem, 1rem + 2vw, 2.5rem) var(--space-5) var(--space-5);
 }
-.release-detail__cover {
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-  border-radius: var(--radius);
-  background: var(--surface-2);
+.sleeve__type {
+  margin-bottom: var(--space-2);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--accent);
 }
-.release-detail__title {
+.sleeve__title {
   font-family: var(--font-display);
-  font-size: var(--fs-xl);
-  line-height: 1;
-  letter-spacing: var(--tracking-display);
-  margin-bottom: var(--space-1);
+  font-size: clamp(2.5rem, 1.6rem + 4vw, 3.75rem);
+  line-height: 0.9;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+  overflow-wrap: break-word;
 }
-.release-detail__artist { color: var(--text-muted); margin-bottom: var(--space-4); }
-.release-detail__desc { margin-block: var(--space-5); color: var(--text-muted); }
+.sleeve__title--long { font-size: clamp(1.75rem, 1.4rem + 1.6vw, 2.25rem); line-height: 0.95; }
+.sleeve__artist { margin-top: var(--space-2); font-size: var(--fs-md); color: var(--text-muted); }
+.sleeve__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-5); }
+.sleeve__actions .btn { flex: 1 1 150px; }
+.sleeve__body {
+  display: grid;
+  gap: var(--space-6);
+  padding: clamp(1.25rem, 1rem + 2vw, 2.5rem);
+  border-top: 2px solid var(--border-strong);
+}
+.sleeve__desc { font-size: var(--fs-md); }
+.sleeve__heading {
+  padding-bottom: var(--space-2);
+  border-bottom: 2px solid var(--border-strong);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+}
+.sleeve__section .embed { margin-top: var(--space-4); }
+.sleeve__more {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) auto;
+  grid-template-areas:
+    'cover title arrow'
+    'cover type  arrow';
+  align-items: center;
+  column-gap: var(--space-3);
+  width: 100%;
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  transition: border-color var(--dur) var(--ease);
+}
+.sleeve__more:hover { border-bottom-color: var(--text); }
+.sleeve__more img { grid-area: cover; width: 56px; height: 56px; object-fit: cover; background: var(--surface-2); }
+.sleeve__more-title {
+  grid-area: title;
+  align-self: end;
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  line-height: 1.05;
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.sleeve__more-type {
+  grid-area: type;
+  align-self: start;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.sleeve__more-arrow { grid-area: arrow; color: var(--text-subtle); transition: color var(--dur) var(--ease), transform var(--dur) var(--ease); }
+.sleeve__more:hover .sleeve__more-arrow { color: var(--accent); transform: translateX(3px); }
 
+@media (min-width: 561px) {
+  /* Beside the cover the two buttons share one line, so the notes stay as tall as the cover. */
+  .sleeve__actions { flex-wrap: nowrap; }
+  .sleeve__actions .btn { flex: 1 1 0; padding-inline: var(--space-3); }
+}
 @media (max-width: 560px) {
-  .release-detail__head { grid-template-columns: minmax(0, 1fr); padding-right: 0; }
-  .release-detail__cover { max-width: 160px; }
+  /* A phone gives the cover the full width of the sheet. */
+  .sleeve__head { grid-template-columns: minmax(0, 1fr); }
+  .sleeve__intro { padding: var(--space-5) clamp(1.25rem, 1rem + 2vw, 2.5rem); }
+  .sleeve__actions .btn { flex-basis: 100%; }
 }
 
 /* Artist profile: the photo runs edge to edge with the name set over it, then

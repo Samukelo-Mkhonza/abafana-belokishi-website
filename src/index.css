@@ -1057,7 +1057,7 @@ section[id]:focus { outline: none; }
 .profile__count { color: var(--text-subtle); }
 
 .profile__links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-5); }
-.profile__link,
+.link-row,
 .profile__release {
   display: grid;
   align-items: center;
@@ -1067,22 +1067,22 @@ section[id]:focus { outline: none; }
   border-bottom: 1px solid var(--border);
   transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
 }
-.profile__link { grid-template-columns: auto minmax(0, 1fr) auto; }
-.profile__link:hover,
+.link-row { grid-template-columns: auto minmax(0, 1fr) auto; }
+.link-row:hover,
 .profile__release:hover { border-bottom-color: var(--text); }
-.profile__link-icon { font-size: 1.25rem; }
-.profile__link-text { display: grid; }
-.profile__link-platform { font-weight: 600; line-height: 1.3; }
-.profile__link-handle {
+.link-row__icon { font-size: 1.25rem; }
+.link-row__text { display: grid; }
+.link-row__name { font-weight: 600; line-height: 1.3; }
+.link-row__note {
   font-size: var(--fs-xs);
   color: var(--text-muted);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.profile__link-arrow { color: var(--text-subtle); transition: color var(--dur) var(--ease), transform var(--dur) var(--ease); }
-.profile__link:hover .profile__link-arrow,
-.profile__release:hover .profile__link-arrow { color: var(--accent); transform: translate(2px, -2px); }
+.link-row__arrow { color: var(--text-subtle); transition: color var(--dur) var(--ease), transform var(--dur) var(--ease); }
+.link-row:hover .link-row__arrow,
+.profile__release:hover .link-row__arrow { color: var(--accent); transform: translate(2px, -2px); }
 
 .profile__release {
   grid-template-columns: 56px minmax(0, 1fr) auto;
@@ -1113,7 +1113,7 @@ section[id]:focus { outline: none; }
   text-transform: uppercase;
   color: var(--text-muted);
 }
-.profile__release .profile__link-arrow { grid-area: arrow; }
+.profile__release .link-row__arrow { grid-area: arrow; }
 .profile__section .embed { margin-top: var(--space-4); }
 
 @media (max-width: 560px) {
@@ -1314,6 +1314,14 @@ section[id]:focus { outline: none; }
 }
 .embed--compact .embed__play { width: 48px; height: 48px; flex-shrink: 0; font-size: 1rem; }
 .embed--compact .embed__text { justify-items: start; }
+/* A bare embed keeps its label for screen readers and leaves the poster clear. */
+.embed--bare .embed__label {
+  position: absolute; width: 1px; height: 1px; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+.embed--bare .embed__facade::before { background: linear-gradient(to top, rgb(0 0 0 / 0.7), rgb(0 0 0 / 0.1) 55%); }
+.embed--bare .embed__text { position: absolute; inset: auto var(--space-4) var(--space-3); justify-items: start; }
+.embed--bare .embed__play { width: 72px; height: 72px; }
 
 /* ==========================================================================
    Podcast — always dark, like a stage
@@ -1353,18 +1361,36 @@ section[id]:focus { outline: none; }
   border-top: 2px solid var(--border-strong);
 }
 .podcast__player .embed { border-radius: 0; border: 0; }
-.podcast__caption {
-  display: flex;
-  gap: var(--space-3);
-  margin-top: var(--space-3);
+.podcast__episode { margin-top: var(--space-4); }
+.podcast__episode-no {
   font-size: var(--fs-xs);
   font-weight: 600;
   letter-spacing: var(--tracking-caps);
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--accent);
 }
-.podcast__caption span { color: var(--accent); }
-.podcast__lede { margin-bottom: var(--space-6); font-size: var(--fs-md); color: var(--text-muted); }
+.podcast__episode-guest {
+  margin-top: var(--space-1);
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 1.6rem + 3vw, 3.5rem);
+  line-height: 0.92;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+}
+.podcast__episode-topic { margin-top: var(--space-2); color: var(--text-muted); }
+.podcast__lede { margin-bottom: var(--space-6); font-size: var(--fs-lg); line-height: 1.4; }
+.podcast__heading {
+  padding-bottom: var(--space-2);
+  border-bottom: 2px solid var(--border-strong);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+}
+.podcast__channels .link-row { min-height: 72px; }
+.podcast__channels .link-row__icon { font-size: 1.5rem; }
+.podcast__channels .link-row__name { font-size: var(--fs-md); }
+.podcast__channels .link-row__note { font-size: var(--fs-sm); }
 @media (max-width: 860px) { .podcast__grid { grid-template-columns: minmax(0, 1fr); } }
 
 /* ==========================================================================

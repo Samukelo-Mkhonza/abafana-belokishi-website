@@ -13,6 +13,8 @@ export default function Embed({
   poster,
   // A compact embed is a single bar until it is played, then opens to its full height.
   compact = false,
+  // A bare embed shows only the play button over its poster; whatever names it sits outside.
+  bare = false,
   action = 'Play',
   allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture',
   className = '',
@@ -23,7 +25,7 @@ export default function Embed({
   const style = idle ? undefined : ratio ? { aspectRatio: ratio } : { height };
 
   return (
-    <div className={`embed ${loaded ? 'embed--loaded' : ''} ${idle ? 'embed--compact' : ''} ${className}`} style={style}>
+    <div className={`embed ${loaded ? 'embed--loaded' : ''} ${idle ? 'embed--compact' : ''} ${bare ? 'embed--bare' : ''} ${className}`} style={style}>
       {active ? (
         <>
           {!loaded && <div className="embed__skeleton" aria-hidden="true" />}

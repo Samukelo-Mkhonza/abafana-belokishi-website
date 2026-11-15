@@ -7,6 +7,12 @@ import sharp from 'sharp';
 const SRC = 'assets-source';
 const OUT = 'public/images/web';
 
+// Assign stands small in the lower half of his photo, under a tree. Cut in on
+// him so his face reads at the sizes the site shows it.
+const CROPS = {
+  assign: { left: 210, top: 400, width: 660, height: 660 },
+};
+
 const jobs = [
   { src: 'ab-logo-white-transparent.png', out: 'logo-dark.webp', width: 256, alpha: true },
   { src: 'ab-logo-black-transparent.png', out: 'logo-light.webp', width: 256, alpha: true },
@@ -16,11 +22,12 @@ const jobs = [
   ...['king-fergo', 'structure', 'sab', 'assign'].flatMap(slug => {
     const ext = slug === 'sab' ? 'jpg' : 'JPG';
     const src = `artists/${slug}-ab-profile-photo.${ext}`;
+    const crop = CROPS[slug];
     return [
-      { src, out: `artists/${slug}.webp`, width: 720, square: true },
-      { src, out: `artists/${slug}-sm.webp`, width: 360, square: true },
+      { src, out: `artists/${slug}.webp`, width: 720, square: true, crop },
+      { src, out: `artists/${slug}-sm.webp`, width: 360, square: true, crop },
       // The hero line-up shows each photo a quarter of a phone screen wide.
-      { src, out: `artists/${slug}-xs.webp`, width: 180, square: true },
+      { src, out: `artists/${slug}-xs.webp`, width: 180, square: true, crop },
     ];
   }),
 ];
@@ -36,9 +43,10 @@ const icons = [
 
 await mkdir(path.join(OUT, 'artists'), { recursive: true });
 
-for (const { src, out, width, square, alpha } of jobs) {
-  await sharp(path.join(SRC, src))
-    .rotate()
+for (const { src, out, width, square, alpha, crop } of jobs) {
+  let image = sharp(path.join(SRC, src)).rotate();
+  if (crop) image = image.extract(crop);
+  await image
     .resize(square ? { width, height: width, fit: 'cover', position: 'attention' } : { width, withoutEnlargement: true })
     // Logos keep their transparency; quality must stay high or edges band.
     .webp(alpha ? { quality: 90, alphaQuality: 100 } : { quality: 78 })

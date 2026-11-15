@@ -2,6 +2,7 @@ import { useEffect, useId, useRef, useState } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { MdChat, MdClose, MdSend } from 'react-icons/md';
 import { useFocusTrap } from '../hooks/useFocusTrap';
+import { usePastHero } from '../hooks/usePastHero';
 import { scrollToHash } from '../lib/scroll';
 import { reply, WELCOME, QUICK_REPLIES } from '../lib/chatbot';
 
@@ -41,6 +42,8 @@ export default function ChatBot() {
   const panelId = useId();
   const titleId = useId();
   const inputId = useId();
+  // At the top of the page the button would sit on the hero's buttons and sleeve.
+  const pastHero = usePastHero();
 
   useFocusTrap(panelRef, open, () => setOpen(false));
 
@@ -147,7 +150,7 @@ export default function ChatBot() {
       <button
         ref={launcherRef}
         type="button"
-        className="chat-launcher"
+        className={`chat-launcher ${open || pastHero ? '' : 'chat-launcher--away'}`}
         aria-expanded={open}
         aria-controls={open ? panelId : undefined}
         onClick={() => setOpen((o) => !o)}

@@ -9,7 +9,8 @@ import NewReleasePopup from './NewReleasePopup'
 
 // The popup reveals itself 1500ms after mount and animates out via
 // AnimatePresence, so these tests use real timers and wait for the
-// dialog to appear / be removed.
+// dialog to appear / be removed. Waiting for the hero to be scrolled past
+// is covered in hooks/usePastHero.test.jsx.
 describe('NewReleasePopup', () => {
   const findDialog = () =>
     screen.findByRole('dialog', { name: /new release/i }, { timeout: 3000 })

@@ -68,7 +68,7 @@ export default function Releases() {
       </div>
 
       <AnimatePresence>
-        {selected && <ReleaseModal release={selected} onClose={() => setSelected(null)} />}
+        {selected && <ReleaseModal release={selected} onClose={() => setSelected(null)} onSelect={setSelected} />}
       </AnimatePresence>
     </section>
   );

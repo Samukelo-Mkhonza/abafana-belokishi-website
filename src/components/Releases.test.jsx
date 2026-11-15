@@ -63,4 +63,21 @@ describe('Releases', () => {
     expect(within(tabs).getByRole('tab', { name: /soundcloud/i })).toHaveAttribute('aria-selected', 'true')
     expect(screen.getByRole('link', { name: /open assign on soundcloud/i })).toHaveAttribute('href', 'https://soundcloud.com/sabelomoloi07')
   })
+
+  it('offers more from the same artist and swaps the sleeve in place', () => {
+    render(<Releases />)
+    fireEvent.click(cards()[0])
+    const dialog = screen.getByRole('dialog', { name: RELEASES[0].title })
+
+    const next = RELEASES.find((r) => r.artist === RELEASES[0].artist && r !== RELEASES[0])
+    const more = within(dialog).getByRole('region', { name: `More from ${RELEASES[0].artist}` })
+    fireEvent.click(within(more).getByRole('button', { name: new RegExp(next.title) }))
+
+    const swapped = screen.getByRole('dialog', { name: next.title })
+    expect(within(swapped).getByRole('heading', { name: next.title })).toBeInTheDocument()
+    expect(within(swapped).getByRole('link', { name: /open in spotify/i })).toHaveAttribute('href', next.links[0].href)
+    // The record being shown is not offered again underneath itself.
+    const list = within(swapped).getByRole('region', { name: `More from ${next.artist}` })
+    expect(within(list).queryByRole('button', { name: new RegExp(`^${next.title}`) })).toBeNull()
+  })
 })

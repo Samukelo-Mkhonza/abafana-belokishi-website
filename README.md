@@ -14,7 +14,7 @@ This repository contains the single-page marketing site: a hero featuring the cu
 
 - **Hero** — headline plus a card for the featured release, linked to Spotify
 - **About** — the label's story, with figures (first release year, number of releases, number of artists) calculated from the data files
-- **Artists** — roster grid; each card opens a profile with bio, socials and a player
+- **Artists** — the roster; each name opens a profile with the photo, bio, social links, the artist's newest releases and a player
 - **Music** — full discography, newest first, filterable by artist, with a detail dialog per release and a "Where to listen" player (label playlist on Spotify, Assign on SoundCloud, The Get Back on YouTube)
 - **Podcast** — latest episode and links to YouTube and TikTok
 - **Contact** — validated enquiry form that opens a pre-filled email *or* WhatsApp message, direct phone/WhatsApp/email links, and a map of Harding

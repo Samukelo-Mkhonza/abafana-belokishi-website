@@ -11,16 +11,19 @@ export default function Embed({
   height,
   ratio,
   poster,
+  // A compact embed is a single bar until it is played, then opens to its full height.
+  compact = false,
   action = 'Play',
   allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture',
   className = '',
 }) {
   const [active, setActive] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const style = ratio ? { aspectRatio: ratio } : { height };
+  const idle = compact && !active;
+  const style = idle ? undefined : ratio ? { aspectRatio: ratio } : { height };
 
   return (
-    <div className={`embed ${loaded ? 'embed--loaded' : ''} ${className}`} style={style}>
+    <div className={`embed ${loaded ? 'embed--loaded' : ''} ${idle ? 'embed--compact' : ''} ${className}`} style={style}>
       {active ? (
         <>
           {!loaded && <div className="embed__skeleton" aria-hidden="true" />}
@@ -41,11 +44,13 @@ export default function Embed({
           style={poster ? { backgroundImage: `url("${poster}")` } : undefined}
         >
           <span className="embed__play" aria-hidden="true"><FaPlay /></span>
-          <span className="embed__label">
-            <PlatformIcon platform={provider} />
-            {action} {title}
+          <span className="embed__text">
+            <span className="embed__label">
+              <PlatformIcon platform={provider} />
+              {action} {title}
+            </span>
+            <span className="embed__note">Loads the {provider} player</span>
           </span>
-          <span className="embed__note">Loads the {provider} player</span>
         </button>
       )}
     </div>

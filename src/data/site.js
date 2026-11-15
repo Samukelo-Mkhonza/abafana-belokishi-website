@@ -22,7 +22,7 @@ export const CHANNELS = {
     '&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true',
   tiktok: 'https://www.tiktok.com/@abafanabelokishipodcast',
   podcastEpisodeEmbed: 'https://www.youtube-nocookie.com/embed/3GND3LlMTq0?autoplay=1',
-  podcastEpisodeThumb: 'https://i.ytimg.com/vi/3GND3LlMTq0/hqdefault.jpg',
+  podcastEpisodeThumb: 'https://i.ytimg.com/vi/3GND3LlMTq0/sddefault.jpg',
 };
 
 // Only accounts with a real URL are listed; add Instagram/Facebook here once their links exist.

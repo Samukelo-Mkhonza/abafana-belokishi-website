@@ -1396,7 +1396,15 @@ section[id]:focus { outline: none; }
   font-weight: 600;
   font-size: var(--fs-sm);
   box-shadow: var(--shadow);
-  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease),
+    opacity var(--dur) var(--ease), transform var(--dur) var(--ease), visibility var(--dur);
+}
+/* Held back while the hero's own buttons occupy this corner. */
+.chat-launcher--away {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  pointer-events: none;
 }
 .chat-launcher svg { font-size: 1.4rem; }
 .chat-launcher:hover { background: var(--accent); color: var(--on-accent); }

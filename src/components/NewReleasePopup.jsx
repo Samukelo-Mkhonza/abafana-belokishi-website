@@ -3,6 +3,7 @@ import { m, AnimatePresence } from 'framer-motion';
 import { FaSpotify } from 'react-icons/fa';
 import { MdClose } from 'react-icons/md';
 import { FEATURED_RELEASE } from '../data/releases';
+import { usePastHero } from '../hooks/usePastHero';
 
 const storageKey = `ab-seen-release:${FEATURED_RELEASE.title}`;
 
@@ -17,7 +18,15 @@ function alreadySeen() {
 // A non-blocking corner card rather than a full-screen modal: it announces the
 // latest drop once per release without getting in the way of the page.
 export default function NewReleasePopup() {
-  const [visible, setVisible] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
+  // The hero carries this release with the same Spotify link, so the card would
+  // only repeat it there, and cover the line-up while doing so.
+  const pastHero = usePastHero();
+  const [shown, setShown] = useState(false);
+  // Once it is out it stays out, even if the visitor scrolls back up.
+  if (ready && pastHero && !shown) setShown(true);
+  const visible = shown && !dismissed;
   const latest = FEATURED_RELEASE;
   const spotify = latest.links.find((l) => l.label === 'Spotify');
 
@@ -26,7 +35,7 @@ export default function NewReleasePopup() {
     // card over the top would cover the headline and buttons.
     if (window.matchMedia('(max-width: 480px)').matches) return;
     if (alreadySeen()) return;
-    const t = setTimeout(() => setVisible(true), 1500);
+    const t = setTimeout(() => setReady(true), 1500);
     return () => clearTimeout(t);
   }, []);
 
@@ -38,7 +47,7 @@ export default function NewReleasePopup() {
   }, [visible]);
 
   function dismiss() {
-    setVisible(false);
+    setDismissed(true);
     try {
       localStorage.setItem(storageKey, '1');
     } catch {

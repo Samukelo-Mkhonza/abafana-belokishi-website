@@ -55,7 +55,7 @@ export default function Hero() {
         ))}
       </ul>
 
-      <div className="container hero__inner hero__inner--foot">
+      <div className="container hero__inner hero__inner--foot" data-hero-foot>
         <div className="hero__pitch">
           <p className="hero__lede">
             Amapiano and hip-hop from King Fergo, Structure, SAB and Assign, and a

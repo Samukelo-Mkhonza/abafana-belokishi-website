@@ -18,7 +18,7 @@ This repository contains the single-page marketing site: a hero featuring the cu
 - **Music** — full discography, newest first, filterable by artist, with a detail dialog per release and a "Where to listen" player (label playlist on Spotify, Assign on SoundCloud, The Get Back on YouTube)
 - **Podcast** — latest episode and links to YouTube and TikTok
 - **Contact** — validated enquiry form that opens a pre-filled email *or* WhatsApp message, direct phone/WhatsApp/email links, and a map of Harding
-- **New-release card** — a small corner card for the featured release, shown once per release
+- **New-release card** — a small corner card for the featured release, shown once per release, and only once the visitor has scrolled past the hero, which already announces it
 - **Chat** — an offline FAQ bot in the corner. It matches keywords against the data files in the browser (no AI service, no network calls) and answers about the label, artists, releases, the podcast, bookings and location, with links
 - **Mobile menu** — a side drawer with focus trapping, Esc/backdrop to close and page scroll locked while open
 - **Light/dark theme** that follows the device setting, can be toggled, and never flashes on load

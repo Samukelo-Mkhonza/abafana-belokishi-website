@@ -44,13 +44,13 @@ export default function ArtistModal({ artist, onClose }) {
             <ul className="profile__links">
               {socials.map(({ platform, href, handle }) => (
                 <li key={platform}>
-                  <a className="profile__link" href={href} target="_blank" rel="noreferrer" aria-label={`${artist.name} on ${platform} (${handle})`}>
-                    <PlatformIcon platform={platform} className="profile__link-icon" />
-                    <span className="profile__link-text">
-                      <span className="profile__link-platform">{platform}</span>
-                      <span className="profile__link-handle">{handle}</span>
+                  <a className="link-row" href={href} target="_blank" rel="noreferrer" aria-label={`${artist.name} on ${platform} (${handle})`}>
+                    <PlatformIcon platform={platform} className="link-row__icon" />
+                    <span className="link-row__text">
+                      <span className="link-row__name">{platform}</span>
+                      <span className="link-row__note">{handle}</span>
                     </span>
-                    <MdArrowOutward aria-hidden="true" className="profile__link-arrow" />
+                    <MdArrowOutward aria-hidden="true" className="link-row__arrow" />
                   </a>
                 </li>
               ))}
@@ -73,7 +73,7 @@ export default function ArtistModal({ artist, onClose }) {
                       <img src={r.image} alt="" width="56" height="56" loading="lazy" decoding="async" />
                       <span className="profile__release-title">{r.title}</span>
                       <span className="profile__release-type">{r.type}</span>
-                      <MdArrowOutward aria-hidden="true" className="profile__link-arrow" />
+                      <MdArrowOutward aria-hidden="true" className="link-row__arrow" />
                     </a>
                   </li>
                 );
